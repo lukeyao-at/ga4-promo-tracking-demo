@@ -10,9 +10,17 @@ body{display:flex;height:100vh;overflow:hidden;font-family:'Segoe UI',Arial,sans
 
 /* ── DARK (site) ── */
 :root{--dk:#0f1117;--dk2:#1a1d27;--dk3:#22263a;--bd:#2e3350;--acc:#5b6af0;--grn:#3dd68c;--red:#f05b5b;--ylw:#f0d45b;--txt:#e2e6ff;--mu:#7880a8}
-.sim{width:355px;min-width:355px;background:var(--dk);color:var(--txt);display:flex;flex-direction:column;border-right:2px solid #000;overflow:hidden}
+.sim{width:355px;min-width:355px;background:var(--dk);color:var(--txt);display:flex;flex-direction:column;border-right:2px solid #000;overflow:hidden;transition:width .25s ease,min-width .25s ease}
+.sim.collapsed{width:32px;min-width:32px}
+.sim.collapsed .sh-body,.sim.collapsed .stabs,.sim.collapsed .pg{display:none}
 .sh{background:var(--dk2);border-bottom:1px solid var(--bd);padding:10px 14px;flex-shrink:0}
+.sh-top{display:flex;align-items:center;justify-content:space-between;gap:6px}
 .sh h2{font-size:13px;font-weight:700}.sh p{font-size:11px;color:var(--mu);margin-top:2px}
+.sim-toggle{background:none;border:1px solid var(--bd);color:var(--mu);border-radius:4px;width:22px;height:22px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;transition:color .15s}
+.sim-toggle:hover{color:var(--txt);border-color:var(--acc)}
+.sim-collapsed-btn{display:none;flex-direction:column;align-items:center;padding:10px 0;gap:6px;cursor:pointer;height:100%}
+.sim.collapsed .sim-collapsed-btn{display:flex}
+.sim-collapsed-label{writing-mode:vertical-rl;font-size:10px;color:var(--mu);letter-spacing:.5px;text-transform:uppercase;margin-top:4px}
 .lr{display:flex;align-items:center;gap:7px;margin-top:8px}
 .ls{font-size:11px;font-weight:700}
 .tgl{width:36px;height:20px;background:var(--bd);border-radius:10px;position:relative;cursor:pointer;transition:background .2s;flex-shrink:0}
@@ -219,13 +227,22 @@ body{display:flex;height:100vh;overflow:hidden;font-family:'Segoe UI',Arial,sans
 <!-- ═══════════ LEFT: SIMULATED SITE ═══════════ -->
 <div class="sim">
   <div class="sh">
-    <h2>🎰 模擬站台（點擊觸發事件）</h2>
+    <div class="sh-top">
+      <h2>🎰 模擬站台（點擊觸發事件）</h2>
+      <button class="sim-toggle" onclick="toggleSim()" title="隱藏站台">◀</button>
+    </div>
+    <div class="sh-body">
     <p>點擊任意按鈕 → 右側 DebugView 即時更新</p>
     <div class="lr">
       <span style="font-size:11px;color:var(--mu)">登入狀態：</span>
       <span class="ls" id="loginLabel" style="color:var(--red)">未登入 (before)</span>
       <div class="tgl" id="loginTgl" onclick="toggleLogin()"></div>
     </div>
+    </div><!-- end sh-body -->
+  </div>
+  <div class="sim-collapsed-btn" onclick="toggleSim()">
+    <span style="color:var(--mu);font-size:14px">▶</span>
+    <span class="sim-collapsed-label">模擬站台</span>
   </div>
   <div class="stabs">
     <div class="stab on" onclick="sp('home',this)">🏠 首頁</div>
@@ -1097,6 +1114,13 @@ function doLogin(){
 // ────────────────────────────────────────────────
 // NAVIGATION
 // ────────────────────────────────────────────────
+function toggleSim(){
+  const sim=document.querySelector('.sim');
+  const btn=sim.querySelector('.sim-toggle');
+  sim.classList.toggle('collapsed');
+  btn.textContent=sim.classList.contains('collapsed')?'▶':'◀';
+}
+
 function toggleLogin(){
   loggedIn=!loggedIn;
   document.getElementById('loginTgl').classList.toggle('on',loggedIn);
@@ -1118,37 +1142,4 @@ function gt(name,el){
   const is3=(name==='funnel'||name==='ff');
   document.getElementById('body3col').style.display=is3?'flex':'none';
   document.getElementById('panel-dv').classList.toggle('on',name==='dv');
-  document.getElementById('panel-dict').classList.toggle('on',name==='dict');
-  document.getElementById('abToggle').style.display=(name==='funnel'||name==='dv'||name==='ff')?'flex':'none';
-  if(is3){renderSettings();renderReport();}
-}
-
-function setAB(m){
-  method=m;
-  document.getElementById('btnA').className='ab-btn'+(m==='A'?' sel-a':'');
-  document.getElementById('btnB').className='ab-btn'+(m==='B'?' sel-b':'');
-  renderSettings();renderReport();
-}
-
-function selB(code){
-  selBonus=code;
-  renderSettings();renderReport();
-}
-
-function showPop(id){
-  document.querySelectorAll('.pop').forEach(p=>p.style.display='none');
-  document.getElementById(id).style.display='block';
-  document.getElementById('ovl').classList.add('on');
-}
-function cAll(){document.querySelectorAll('.pop').forEach(p=>p.style.display='none');document.getElementById('ovl').classList.remove('on')}
-function cPop(e){if(e.target===document.getElementById('ovl'))cAll()}
-
-// ────────────────────────────────────────────────
-// INIT
-// ────────────────────────────────────────────────
-renderSite();renderVars();renderSettings();renderReport();
-document.getElementById('body3col').style.display='flex';
-document.getElementById('abToggle').style.display='flex';
-</script>
-</body>
-</html>
+  document.getE
