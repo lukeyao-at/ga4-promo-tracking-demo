@@ -1141,5 +1141,38 @@ function gt(name,el){
   curTab=name;
   const is3=(name==='funnel'||name==='ff');
   document.getElementById('body3col').style.display=is3?'flex':'none';
-  document.getElementById('panel-dv').classList.toggle('on',name==='dv');
-  document.getE
+    document.getElementById('panel-dv').classList.toggle('on',name==='dv');
+  document.getElementById('panel-dict').classList.toggle('on',name==='dict');
+  document.getElementById('abToggle').style.display=(name==='funnel'||name==='dv'||name==='ff')?'flex':'none';
+  if(is3){renderSettings();renderReport();}
+}
+
+function setAB(m){
+  method=m;
+  document.getElementById('btnA').className='ab-btn'+(m==='A'?' sel-a':'');
+  document.getElementById('btnB').className='ab-btn'+(m==='B'?' sel-b':'');
+  renderSettings();renderReport();
+}
+
+function selB(code){
+  selBonus=code;
+  renderSettings();renderReport();
+}
+
+function showPop(id){
+  document.querySelectorAll('.pop').forEach(p=>p.style.display='none');
+  document.getElementById(id).style.display='block';
+  document.getElementById('ovl').classList.add('on');
+}
+function cAll(){document.querySelectorAll('.pop').forEach(p=>p.style.display='none');document.getElementById('ovl').classList.remove('on')}
+function cPop(e){if(e.target===document.getElementById('ovl'))cAll()}
+
+// ────────────────────────────────────────────────
+// INIT
+// ────────────────────────────────────────────────
+renderSite();renderVars();renderSettings();renderReport();
+document.getElementById('body3col').style.display='flex';
+document.getElementById('abToggle').style.display='flex';
+</script>
+</body>
+</html>
