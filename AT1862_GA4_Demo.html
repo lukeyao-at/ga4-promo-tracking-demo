@@ -1,0 +1,1154 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Promotion Page GA4 埋點方案 A vs B 實境展示</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{display:flex;height:100vh;overflow:hidden;font-family:'Segoe UI',Arial,sans-serif;font-size:13px}
+
+/* ── DARK (site) ── */
+:root{--dk:#0f1117;--dk2:#1a1d27;--dk3:#22263a;--bd:#2e3350;--acc:#5b6af0;--grn:#3dd68c;--red:#f05b5b;--ylw:#f0d45b;--txt:#e2e6ff;--mu:#7880a8}
+.sim{width:355px;min-width:355px;background:var(--dk);color:var(--txt);display:flex;flex-direction:column;border-right:2px solid #000;overflow:hidden}
+.sh{background:var(--dk2);border-bottom:1px solid var(--bd);padding:10px 14px;flex-shrink:0}
+.sh h2{font-size:13px;font-weight:700}.sh p{font-size:11px;color:var(--mu);margin-top:2px}
+.lr{display:flex;align-items:center;gap:7px;margin-top:8px}
+.ls{font-size:11px;font-weight:700}
+.tgl{width:36px;height:20px;background:var(--bd);border-radius:10px;position:relative;cursor:pointer;transition:background .2s;flex-shrink:0}
+.tgl.on{background:var(--grn)}.tgl::after{content:'';position:absolute;top:3px;left:3px;width:14px;height:14px;background:#fff;border-radius:50%;transition:left .2s}.tgl.on::after{left:19px}
+.stabs{display:flex;border-bottom:1px solid var(--bd);flex-shrink:0}
+.stab{flex:1;padding:8px;text-align:center;cursor:pointer;font-size:11px;color:var(--mu);border-bottom:2px solid transparent}
+.stab.on{color:var(--acc);border-bottom-color:var(--acc)}
+.pg{padding:12px;display:none;overflow-y:auto;flex:1}
+.pg.on{display:block}
+.sl{font-size:10px;font-weight:700;color:var(--mu);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.bnr{border-radius:8px;padding:14px;margin-bottom:8px}
+.bnr h3{font-size:14px;font-weight:700;margin-bottom:4px}.bnr p{font-size:11px;color:rgba(255,255,255,.7);margin-bottom:10px}
+.bnr .st{font-size:10px;font-weight:700;padding:2px 6px;border-radius:3px;display:inline-block;margin-bottom:6px;background:rgba(255,255,255,.2)}
+.bnav{display:flex;gap:5px;margin-bottom:10px}
+.bd{width:7px;height:7px;border-radius:50%;background:var(--bd);cursor:pointer}
+.bd.on{background:var(--acc)}
+.pc{background:var(--dk3);border:1px solid var(--bd);border-radius:7px;padding:12px;margin-bottom:8px}
+.pch{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.pcode{font-size:10px;color:var(--acc);font-family:monospace;font-weight:700}
+.pcat{font-size:10px;border:1px solid var(--bd);padding:1px 5px;border-radius:3px;color:var(--mu)}
+.pt{font-size:13px;font-weight:600;margin-bottom:3px}.ps{font-size:11px;color:var(--mu);margin-bottom:8px}
+.pbtns{display:flex;gap:6px;flex-wrap:wrap}
+.btn{padding:5px 12px;border-radius:4px;border:none;cursor:pointer;font-size:11px;font-weight:600;transition:opacity .15s}
+.btn:hover{opacity:.85}
+.bo{background:transparent;border:1px solid var(--bd);color:var(--txt)}
+.bb{background:var(--acc);color:#fff}
+.bg{background:var(--grn);color:#000}
+.btag{font-size:10px;background:rgba(91,106,240,.25);color:#9aa5f5;padding:2px 5px;border-radius:3px}
+
+/* ── GA4 LIGHT ── */
+.ga4{flex:1;background:#f1f3f4;display:flex;flex-direction:column;overflow:hidden;color:#202124;font-family:'Segoe UI',Arial,sans-serif}
+.ga4-ab{background:#fff;border-bottom:1px solid #dadce0;height:48px;display:flex;align-items:center;gap:10px;padding:0 16px;flex-shrink:0}
+.ga4-logo{width:24px;height:24px;border-radius:5px;background:linear-gradient(135deg,#ea4335,#fbbc04,#34a853,#4285f4);font-size:9px;font-weight:900;color:#fff;display:flex;align-items:center;justify-content:center}
+.ga4-bc{font-size:13px;color:#5f6368}.ga4-bc span{color:#1a73e8;font-weight:500;cursor:pointer}
+.ga4-date{margin-left:auto;font-size:11px;background:#e8f0fe;color:#1967d2;padding:3px 10px;border-radius:12px;font-weight:500}
+.ga4-tabs{background:#fff;border-bottom:1px solid #dadce0;display:flex;align-items:center;padding:0 16px;flex-shrink:0}
+.gtab{padding:10px 16px;font-size:13px;color:#5f6368;cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;transition:color .15s}
+.gtab.on{color:#1a73e8;border-bottom-color:#1a73e8;font-weight:500}
+.gtab:hover{background:#f8f9fa}
+.ab-toggle{margin-left:auto;display:flex;align-items:center;gap:6px}
+.ab-btn{padding:5px 14px;border-radius:16px;border:1px solid #dadce0;background:#fff;font-size:12px;cursor:pointer;color:#5f6368;transition:all .2s}
+.ab-btn.sel-a{background:#fce8e6;color:#c5221f;border-color:#ea4335;font-weight:700}
+.ab-btn.sel-b{background:#e6f4ea;color:#137333;border-color:#34a853;font-weight:700}
+
+/* 3-col */
+.ga4-body{display:flex;flex:1;overflow:hidden}
+
+/* variables */
+.gv{width:172px;min-width:172px;background:#fff;border-right:1px solid #dadce0;display:flex;flex-direction:column;overflow:hidden}
+.gv-hd{padding:9px 12px 7px;font-size:11px;font-weight:700;color:#5f6368;text-transform:uppercase;letter-spacing:.4px;border-bottom:1px solid #dadce0;flex-shrink:0}
+.gv-body{overflow-y:auto;padding:8px;flex:1}
+.vs-title{font-size:10px;font-weight:700;color:#5f6368;text-transform:uppercase;letter-spacing:.5px;padding:6px 4px 4px;display:flex;justify-content:space-between;align-items:center}
+.vs-add{font-size:16px;color:#1a73e8;cursor:pointer}
+.dchip{display:flex;align-items:center;gap:4px;padding:5px 8px;border-radius:4px;cursor:default;margin-bottom:2px;font-size:12px;color:#202124;transition:background .15s}
+.dchip:hover{background:#f1f3f4}
+.dchip.hl{background:#e8f0fe;color:#1967d2;font-weight:500}
+.dchip .ci{font-size:10px;color:#1a73e8;font-weight:700}
+.dchip .cb{margin-left:auto;font-size:9px;background:#1a73e8;color:#fff;padding:1px 4px;border-radius:3px}
+.mchip{display:flex;align-items:center;gap:4px;padding:5px 8px;border-radius:4px;margin-bottom:2px;font-size:12px;color:#202124}
+.mchip.hl{background:#e6f4ea;color:#137333;font-weight:500}
+.mchip .ci{font-size:10px;color:#188038;font-weight:700}
+.mchip .cb{margin-left:auto;font-size:9px;background:#188038;color:#fff;padding:1px 4px;border-radius:3px}
+
+/* settings */
+.gs{width:232px;min-width:232px;background:#fff;border-right:1px solid #dadce0;display:flex;flex-direction:column;overflow:hidden}
+.gs-hd{padding:9px 12px 7px;font-size:11px;font-weight:700;color:#5f6368;text-transform:uppercase;letter-spacing:.4px;border-bottom:1px solid #dadce0;flex-shrink:0;display:flex;justify-content:space-between;align-items:center}
+.gs-body{overflow-y:auto;padding:10px;flex:1}
+.sr{margin-bottom:12px}
+.sl2{font-size:11px;color:#5f6368;font-weight:500;margin-bottom:5px}
+.sv{font-size:12px;color:#202124;background:#f1f3f4;border-radius:4px;padding:6px 8px}
+.sc{display:inline-flex;align-items:center;gap:4px;background:#e8f0fe;color:#1967d2;border-radius:12px;padding:3px 8px 3px 10px;font-size:11px;font-weight:500;margin:2px}
+.sc .x{cursor:pointer;color:#5f6368;font-size:12px}
+.sc.g{background:#e6f4ea;color:#137333}
+.sc.y{background:#fef9c3;color:#856404}
+.sc.r{background:#fce8e6;color:#c5221f}
+.ac-btn{display:inline-flex;align-items:center;gap:3px;color:#1a73e8;font-size:11px;cursor:pointer;padding:3px 6px;border-radius:4px}
+.ac-btn:hover{background:#e8f0fe}
+.si{background:#f8f9fa;border:1px solid #dadce0;border-radius:6px;padding:8px 10px;margin-bottom:6px;position:relative}
+.si .sn{position:absolute;top:-8px;left:8px;background:#1a73e8;color:#fff;border-radius:50%;width:16px;height:16px;font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.si .se{font-size:11px;font-weight:700;color:#202124;margin-bottom:3px;font-family:monospace;word-break:break-all}
+.si .sc2{font-size:10px;color:#5f6368;line-height:1.6}
+.si .or{color:#ea4335;font-weight:700}
+.si.bad{border-color:#ea4335;background:#fef7f7}
+.si.good{border-color:#34a853;background:#f6fbf7}
+.sdiv{text-align:center;color:#bdc1c6;font-size:11px;padding:2px 0}
+.pnote{font-size:10px;padding:7px 9px;border-radius:5px;margin-bottom:10px;line-height:1.6}
+.pnote.na{background:#fce8e6;color:#c5221f;border:1px solid #f5c6c2}
+.pnote.nb{background:#e6f4ea;color:#137333;border:1px solid #b7dfc3}
+
+/* report */
+.gr{flex:1;overflow-y:auto;padding:14px;background:#f1f3f4}
+.rc{background:#fff;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,.1);padding:14px;margin-bottom:12px}
+.rct{font-size:13px;font-weight:500;color:#202124;margin-bottom:12px;display:flex;align-items:center;gap:6px}
+
+/* bonus filter */
+.bfr{display:flex;align-items:center;gap:6px;margin-bottom:12px;flex-wrap:wrap}
+.bfl{font-size:11px;color:#5f6368;white-space:nowrap}
+.bbtn{padding:4px 10px;border-radius:12px;border:1px solid #dadce0;background:#fff;font-size:11px;cursor:pointer;color:#5f6368;transition:all .2s;white-space:nowrap}
+.bbtn.on{background:#e8f0fe;color:#1967d2;border-color:#1a73e8;font-weight:600}
+
+/* funnel */
+.fs-row{display:flex;align-items:center;gap:8px;padding:3px 0}
+.fs-n{width:22px;height:22px;background:#1a73e8;color:#fff;border-radius:50%;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.fs-ev{font-size:11px;font-family:monospace;color:#202124;width:168px;flex-shrink:0;line-height:1.5}
+.fs-bw{flex:1;background:#f1f3f4;border-radius:4px;height:24px;position:relative;overflow:hidden;min-width:0}
+.fs-bi{height:100%;display:flex}
+.fs-bb{background:#fbbc04;height:100%;display:flex;align-items:center;padding:0 4px;font-size:9px;font-weight:700;color:#000;white-space:nowrap;overflow:hidden;transition:width .6s}
+.fs-ba{background:#34a853;height:100%;display:flex;align-items:center;padding:0 4px;font-size:9px;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;transition:width .6s}
+.fs-ct{font-size:12px;font-weight:600;color:#202124;width:52px;text-align:right;flex-shrink:0}
+.fa-row{display:flex;align-items:center;padding:1px 0 1px 30px;gap:8px}
+.fa-ln{color:#bdc1c6;font-size:11px;width:168px;flex-shrink:0;padding-left:8px;display:flex;align-items:center;gap:3px}
+.fa-pct{font-size:11px;color:#5f6368}
+.fa-pct.w{color:#ea4335}
+.ns-bar{flex:1;height:24px;border-radius:4px;background:repeating-linear-gradient(45deg,#fce8e6,#fce8e6 4px,#fff 4px,#fff 8px);border:1px dashed #ea4335;display:flex;align-items:center;padding:0 8px;font-size:10px;color:#c5221f;font-weight:600}
+.leg{display:flex;gap:12px;margin-bottom:10px}
+.leg-i{display:flex;align-items:center;gap:5px;font-size:11px;color:#5f6368}
+.leg-d{width:10px;height:10px;border-radius:2px;flex-shrink:0}
+
+/* free form table */
+.fft{width:100%;border-collapse:collapse;font-size:12px}
+.fft th{background:#f8f9fa;color:#5f6368;font-size:11px;font-weight:600;padding:7px 10px;border-bottom:2px solid #dadce0;text-align:left;white-space:nowrap}
+.fft td{padding:7px 10px;border-bottom:1px solid #f1f3f4;white-space:nowrap}
+.fft tr:hover td{background:#f8f9fa}
+.fft .tc{color:#1a73e8;font-family:monospace;font-weight:600}
+.fb{display:inline-block;padding:2px 6px;border-radius:3px;font-size:10px;font-weight:500}
+.fb.new{background:#fce8e6;color:#c5221f}.fb.slots{background:#e8f0fe;color:#1967d2}
+.fb.sports{background:#e6f4ea;color:#137333}.fb.casino{background:#fff8e1;color:#e37400}
+.tr{text-align:right}
+.tb{color:#856404;font-weight:600}.ta{color:#137333;font-weight:600}
+
+/* DebugView */
+.dv-wrap{flex:1;overflow-y:auto;padding:14px;background:#f1f3f4}
+.dv-rc{background:#fff;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,.1);padding:14px;height:calc(100% - 2px);display:flex;flex-direction:column}
+.dv-rct{font-size:13px;font-weight:500;margin-bottom:10px;flex-shrink:0}
+.dv-cols{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;flex-shrink:0}
+.dv-col-lbl{text-align:center;padding:7px;border-radius:6px;font-size:12px;font-weight:700}
+.dv-col-a{background:#fce8e6;color:#c5221f}
+.dv-col-b{background:#e6f4ea;color:#137333}
+.dv-scroll{flex:1;overflow-y:auto}
+.dv-entry{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px}
+.dv-box{border-radius:6px;padding:10px;font-size:11px;font-family:monospace}
+.dv-ba{background:#fef7f7;border:1px solid #f5c6c2}
+.dv-bb{background:#f6fbf7;border:1px solid #b7dfc3}
+.dv-ev{font-weight:700;margin-bottom:5px;font-size:12px;word-break:break-all}
+.dv-pm{color:#5f6368;line-height:1.8}
+.dv-pm span{color:#202124}
+.dv-pm .pk{color:#1a73e8}
+.dv-pm .pv{color:#137333}
+.dv-tm{font-size:10px;color:#bdc1c6;margin-top:5px}
+.empty-dv{text-align:center;padding:40px 20px;color:#bdc1c6;font-size:12px;background:#f8f9fa;border-radius:8px;margin:8px 0}
+
+/* Event Dict */
+.dict-wrap{flex:1;overflow-y:auto;padding:14px;background:#f1f3f4}
+.dict-intro{background:#e8f0fe;border:1px solid #c5d8f6;border-radius:8px;padding:12px 16px;margin-bottom:14px;font-size:12px;color:#1967d2;line-height:1.7}
+.dict-intro strong{font-size:13px;display:block;margin-bottom:4px}
+.dict-rc{background:#fff;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,.1);padding:14px;margin-bottom:12px}
+.dict-rc h3{font-size:13px;font-weight:600;margin-bottom:12px;color:#202124;display:flex;align-items:center;gap:8px}
+.dict-table{width:100%;border-collapse:collapse;font-size:12px}
+.dict-table th{background:#f8f9fa;color:#5f6368;font-size:11px;font-weight:600;padding:8px 12px;border-bottom:2px solid #dadce0;text-align:left;white-space:nowrap}
+.dict-table td{padding:8px 12px;border-bottom:1px solid #f1f3f4;vertical-align:top;line-height:1.6}
+.dict-table tr:hover td{background:#f8f9fa}
+.ev-name{font-family:monospace;font-weight:700;color:#1a73e8;font-size:12px}
+.ev-trigger{font-size:11px;color:#5f6368}
+.param-chip{display:inline-block;background:#e8f0fe;color:#1967d2;border-radius:10px;padding:2px 8px;font-size:10px;font-weight:500;margin:2px;white-space:nowrap}
+.param-chip.req{background:#e6f4ea;color:#137333}
+.param-chip.opt{background:#f1f3f4;color:#5f6368}
+.ev-note{font-size:11px;color:#5f6368;line-height:1.5}
+.path-box{background:#f8f9fa;border-radius:6px;padding:12px;font-size:12px;color:#5f6368;line-height:2.2}
+.path-ev{color:#1a73e8;font-family:monospace;font-weight:600}
+.path-arrow{color:#bdc1c6;font-size:11px}
+.path-case{color:#137333;font-size:10px;font-style:italic}
+.ab-compare-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+.ab-side{border-radius:7px;padding:12px;font-size:11px}
+.ab-side-a{background:#fef7f7;border:1px solid #f5c6c2}
+.ab-side-b{background:#f6fbf7;border:1px solid #b7dfc3}
+.ab-side h4{font-size:12px;font-weight:700;margin-bottom:8px}
+.ab-side h4.a{color:#c5221f}.ab-side h4.b{color:#137333}
+.ab-ev-list{font-family:monospace;font-size:10px;line-height:2;color:#5f6368}
+.ab-ev-list .ev{color:#202124}.ab-ev-list .bad{color:#c5221f}.ab-ev-list .good{color:#137333}
+.quota-bar-wrap{background:#f1f3f4;border-radius:4px;height:18px;overflow:hidden;margin-bottom:6px}
+.quota-bar{height:100%;border-radius:4px;display:flex;align-items:center;padding:0 8px;font-size:10px;font-weight:700;color:#fff;transition:width .6s}
+
+/* panels (full-width) */
+.full-panel{display:none;flex:1;overflow:hidden;flex-direction:column}
+.full-panel.on{display:flex}
+
+/* overlay */
+.ovl{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:200;align-items:center;justify-content:center}
+.ovl.on{display:flex}
+.pop{background:#fff;border-radius:10px;box-shadow:0 4px 24px rgba(0,0,0,.25);width:300px;padding:20px;position:relative;color:#202124}
+.pop h3{font-size:15px;font-weight:600;margin-bottom:10px}
+.pop-x{position:absolute;top:12px;right:14px;background:none;border:none;cursor:pointer;color:#5f6368;font-size:18px}
+.og{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+.obtn{border:1px solid #dadce0;background:#f8f9fa;border-radius:6px;padding:10px;cursor:pointer;text-align:center;font-size:11px;color:#202124;transition:border-color .15s}
+.obtn:hover{border-color:#1a73e8;background:#e8f0fe}
+.obtn .oi{font-size:20px;display:block;margin-bottom:4px}
+
+/* scrollbar */
+::-webkit-scrollbar{width:5px;height:5px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:#dadce0;border-radius:3px}
+</style>
+</head>
+<body>
+
+<!-- ═══════════ LEFT: SIMULATED SITE ═══════════ -->
+<div class="sim">
+  <div class="sh">
+    <h2>🎰 模擬站台（點擊觸發事件）</h2>
+    <p>點擊任意按鈕 → 右側 DebugView 即時更新</p>
+    <div class="lr">
+      <span style="font-size:11px;color:var(--mu)">登入狀態：</span>
+      <span class="ls" id="loginLabel" style="color:var(--red)">未登入 (before)</span>
+      <div class="tgl" id="loginTgl" onclick="toggleLogin()"></div>
+    </div>
+  </div>
+  <div class="stabs">
+    <div class="stab on" onclick="sp('home',this)">🏠 首頁</div>
+    <div class="stab" onclick="sp('promo',this)">🎁 優惠頁</div>
+  </div>
+  <div class="pg on" id="sp-home">
+    <div class="sl">Homepage Banners</div>
+    <div id="bCont"></div>
+    <div class="bnav" id="bNav"></div>
+    <div style="text-align:center;padding:16px 0;color:var(--mu);font-size:11px">
+      ↑ 點 Banner 按鈕觸發 homepage_banner_click 事件<br>
+      <button class="btn bo" style="margin-top:8px;font-size:11px" onclick="sp('promo',document.querySelectorAll('.stab')[1])">前往優惠頁 →</button>
+    </div>
+  </div>
+  <div class="pg" id="sp-promo">
+    <div class="sl">優惠列表</div>
+    <div id="pCont"></div>
+  </div>
+</div>
+
+<!-- ═══════════ RIGHT: GA4 ═══════════ -->
+<div class="ga4">
+
+  <!-- App Bar -->
+  <div class="ga4-ab">
+    <div class="ga4-logo">GA4</div>
+    <div class="ga4-bc">探索 › <span>優惠頁互動分析</span></div>
+    <div class="ga4-date">📅 2026-05-01 ~ 2026-05-31</div>
+  </div>
+
+  <!-- Tabs + A/B toggle -->
+  <div class="ga4-tabs">
+    <div class="gtab on" id="gt-funnel" onclick="gt('funnel',this)">漏斗探索</div>
+    <div class="gtab" id="gt-ff" onclick="gt('ff',this)">自由形式</div>
+    <div class="gtab" id="gt-dv" onclick="gt('dv',this)">📡 DebugView（事件 Log）</div>
+    <div class="gtab" id="gt-dict" onclick="gt('dict',this)">📖 方案說明</div>
+    <div class="ab-toggle" id="abToggle">
+      <span style="font-size:11px;color:#5f6368">方案：</span>
+      <button class="ab-btn sel-a" id="btnA" onclick="setAB('A')">❌ 方案 A</button>
+      <button class="ab-btn" id="btnB" onclick="setAB('B')">✅ 方案 B</button>
+    </div>
+  </div>
+
+  <!-- ── Funnel + FreeForm: 3-col ── -->
+  <div class="ga4-body" id="body3col">
+
+    <!-- Variables -->
+    <div class="gv">
+      <div class="gv-hd">變數</div>
+      <div class="gv-body">
+        <div class="vs-title">維度 <span class="vs-add">+</span></div>
+        <div id="dimList"></div>
+        <div class="vs-title" style="margin-top:6px">指標 <span class="vs-add">+</span></div>
+        <div id="metList"></div>
+      </div>
+    </div>
+
+    <!-- Settings -->
+    <div class="gs">
+      <div class="gs-hd">
+        <span>分頁設定</span>
+        <span style="font-size:10px;color:#5f6368" id="sMethod"></span>
+      </div>
+      <div class="gs-body" id="sBody"></div>
+    </div>
+
+    <!-- Report -->
+    <div class="gr" id="gReport"></div>
+
+  </div>
+
+  <!-- ── DebugView (full width, persistent DOM) ── -->
+  <div class="full-panel" id="panel-dv">
+    <div class="dv-wrap">
+      <div class="dv-rc">
+        <div class="dv-rct">📡 DebugView — 每次點擊即時對比方案 A vs 方案 B 的事件結構</div>
+        <div class="dv-cols">
+          <div class="dv-col-lbl dv-col-a">❌ 方案 A（舊）— 事件名稱爆炸，無參數</div>
+          <div class="dv-col-lbl dv-col-b">✅ 方案 B（新）— 通用事件名稱 + 參數</div>
+        </div>
+        <div class="dv-scroll">
+          <div id="logEntries">
+            <div class="empty-dv">← 點擊左側站台的任意按鈕，此處即時顯示 A vs B 的事件差異</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Event Dictionary (full width) ── -->
+  <div class="full-panel" id="panel-dict">
+    <div class="dict-wrap">
+
+      <!-- A vs B 命名對比 -->
+      <div class="dict-rc">
+        <h3>⚡ 方案 A vs 方案 B — 命名邏輯根本差異</h3>
+        <div class="ab-compare-row">
+          <div class="ab-side ab-side-a">
+            <h4 class="a">方案 A（舊版 UA 思維）</h4>
+            <div style="font-size:11px;color:#5f6368;margin-bottom:8px">把頁面、位置、動作全塞進事件名稱，每個場景獨立命名。</div>
+            <div class="ab-ev-list">
+              <span class="bad">promo_more_info_before_login</span><br>
+              <span class="bad">promo_more_info_after_login</span><br>
+              <span class="bad">promo_popup_view_before</span><br>
+              <span class="bad">promo_popup_view_after</span><br>
+              <span class="bad">promo_join_now_before_login</span><br>
+              <span class="bad">promo_popup_join_now_before</span><br>
+              <span class="bad">promo_join_now_after_login</span><br>
+              <span class="bad">promo_popup_join_now_after</span><br>
+              <span class="bad">home_nova_banner_click</span><br>
+              <span class="bad">home_goal_banner_click</span><br>
+              <span class="bad">home_bwing_banner_click</span><br>
+              <span style="color:#c5221f">… 每個促銷再各一組 → 40+ 事件</span>
+            </div>
+            <div style="margin-top:8px;font-size:10px;line-height:1.7">
+              <div style="color:#1967d2;background:#e8f0fe;border-radius:4px;padding:5px 7px;margin-bottom:5px">
+                ✅ <strong>好處：</strong><br>
+                · 事件名稱自帶說明，行銷直接看懂<br>
+                · GA4 標準報表不需加次要維度<br>
+                · 初期設定簡單，不需定義自訂維度<br>
+                · 適合規模小、促銷種類少的早期階段
+              </div>
+              <div style="color:#c5221f;background:#fce8e6;border-radius:4px;padding:5px 7px">
+                ⚠️ <strong>限制：</strong><br>
+                · 促銷增加後事件數爆炸，維護困難<br>
+                · 無法用 Breakdown 自動拆 before/after（已嵌在名稱裡）<br>
+                · 新增促銷或入口，必須回頭改 GTM + GA4 設定<br>
+                · 跨促銷加總數據麻煩（需手動把多個事件相加）
+              </div>
+            </div>
+          </div>
+          <div class="ab-side ab-side-b">
+            <h4 class="b">方案 B（GA4 標準架構）</h4>
+            <div style="font-size:11px;color:#5f6368;margin-bottom:8px">統一事件名稱，細節全部透過參數區分，永遠只有 11 個事件。</div>
+            <div class="ab-ev-list">
+              <span class="good">view_promotion_page</span><br>
+              <span class="good">more_info</span><br>
+              <span class="good">view_promotion_info</span><br>
+              <span class="good">join_now</span><br>
+              <span class="good">login_modal</span><br>
+              <span class="good">deposit_page</span><br>
+              <span class="good">ineligibility</span><br>
+              <span class="good">join_success</span><br>
+              <span class="good">open_csd_chat</span><br>
+              <span class="good">homepage_banner_click</span><br>
+              <span class="good">all_promos_click</span><br>
+              <span style="color:#137333">共 11 個，永遠不會增加 ✓</span>
+            </div>
+            <div style="margin-top:8px;font-size:10px;line-height:1.7">
+              <div style="color:#137333;background:#e6f4ea;border-radius:4px;padding:5px 7px;margin-bottom:5px">
+                ✅ <strong>好處：</strong><br>
+                · 事件名稱固定，新增促銷不需改 GTM / GA4<br>
+                · login_state 可直接做 Breakdown，before/after 自動拆分<br>
+                · bonus_code 可做篩選器，一個漏斗套用所有促銷<br>
+                · 自訂維度只消耗 11/50，配額充裕
+              </div>
+              <div style="color:#7a4f00;background:#fff8e1;border-radius:4px;padding:5px 7px">
+                ⚠️ <strong>限制：</strong><br>
+                · 行銷開報表需加次要維度才看到細節<br>
+                · 需事先在 GA4 後台註冊自訂維度，初期門檻較高<br>
+                · 需維護 Data Dictionary，參數命名不一致會髒掉數據<br>
+                · 工程師漏帶參數就出現 (not set)
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <h3 style="margin-top:4px">📐 GA4 自訂維度配額消耗對比（免費版上限：50 個）</h3>
+        <div style="margin-top:8px">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+            <span style="font-size:11px;color:#5f6368;width:80px">方案 A</span>
+            <div class="quota-bar-wrap" style="flex:1;background:#f1f3f4;position:relative">
+              <div style="height:100%;display:flex;align-items:center;padding:0 10px;font-size:10px;color:#5f6368">0 個 — 不需要（所有資訊都在事件名稱裡，無需自訂維度）</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px">
+            <span style="font-size:11px;color:#5f6368;width:80px">方案 B</span>
+            <div class="quota-bar-wrap" style="flex:1">
+              <div class="quota-bar" style="width:22%;background:#34a853">11 個（22%）— 仍有充裕空間</div>
+            </div>
+          </div>
+          <p style="font-size:10px;color:#5f6368;margin-top:8px">方案 B 需要在 GA4 後台註冊 bonus_code、login_state、source 等自訂維度，才能在報表中使用這些參數做篩選與 Breakdown。方案 A 不需要這個步驟，但也因此失去了彈性分析的能力。</p>
+        </div>
+      </div>
+
+      <!-- GTM vs GA4 analysis explanation -->
+      <div class="dict-rc">
+        <h3>⚖️ GTM 設定工作量相同，差異在 GA4 分析能力</h3>
+        <div style="background:#e8f0fe;border:1px solid #c5d8f6;border-radius:6px;padding:10px 12px;margin-bottom:12px;font-size:11px;color:#1967d2;line-height:1.8">
+          <strong>GTM 的部分：兩個方案工作量相近</strong><br>
+          兩個方案都需要在 GTM 設定 trigger、tag、dataLayer 變數。方案 A 的事件名稱也可以用 GTM 變數動態組合（例如 <code style="background:rgba(255,255,255,.6);padding:1px 4px;border-radius:2px">promo_{{action}}_{{login_state}}_{{bonus_code}}</code>），不需要手動寫死每一個名稱。因此「要不要改 GTM」這件事對兩個方案來說工作量是一樣的。
+        </div>
+        <div style="font-size:12px;font-weight:600;margin-bottom:8px;color:#202124">📊 真正的差異：GA4 收到資料後，能做什麼？</div>
+        <table style="width:100%;border-collapse:collapse;font-size:11px;margin-bottom:12px">
+          <thead>
+            <tr style="background:#f8f9fa">
+              <th style="padding:7px 10px;border-bottom:2px solid #dadce0;text-align:left">分析場景</th>
+              <th style="padding:7px 10px;border-bottom:2px solid #dadce0;text-align:left;color:#c5221f">方案 A（Filter 替代）</th>
+              <th style="padding:7px 10px;border-bottom:2px solid #dadce0;text-align:left;color:#137333">方案 B（Breakdown）</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="padding:7px 10px;border-bottom:1px solid #f1f3f4">before vs after 並排對比</td>
+              <td style="padding:7px 10px;border-bottom:1px solid #f1f3f4;color:#c5221f">❌ 開兩次報表，人工合併</td>
+              <td style="padding:7px 10px;border-bottom:1px solid #f1f3f4;color:#137333">✅ 一張報表自動並排</td>
+            </tr>
+            <tr style="background:#fef9f9">
+              <td style="padding:7px 10px;border-bottom:1px solid #f1f3f4"><strong>漏斗 Breakdown</strong></td>
+              <td style="padding:7px 10px;border-bottom:1px solid #f1f3f4;color:#c5221f">❌ 漏斗 Breakdown 只接受維度，Filter（事件名稱字串）在此無效</td>
+              <td style="padding:7px 10px;border-bottom:1px solid #f1f3f4;color:#137333">✅ login_state 是維度，漏斗每步自動拆分</td>
+            </tr>
+            <tr>
+              <td style="padding:7px 10px;border-bottom:1px solid #f1f3f4">篩選單一促銷漏斗</td>
+              <td style="padding:7px 10px;border-bottom:1px solid #f1f3f4;color:#c5221f">❌ 無 bonus_code 維度可篩選</td>
+              <td style="padding:7px 10px;border-bottom:1px solid #f1f3f4;color:#137333">✅ bonus_code 直接篩，一個漏斗套所有促銷</td>
+            </tr>
+            <tr>
+              <td style="padding:7px 10px">新增促銷後更新報表</td>
+              <td style="padding:7px 10px;color:#c5221f">❌ 漏斗每個步驟的 OR 條件都要手動補</td>
+              <td style="padding:7px 10px;color:#137333">✅ 報表設定不用動，bonus_code 自動多一個值</td>
+            </tr>
+          </tbody>
+        </table>
+        <div style="background:#fce8e6;border:1px solid #f5c6c2;border-radius:6px;padding:9px 12px;font-size:11px;color:#c5221f;line-height:1.7">
+          <strong>⚠️ 關鍵限制：GA4 漏斗 Breakdown 不接受 Filter</strong><br>
+          GA4 漏斗探索的「細分」欄位只能選已定義的<strong>維度</strong>（Dimension），無法用事件名稱的字串去比對。方案 A 的 login_state 藏在事件名稱裡，GA4 永遠認不出它是獨立維度，因此漏斗的 before/after 對比在方案 A 中根本做不到，Filter 也繞不過去。
+        </div>
+      </div>
+
+      <!-- Full event definitions -->
+      <div class="dict-rc">
+        <h3>📋 B 方案完整事件定義表</h3>
+        <div style="overflow-x:auto">
+          <table class="dict-table">
+            <thead>
+              <tr>
+                <th>事件名稱</th>
+                <th>觸發時機</th>
+                <th>參數（必填 / 選填）</th>
+                <th>備註</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="ev-name">view_promotion_page</span></td>
+                <td><span class="ev-trigger">優惠卡進入可視範圍 (viewport)</span></td>
+                <td>
+                  <span class="param-chip req">bonus_code</span>
+                  <span class="param-chip req">promotion_position</span>
+                  <span class="param-chip opt">entry_source（可選）</span>
+                  <span class="param-chip opt">referral_bonus_code（可選）</span>
+                </td>
+                <td class="ev-note">entry_source 僅在從 homepage banner 的 All Promos 進入時帶入</td>
+              </tr>
+              <tr>
+                <td><span class="ev-name">more_info</span></td>
+                <td><span class="ev-trigger">點擊優惠卡的 More Info 按鈕</span></td>
+                <td>
+                  <span class="param-chip req">bonus_code</span>
+                  <span class="param-chip req">login_state</span>
+                  <span class="param-chip req">entry_source</span>
+                </td>
+                <td class="ev-note">login_state = "before" 或 "after"<br>有 3 種後續：popup / 站內跳轉 / 站外跳轉</td>
+              </tr>
+              <tr>
+                <td><span class="ev-name">view_promotion_info</span></td>
+                <td><span class="ev-trigger">優惠詳情或進度彈窗開啟</span></td>
+                <td>
+                  <span class="param-chip req">bonus_code</span>
+                  <span class="param-chip req">source</span>
+                </td>
+                <td class="ev-note">source = "promo_page" 或 "homepage_banner"<br>含詳情彈窗與已參加進度彈窗，不需區分</td>
+              </tr>
+              <tr>
+                <td><span class="ev-name">join_now</span></td>
+                <td><span class="ev-trigger">點擊 Join Now 按鈕（卡片、彈窗、banner popup 均算）</span></td>
+                <td>
+                  <span class="param-chip req">bonus_code</span>
+                  <span class="param-chip req">login_state</span>
+                  <span class="param-chip req">source</span>
+                </td>
+                <td class="ev-note">source = promo_page / promo_popup / homepage_banner<br>有 5 種後續結果（見下方流程圖）</td>
+              </tr>
+              <tr>
+                <td><span class="ev-name">login_modal</span></td>
+                <td><span class="ev-trigger">未登入時點 Join Now → 登入彈窗出現</span></td>
+                <td>
+                  <span class="param-chip req">bonus_code</span>
+                </td>
+                <td class="ev-note">僅在 login_state = "before" 時觸發</td>
+              </tr>
+              <tr>
+                <td><span class="ev-name">deposit_page</span></td>
+                <td><span class="ev-trigger">Join Now 後進入存款頁</span></td>
+                <td>
+                  <span class="param-chip req">bonus_code</span>
+                </td>
+                <td class="ev-note">join_now 的結果之一</td>
+              </tr>
+              <tr>
+                <td><span class="ev-name">ineligibility</span></td>
+                <td><span class="ev-trigger">不符資格彈窗出現</span></td>
+                <td>
+                  <span class="param-chip req">bonus_code</span>
+                </td>
+                <td class="ev-note">join_now 的結果之一</td>
+              </tr>
+              <tr>
+                <td><span class="ev-name">join_success</span></td>
+                <td><span class="ev-trigger">加入成功彈窗出現</span></td>
+                <td>
+                  <span class="param-chip req">bonus_code</span>
+                </td>
+                <td class="ev-note">join_now 的結果之一</td>
+              </tr>
+              <tr>
+                <td><span class="ev-name">open_csd_chat</span></td>
+                <td><span class="ev-trigger">開啟客服對話</span></td>
+                <td>
+                  <span class="param-chip req">bonus_code</span>
+                </td>
+                <td class="ev-note">join_now 的結果之一</td>
+              </tr>
+              <tr>
+                <td><span class="ev-name">homepage_banner_click</span></td>
+                <td><span class="ev-trigger">首頁促銷 Banner 被點擊</span></td>
+                <td>
+                  <span class="param-chip req">bonus_code</span>
+                  <span class="param-chip req">position</span>
+                  <span class="param-chip req">login_state</span>
+                </td>
+                <td class="ev-note">只有設為 homepage banner 的促銷才會觸發</td>
+              </tr>
+              <tr>
+                <td><span class="ev-name">all_promos_click</span></td>
+                <td><span class="ev-trigger">Banner popup 點擊「查看所有優惠」</span></td>
+                <td>
+                  <span class="param-chip req">bonus_code</span>
+                  <span class="param-chip req">target_category</span>
+                  <span class="param-chip req">login_state</span>
+                </td>
+                <td class="ev-note">點擊後跳轉優惠頁，URL 帶 ?ref=homepage_banner&from_bonus=xxx</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div style="margin-top:8px;font-size:11px;color:#5f6368">
+          <span style="background:#e6f4ea;color:#137333;padding:2px 7px;border-radius:3px;margin-right:6px">必填</span>
+          <span style="background:#f1f3f4;color:#5f6368;padding:2px 7px;border-radius:3px">選填（依入口情境）</span>
+        </div>
+      </div>
+
+      <!-- Join Now 流程分支 -->
+      <div class="dict-rc">
+        <h3>🌿 Join Now 5 種結果分支（方案 B 漏斗設計）</h3>
+        <div class="path-box">
+          <span class="path-ev">join_now</span> (bonus_code, login_state, source)<br>
+          &nbsp;&nbsp;│<br>
+          &nbsp;&nbsp;├── <span class="path-case">if login_state = "before" →</span> <span class="path-ev">login_modal</span> → 使用者登入後繼續<br>
+          &nbsp;&nbsp;│<br>
+          &nbsp;&nbsp;├── <span class="path-ev">deposit_page</span> &nbsp;<span class="path-case">（需要存款才能參加）</span><br>
+          &nbsp;&nbsp;│<br>
+          &nbsp;&nbsp;├── <span class="path-ev">join_success</span> &nbsp;&nbsp;<span class="path-case">（直接成功）</span><br>
+          &nbsp;&nbsp;│<br>
+          &nbsp;&nbsp;├── <span class="path-ev">ineligibility</span> &nbsp;&nbsp;<span class="path-case">（不符資格）</span><br>
+          &nbsp;&nbsp;│<br>
+          &nbsp;&nbsp;└── <span class="path-ev">open_csd_chat</span> &nbsp;<span class="path-case">（需聯繫客服）</span>
+        </div>
+        <p style="font-size:11px;color:#5f6368;margin-top:8px">每個促銷可能只出現其中幾種結果，依促銷類型而定。在 GA4 探索漏斗中，這 5 個事件作為步驟 5 的並行分支分別追蹤。</p>
+      </div>
+
+    </div>
+  </div>
+
+</div><!-- end .ga4 -->
+
+<!-- Overlay -->
+<div class="ovl" id="ovl" onclick="cPop(event)">
+  <div class="pop" id="pop-join" style="display:none">
+    <button class="pop-x" onclick="cAll()">✕</button>
+    <h3>Join Now — 選擇結果模擬</h3>
+    <p style="font-size:12px;color:#5f6368;margin-bottom:2px">Bonus: <span id="jBonus" style="color:#1a73e8;font-weight:700"></span></p>
+    <div class="og">
+      <div class="obtn" onclick="fireOut('deposit_page')"><span class="oi">💳</span>deposit_page</div>
+      <div class="obtn" onclick="fireOut('join_success')"><span class="oi">✅</span>join_success</div>
+      <div class="obtn" onclick="fireOut('ineligibility')"><span class="oi">🚫</span>ineligibility</div>
+      <div class="obtn" onclick="fireOut('open_csd_chat')"><span class="oi">💬</span>open_csd_chat</div>
+    </div>
+  </div>
+  <div class="pop" id="pop-login" style="display:none">
+    <button class="pop-x" onclick="cAll()">✕</button>
+    <h3>🔒 請先登入</h3>
+    <p style="font-size:12px;color:#5f6368;margin:8px 0 12px">Join Now 前須先登入。<br>Bonus: <span id="lBonus" style="color:#1a73e8;font-weight:700"></span></p>
+    <button class="btn bb" style="width:100%;padding:8px" onclick="doLogin()">登入並繼續</button>
+  </div>
+</div>
+
+<script>
+// ────────────────────────────────────────────────
+// STATE
+// ────────────────────────────────────────────────
+let loggedIn=false, method='A', curTab='funnel', activeBon=null, selBonus='NOVA_NEWMEMBER_100', evtN=0;
+
+const promos=[
+  {code:'NOVA_NEWMEMBER_100',title:'新會員首存 100%',sub:'Nova88 · MYR · New Member',cat:'New Member',isBnr:true,hasJN:true,miType:'popup'},
+  {code:'GOAL_SPORTS_RELOAD30',title:'體育 30% 再存',sub:'Goal123 · VND · Sports',cat:'Sports',isBnr:true,hasJN:true,miType:'popup'},
+  {code:'BW_SLOTS_REBATE08',title:'老虎機返水 0.8%',sub:'Bwing · THB · Slots',cat:'Slots',isBnr:true,hasJN:true,miType:'popup'},
+  {code:'12B_CASINO_VIP10',title:'VIP 娛樂城回饋 10%',sub:'12bet · IDR · Casino',cat:'Casino',isBnr:false,hasJN:false,miType:'redirect'},
+  {code:'BW_SPORTS_FIRST50',title:'首次體育 50% 優惠',sub:'Bwing · BDT · Sports',cat:'Sports',isBnr:false,hasJN:true,miType:'popup'}
+];
+const bnrColors=['linear-gradient(135deg,#2b1f5e,#1a3a5e)','linear-gradient(135deg,#1f3a2b,#1a4a2e)','linear-gradient(135deg,#3a1f1f,#4a2a1a)'];
+const fd={
+  'NOVA_NEWMEMBER_100':{v:4200,mib:890,mia:350,vib:643,via:252,jnb:560,jna:420,dpb:162,dpa:279},
+  'GOAL_SPORTS_RELOAD30':{v:3600,mib:640,mia:510,vib:461,via:367,jnb:380,jna:290,dpb:110,dpa:195},
+  'BW_SLOTS_REBATE08':{v:2900,mib:520,mia:430,vib:375,via:310,jnb:310,jna:260,dpb:90,dpa:172},
+  '12B_CASINO_VIP10':{v:1800,mib:310,mia:280,vib:223,via:202,jnb:null,jna:null,dpb:null,dpa:null},
+  'BW_SPORTS_FIRST50':{v:1500,mib:260,mia:200,vib:187,via:144,jnb:180,jna:140,dpb:52,dpa:94}
+};
+const sumData=[
+  {code:'NOVA_NEWMEMBER_100',cur:'MYR',cat:'New Member',bc:3240,mib:890,mia:350,jnb:560,jna:420,v:4200,u:1820},
+  {code:'GOAL_SPORTS_RELOAD30',cur:'VND',cat:'Sports',bc:2180,mib:640,mia:510,jnb:380,jna:290,v:3600,u:1340},
+  {code:'BW_SLOTS_REBATE08',cur:'THB',cat:'Slots',bc:1560,mib:520,mia:430,jnb:310,jna:260,v:2900,u:1020},
+  {code:'12B_CASINO_VIP10',cur:'IDR',cat:'Casino',bc:'-',mib:310,mia:280,jnb:'-',jna:'-',v:1800,u:680},
+  {code:'BW_SPORTS_FIRST50',cur:'BDT',cat:'Sports',bc:'-',mib:260,mia:200,jnb:180,jna:140,v:1500,u:510}
+];
+const dims=[
+  {n:'bonus_code',use:true},{n:'login_state',use:true},{n:'source',use:false},
+  {n:'entry_source',use:false},{n:'promotion_position',use:false},
+  {n:'promotion_category',use:false},{n:'device_category',use:false},
+  {n:'currency',use:false},{n:'referral_bonus_code',use:false}
+];
+const mets=[
+  {n:'事件計數',use:true},{n:'不重複使用者',use:true},{n:'工作階段',use:false},{n:'參與工作階段',use:false}
+];
+
+// ────────────────────────────────────────────────
+// RENDER SITE
+// ────────────────────────────────────────────────
+function renderSite(){
+  const bnrPromos=promos.filter(p=>p.isBnr);
+  document.getElementById('bCont').innerHTML=bnrPromos.map((p,i)=>`
+    <div class="bnr" id="bk${i}" style="display:${i===0?'block':'none'};background:${bnrColors[i]}">
+      <span class="st">${p.sub.split('·')[0].trim()}</span>
+      <h3>${p.title}</h3><p>${p.sub}</p>
+      <div style="display:flex;gap:6px">
+        <button class="btn bb" style="font-size:11px" onclick="fireHB('${p.code}','top_banner',${i})">立即加入</button>
+        <button class="btn bo" style="font-size:11px" onclick="fireAP('${p.code}','${p.cat.toLowerCase().replace(/ /g,'_')}')">查看所有優惠 →</button>
+      </div>
+    </div>`).join('');
+  document.getElementById('bNav').innerHTML=bnrPromos.map((_,i)=>`<div class="bd ${i===0?'on':''}" onclick="swBnr(${i})"></div>`).join('');
+  document.getElementById('pCont').innerHTML=promos.map((p,i)=>`
+    <div class="pc">
+      <div class="pch"><div class="pcode">${p.code}</div>
+        <div style="display:flex;gap:4px;align-items:center">
+          <div class="pcat">${p.cat}</div>
+          ${p.isBnr?'<div class="btag">Banner</div>':''}
+        </div>
+      </div>
+      <div class="pt">${p.title}</div><div class="ps">${p.sub}</div>
+      <div class="pbtns">
+        <button class="btn bo" onclick="fireMI('${p.code}','${p.miType}',${i})">More Info</button>
+        ${p.hasJN?`<button class="btn bb" onclick="fireJN('${p.code}','promo_page',${i})">Join Now</button>`:''}
+      </div>
+    </div>`).join('');
+}
+
+function swBnr(i){
+  promos.filter(p=>p.isBnr).forEach((_,j)=>{
+    document.getElementById('bk'+j).style.display=j===i?'block':'none';
+    document.querySelectorAll('.bd')[j].classList.toggle('on',j===i);
+  });
+}
+
+// ────────────────────────────────────────────────
+// RENDER VARIABLES
+// ────────────────────────────────────────────────
+function renderVars(){
+  document.getElementById('dimList').innerHTML=dims.map(d=>`
+    <div class="dchip ${d.use?'hl':''}">
+      <span class="ci">#</span><span>${d.n}</span>
+      ${d.use?'<span class="cb">使用中</span>':''}
+    </div>`).join('');
+  document.getElementById('metList').innerHTML=mets.map(m=>`
+    <div class="mchip ${m.use?'hl':''}">
+      <span class="ci">#</span><span>${m.n}</span>
+      ${m.use?'<span class="cb">使用中</span>':''}
+    </div>`).join('');
+}
+
+// ────────────────────────────────────────────────
+// RENDER SETTINGS
+// ────────────────────────────────────────────────
+function renderSettings(){
+  document.getElementById('sMethod').textContent=(curTab==='funnel'||curTab==='ff')?(method==='A'?'方案 A（舊）':'方案 B（新）'):'';
+  const b=document.getElementById('sBody');
+  if(curTab==='ff'){
+    if(method==='A'){
+      b.innerHTML=`
+        <div class="pnote na">⚠️ 方案 A：login_state 嵌在名稱裡，無法做欄細分 (Breakdown)</div>
+        <div class="sr"><div class="sl2">技巧</div><div class="sv">自由形式</div></div>
+        <div class="sr"><div class="sl2">列 (Rows)</div><span class="sc r">event_name <span class="x">×</span></span></div>
+        <div class="sr"><div class="sl2">欄細分 (Breakdown)</div>
+          <div style="background:#fce8e6;border-radius:4px;padding:6px;font-size:11px;color:#c5221f">⚠ 無維度可用 — login_state 不是獨立參數</div>
+        </div>
+        <div class="sr"><div class="sl2">值 (Values)</div><span class="sc g">事件計數 <span class="x">×</span></span></div>
+        <div class="sr"><div class="sl2">Filter（替代方案）</div>
+          <div style="background:#fff8e1;border:1px solid #f0c96c;border-radius:4px;padding:7px 9px;font-size:10px;color:#7a4f00;line-height:1.8">
+            💡 想看未登入：event_name <strong>contains</strong> <code>_before_</code><br>
+            💡 想看已登入：event_name <strong>contains</strong> <code>_after_</code><br>
+            <span style="color:#c5221f">→ 要跑兩次、人工比對</span>
+          </div>
+        </div>`;
+    } else {
+      b.innerHTML=`
+        <div class="pnote nb">✅ 方案 B：bonus_code 為列，login_state 直接做欄細分</div>
+        <div class="sr"><div class="sl2">技巧</div><div class="sv">自由形式</div></div>
+        <div class="sr"><div class="sl2">列 (Rows)</div><span class="sc">bonus_code <span class="x">×</span></span><div class="ac-btn">＋</div></div>
+        <div class="sr"><div class="sl2">欄細分 (Breakdown)</div><span class="sc y">login_state <span class="x">×</span></span><div class="ac-btn">＋</div></div>
+        <div class="sr"><div class="sl2">值 (Values)</div><span class="sc g">事件計數 <span class="x">×</span></span><span class="sc g">不重複使用者 <span class="x">×</span></span><div class="ac-btn">＋</div></div>
+        <div class="sr"><div class="sl2">篩選器</div><div class="ac-btn">＋ 新增篩選器</div></div>`;
+    }
+    return;
+  }
+  if(curTab!=='funnel'){b.innerHTML='<p style="font-size:11px;color:#5f6368;padding:8px">此分頁無設定項目。</p>';return;}
+  const sn=selBonus.length>14?selBonus.slice(0,13)+'…':selBonus;
+  if(method==='A'){
+    b.innerHTML=`
+      <div style="background:#e8f0fe;border:1px solid #c5d8f6;border-radius:5px;padding:7px 9px;margin-bottom:6px;font-size:10px;color:#1967d2;line-height:1.6">
+        ✅ <strong>方案 A 的好處：</strong>事件名稱自帶說明，行銷直接看懂；不需在 GA4 後台設定自訂維度，初期門檻低。
+      </div>
+      <div class="pnote na">⚠️ 方案 A 的限制：步驟需大量 OR 條件；事件數爆炸後難維護；無法做 Breakdown；跨促銷加總數據麻煩</div>
+      <div class="sr"><div class="sl2">技巧</div><div class="sv">漏斗探索</div></div>
+      <div class="sr"><div class="sl2">視覺呈現</div><div class="sv">📊 標準漏斗</div></div>
+      <div class="sr"><div class="sl2">細分 (Breakdown)</div>
+        <div style="background:#fce8e6;border-radius:4px;padding:6px;font-size:11px;color:#c5221f">
+          ⚠ 無法細分 — before/after 已埋在事件名稱裡，無參數可拆
+        </div>
+      </div>
+      <div class="sr"><div class="sl2">篩選器</div>
+        <div style="background:#fce8e6;border-radius:4px;padding:6px;font-size:11px;color:#c5221f">
+          ⚠ 無 bonus_code 參數，無法篩單一促銷
+        </div>
+      </div>
+      <div class="sr"><div class="sl2">步驟</div>
+        <div class="si bad"><div class="sn">1</div>
+          <div class="se">page_view</div>
+          <div class="sc2">page_location 含 /promotions</div>
+        </div><div class="sdiv">↓</div>
+        <div class="si bad"><div class="sn">2</div>
+          <div class="se">promo_more_info_before_login</div>
+          <div class="sc2"><span class="or">OR</span> promo_more_info_after_login</div>
+        </div><div class="sdiv">↓</div>
+        <div class="si bad"><div class="sn">3</div>
+          <div class="se">promo_popup_view_before</div>
+          <div class="sc2"><span class="or">OR</span> promo_popup_view_after</div>
+        </div><div class="sdiv">↓</div>
+        <div class="si bad"><div class="sn">4</div>
+          <div class="se">promo_join_now_before_login</div>
+          <div class="sc2"><span class="or">OR</span> promo_popup_join_now_before<br><span class="or">OR</span> promo_join_now_after_login<br><span class="or">OR</span> promo_popup_join_now_after</div>
+        </div><div class="sdiv">↓</div>
+        <div class="si bad"><div class="sn">5</div>
+          <div class="se">promo_deposit_page_trigger</div>
+          <div class="sc2"><span class="or">OR</span> promo_join_success_trigger<br><span style="color:#c5221f">加新入口就要重改此設定</span></div>
+        </div>
+      </div>`;
+  } else {
+    b.innerHTML=`
+      <div class="pnote nb">✅ 方案 B：5 個乾淨步驟，login_state 做 Breakdown，換促銷只改篩選器</div>
+      <div class="sr"><div class="sl2">技巧</div><div class="sv">漏斗探索</div></div>
+      <div class="sr"><div class="sl2">視覺呈現</div><div class="sv">📊 標準漏斗</div></div>
+      <div class="sr"><div class="sl2">細分 (Breakdown)</div>
+        <span class="sc g">login_state <span class="x">×</span></span>
+        <div class="ac-btn">＋ 新增細分</div>
+      </div>
+      <div class="sr"><div class="sl2">篩選器</div>
+        <span class="sc">bonus_code = ${sn} <span class="x">×</span></span>
+        <div class="ac-btn">＋</div>
+      </div>
+      <div class="sr"><div class="sl2">步驟</div>
+        <div class="si good"><div class="sn">1</div><div class="se">view_promotion_page</div></div><div class="sdiv">↓</div>
+        <div class="si good"><div class="sn">2</div><div class="se">more_info</div></div><div class="sdiv">↓</div>
+        <div class="si good"><div class="sn">3</div><div class="se">view_promotion_info</div></div><div class="sdiv">↓</div>
+        <div class="si good"><div class="sn">4</div><div class="se">join_now</div></div><div class="sdiv">↓</div>
+        <div class="si good"><div class="sn">5</div><div class="se">deposit_page</div></div>
+      </div>`;
+  }
+}
+
+// ────────────────────────────────────────────────
+// RENDER REPORT
+// ────────────────────────────────────────────────
+function renderReport(){
+  const rp=document.getElementById('gReport');
+  if(curTab==='ff'){
+    const cc={'New Member':'new','Sports':'sports','Slots':'slots','Casino':'casino'};
+    if(method==='A'){
+      const aRows=[
+        {ev:'promo_more_info_before_login',cnt:2620},
+        {ev:'promo_more_info_after_login',cnt:1770},
+        {ev:'promo_popup_view_before',cnt:1889},
+        {ev:'promo_popup_view_after',cnt:1275},
+        {ev:'promo_join_now_before_login',cnt:1430},
+        {ev:'promo_join_now_after_login',cnt:1110},
+        {ev:'promo_deposit_page_before',cnt:414},
+        {ev:'promo_deposit_page_after',cnt:740},
+      ];
+      rp.innerHTML=`<div class="rc">
+        <div class="rct">⚠️ 方案 A 自由形式 — before/after 無法並排，需分兩次 Filter</div>
+        <div style="background:#fce8e6;border:1px solid #f5c6c2;border-radius:6px;padding:10px 12px;margin-bottom:12px;font-size:11px;color:#c5221f;line-height:1.8">
+          <strong>為什麼做不到 before vs after 並排？</strong><br>
+          login_state 埋在事件名稱裡，GA4 不認識它是維度，無法做欄細分。<br>
+          替代做法：① Filter: event_name contains "_before_" → 截圖；② 換 "_after_" → 再截圖；③ 手動合併比較。
+        </div>
+        <div style="background:#fff8e1;border:1px solid #f0c96c;border-radius:5px;padding:7px 10px;margin-bottom:10px;font-size:10px;color:#7a4f00">
+          📌 以下是套用 <strong>Filter: event_name contains "_before_"</strong> 的結果（只有報表的一半）
+        </div>
+        <div style="overflow-x:auto"><table class="fft">
+          <thead><tr>
+            <th>事件名稱（完整）</th>
+            <th class="tr">計數</th>
+            <th>Before/After 欄細分</th>
+          </tr></thead><tbody>
+          ${aRows.filter((_,i)=>i%2===0).map(r=>`<tr>
+            <td class="tc" style="font-size:10px;word-break:break-all">${r.ev}</td>
+            <td class="tr">${r.cnt.toLocaleString()}</td>
+            <td><span style="background:#fce8e6;color:#c5221f;padding:2px 7px;border-radius:3px;font-size:10px;white-space:nowrap">⚠ 無法細分</span></td>
+          </tr>`).join('')}
+          </tbody>
+        </table></div>
+        <p style="font-size:11px;color:#c5221f;margin-top:8px">↑ 這只是報表的一半（before）。看 after 要重開一張報表，人工比對。</p>
+        <p style="font-size:11px;color:#5f6368;margin-top:4px">5 個促銷 × 2 個登入狀態 = 每類動作 2 行事件名稱。新增促銷或入口，列表繼續翻倍。</p>
+      </div>`;
+    } else {
+      rp.innerHTML=`<div class="rc"><div class="rct">✅ 方案 B 自由形式 — 列: bonus_code，欄細分: login_state（before / after 自動並排）</div>
+        <div style="background:#e6f4ea;border:1px solid #b7dfc3;border-radius:6px;padding:8px 12px;margin-bottom:12px;font-size:11px;color:#137333">
+          login_state 是獨立維度 → 直接做欄細分，before vs after 並排在同一張報表。切換促銷只改篩選器，報表設定不用動。
+        </div>
+        <div style="overflow-x:auto"><table class="fft">
+          <thead><tr>
+            <th>Bonus Code</th><th>Currency</th><th>Category</th>
+            <th>Banner Clicks</th>
+            <th class="tr" style="color:#856404">More Info Before</th>
+            <th class="tr" style="color:#137333">More Info After</th>
+            <th class="tr">Exploration Rate</th>
+            <th class="tr" style="color:#856404">Join Now Before</th>
+            <th class="tr" style="color:#137333">Join Now After</th>
+            <th class="tr">Action Rate</th>
+            <th class="tr">Unique Users</th>
+          </tr></thead><tbody>
+          ${sumData.map(r=>{
+            const er=((r.mib+r.mia)/r.v*100).toFixed(1);
+            const ar=r.jnb!=='-'?((r.jnb+r.jna)/r.v*100).toFixed(1)+'%':'—';
+            return `<tr>
+              <td class="tc">${r.code}</td><td>${r.cur}</td>
+              <td><span class="fb ${cc[r.cat]}">${r.cat}</span></td>
+              <td class="tr">${r.bc}</td>
+              <td class="tr tb">${r.mib.toLocaleString()}</td>
+              <td class="tr ta">${r.mia.toLocaleString()}</td>
+              <td class="tr" style="color:#1a73e8;font-weight:600">${er}%</td>
+              <td class="tr tb">${r.jnb!=='-'?r.jnb:'—'}</td>
+              <td class="tr ta">${r.jna!=='-'?r.jna:'—'}</td>
+              <td class="tr" style="color:#137333;font-weight:600">${ar}</td>
+              <td class="tr">${r.u.toLocaleString()}</td>
+            </tr>`;
+          }).join('')}
+          </tbody>
+        </table></div>
+        <p style="font-size:11px;color:#5f6368;margin-top:8px">Before = 未登入點擊 · After = 已登入點擊 · Exploration Rate = (More Info Before + After) ÷ Page Views</p>
+      </div>`;
+    }
+    return;
+  }
+  if(curTab!=='funnel'){rp.innerHTML='';return;}
+  const d=fd[selBonus];
+  const hasJN=d.jnb!==null;
+  const bfHtml=`<div class="bfr"><span class="bfl">bonus_code 篩選：</span>
+    ${promos.map(p=>`<button class="bbtn ${p.code===selBonus?'on':''}" onclick="selB('${p.code}')">${p.code.length>15?p.code.slice(0,14)+'…':p.code}</button>`).join('')}
+  </div>`;
+  if(method==='A'){
+    rp.innerHTML=`${bfHtml}<div class="rc">
+      <div class="rct">⚠️ 方案 A 漏斗問題 — ${selBonus}</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;font-size:11px">
+        <div style="background:#e8f0fe;border:1px solid #c5d8f6;border-radius:6px;padding:10px;color:#1967d2;line-height:1.7">
+          ✅ <strong>方案 A 的好處</strong><br>
+          · 事件名稱直覺，行銷開報表一看就懂<br>
+          · 標準報表不需加次要維度<br>
+          · 早期規模小時設定成本低
+        </div>
+        <div style="background:#fce8e6;border:1px solid #f5c6c2;border-radius:6px;padding:10px;color:#c5221f;line-height:1.7">
+          ⚠️ <strong>方案 A 的限制</strong><br>
+          · before/after 嵌在名稱裡，Breakdown 顯示 (not set)<br>
+          · 步驟 4 需要 4 個 OR 條件<br>
+          · 新增促銷必須重改漏斗設定
+        </div>
+      </div>
+      <div class="leg">
+        <div class="leg-i"><div class="leg-d" style="background:#fbbc04"></div>Before login</div>
+        <div class="leg-i"><div class="leg-d" style="background:#34a853"></div>After login</div>
+        <div class="leg-i"><div class="leg-d" style="background:repeating-linear-gradient(45deg,#ea4335,#ea4335 3px,#fff 3px,#fff 6px)"></div>(not set)</div>
+      </div>
+      ${funnelA(d,hasJN)}
+    </div>`;
+  } else {
+    rp.innerHTML=`${bfHtml}<div class="rc">
+      <div class="rct">✅ 方案 B 漏斗探索 — ${selBonus}</div>
+      <div style="background:#e6f4ea;border:1px solid #b7dfc3;border-radius:6px;padding:10px;margin-bottom:12px;font-size:12px;color:#137333">
+        Breakdown 設為 login_state，黃色 = Before login，綠色 = After login。<br>
+        切換下方 bonus_code 篩選可即時查看不同促銷的漏斗，無需修改任何設定。
+      </div>
+      <div class="leg">
+        <div class="leg-i"><div class="leg-d" style="background:#fbbc04"></div>Before login</div>
+        <div class="leg-i"><div class="leg-d" style="background:#34a853"></div>After login</div>
+      </div>
+      ${funnelB(d,hasJN)}
+    </div>`;
+  }
+}
+
+function funnelA(d,hasJN){
+  const mx=d.v;
+  const steps=[
+    {n:1,ev:'page_view (含 /promotions)',b:Math.round(d.v*.67),a:Math.round(d.v*.33),ns:false},
+    {n:2,ev:'promo_more_info_before_login\nOR promo_more_info_after_login',b:d.mib,a:d.mia,ns:true,nm:'(not set) — login_state 嵌在名稱裡'},
+    {n:3,ev:'promo_popup_view_before\nOR promo_popup_view_after',b:d.vib,a:d.via,ns:true,nm:'(not set)'},
+    ...(hasJN?[
+      {n:4,ev:'promo_join_now_before\nOR promo_popup_join_now_before\nOR promo_join_now_after\nOR promo_popup_join_now_after',b:d.jnb,a:d.jna,ns:true,nm:'(not set) — 4 個 OR，漏一個就漏算'},
+      {n:5,ev:'promo_deposit_page_trigger\nOR promo_join_success_trigger',b:d.dpb,a:d.dpa,ns:true,nm:'(not set)'}
+    ]:[])
+  ];
+  return renderSteps(steps,mx);
+}
+
+function funnelB(d,hasJN){
+  const mx=d.v;
+  const steps=[
+    {n:1,ev:'view_promotion_page',b:Math.round(d.v*.67),a:Math.round(d.v*.33),ns:false},
+    {n:2,ev:'more_info',b:d.mib,a:d.mia,ns:false},
+    {n:3,ev:'view_promotion_info',b:d.vib,a:d.via,ns:false},
+    ...(hasJN?[
+      {n:4,ev:'join_now',b:d.jnb,a:d.jna,ns:false},
+      {n:5,ev:'deposit_page',b:d.dpb,a:d.dpa,ns:false}
+    ]:[])
+  ];
+  return renderSteps(steps,mx);
+}
+
+function renderSteps(steps,mx){
+  let h='<div>';
+  steps.forEach((s,i)=>{
+    const tot=s.b+s.a;
+    const bPct=(s.b/mx*100).toFixed(0);
+    const aPct=(s.a/mx*100).toFixed(0);
+    const cont=i>0?Math.round(tot/(steps[i-1].b+steps[i-1].a)*100):100;
+    const evLines=s.ev.split('\n');
+    if(i>0){
+      h+=`<div class="fa-row"><div class="fa-ln">↓</div><span class="fa-pct ${cont<25?'w':''}">${cont}% 繼續</span></div>`;
+    }
+    h+=`<div class="fs-row">
+      <div class="fs-n">${s.n}</div>
+      <div class="fs-ev">${evLines.map((l,j)=>j===0?l:`<span style="font-size:9px;color:#ea4335">${l}</span>`).join('<br>')}</div>
+      <div class="fs-bw">`;
+    if(s.ns){
+      h+=`<div class="ns-bar">⚠ ${s.nm||'(not set)'}</div>`;
+    } else {
+      h+=`<div class="fs-bi">
+        <div class="fs-bb" style="width:${bPct}%">${bPct>8?s.b.toLocaleString():''}</div>
+        <div class="fs-ba" style="width:${aPct}%">${aPct>8?s.a.toLocaleString():''}</div>
+      </div>`;
+    }
+    h+=`</div><div class="fs-ct">${tot.toLocaleString()}</div></div>`;
+  });
+  h+='</div>';
+  return h;
+}
+
+// ────────────────────────────────────────────────
+// EVENT FIRING → LOG (always updates DOM directly)
+// ────────────────────────────────────────────────
+function T(){return new Date().toLocaleTimeString('zh-TW',{hour12:false})}
+function fmtP(p){return Object.entries(p).map(([k,v])=>`<span class="pk">${k}</span>: <span class="pv">${JSON.stringify(v)}</span>`).join('<br>')}
+
+function logEvt(aEv,aP,bEv,bP){
+  evtN++;
+  const el=document.getElementById('logEntries');
+  if(!el)return;
+  const emp=el.querySelector('.empty-dv');
+  if(emp)emp.remove();
+  const div=document.createElement('div');
+  div.className='dv-entry';
+  div.innerHTML=`
+    <div class="dv-box dv-ba">
+      <div class="dv-ev" style="color:#c5221f">${aEv}</div>
+      <div class="dv-pm">${fmtP(aP)}</div>
+      <div class="dv-tm">${T()} · 事件 #${evtN}</div>
+    </div>
+    <div class="dv-box dv-bb">
+      <div class="dv-ev" style="color:#137333">${bEv}</div>
+      <div class="dv-pm">${fmtP(bP)}</div>
+      <div class="dv-tm">${T()} · 事件 #${evtN}</div>
+    </div>`;
+  el.insertBefore(div,el.firstChild);
+}
+
+function fireHB(code,pos,idx){
+  const ls=loggedIn?'after':'before';
+  const sn=promos.find(p=>p.code===code).sub.split('·')[0].trim().toLowerCase().replace(/ /g,'_');
+  logEvt(`home_${sn}_banner_click`,{bonus:code.toLowerCase(),pos},
+    'homepage_banner_click',{bonus_code:code,position:pos,login_state:ls});
+  logEvt(`home_${sn}_promo_popup_view`,{bonus:code.toLowerCase()},
+    'view_promotion_info',{bonus_code:code,source:'homepage_banner'});
+  activeBon=code;
+  document.getElementById('jBonus').textContent=code;
+  showPop('pop-join');
+}
+
+function fireAP(code,cat){
+  const ls=loggedIn?'after':'before';
+  const sn=promos.find(p=>p.code===code).sub.split('·')[0].trim().toLowerCase().replace(/ /g,'_');
+  logEvt(`home_${sn}_all_promos_${ls}_click`,{bonus:code.toLowerCase(),cat},
+    'all_promos_click',{bonus_code:code,target_category:cat,login_state:ls});
+  sp('promo',document.querySelectorAll('.stab')[1]);
+}
+
+function fireMI(code,type,idx){
+  const ls=loggedIn?'after':'before';
+  logEvt(`promo_more_info_${ls}_login_click`,{bonus:code.toLowerCase()},
+    'more_info',{bonus_code:code,login_state:ls,entry_source:'promo_page'});
+  if(type==='popup'){
+    logEvt(`promo_popup_view_${ls}`,{bonus:code.toLowerCase()},
+      'view_promotion_info',{bonus_code:code,source:'promo_page'});
+  } else {
+    logEvt(`promo_redirect_page_view`,{url:`/promotions/${code.toLowerCase()}`},
+      'page_view',{page_url:`/promotions/${code.toLowerCase()}`});
+  }
+}
+
+function fireJN(code,source,idx){
+  const ls=loggedIn?'after':'before';
+  activeBon=code;
+  logEvt(`promo_join_now_${ls}_login_click`,{bonus:code.toLowerCase(),source},
+    'join_now',{bonus_code:code,login_state:ls,source});
+  if(!loggedIn){
+    logEvt('promo_login_modal_appear',{bonus:code.toLowerCase()},
+      'login_modal',{bonus_code:code});
+    document.getElementById('lBonus').textContent=code;
+    showPop('pop-login');
+  } else {
+    document.getElementById('jBonus').textContent=code;
+    showPop('pop-join');
+  }
+}
+
+function fireOut(outcome){
+  logEvt(`promo_${outcome}_trigger`,{bonus:activeBon?.toLowerCase()},
+    outcome,{bonus_code:activeBon});
+  cAll();
+}
+
+function doLogin(){
+  loggedIn=true;
+  document.getElementById('loginTgl').classList.add('on');
+  document.getElementById('loginLabel').textContent='已登入 (after)';
+  document.getElementById('loginLabel').style.color='var(--grn)';
+  cAll();
+  setTimeout(()=>{if(activeBon){document.getElementById('jBonus').textContent=activeBon;showPop('pop-join');}},150);
+}
+
+// ────────────────────────────────────────────────
+// NAVIGATION
+// ────────────────────────────────────────────────
+function toggleLogin(){
+  loggedIn=!loggedIn;
+  document.getElementById('loginTgl').classList.toggle('on',loggedIn);
+  document.getElementById('loginLabel').textContent=loggedIn?'已登入 (after)':'未登入 (before)';
+  document.getElementById('loginLabel').style.color=loggedIn?'var(--grn)':'var(--red)';
+}
+
+function sp(name,el){
+  document.querySelectorAll('.pg').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.stab').forEach(t=>t.classList.remove('on'));
+  document.getElementById('sp-'+name).classList.add('on');
+  el.classList.add('on');
+}
+
+function gt(name,el){
+  document.querySelectorAll('.gtab').forEach(t=>t.classList.remove('on'));
+  el.classList.add('on');
+  curTab=name;
+  const is3=(name==='funnel'||name==='ff');
+  document.getElementById('body3col').style.display=is3?'flex':'none';
+  document.getElementById('panel-dv').classList.toggle('on',name==='dv');
+  document.getElementById('panel-dict').classList.toggle('on',name==='dict');
+  document.getElementById('abToggle').style.display=(name==='funnel'||name==='dv'||name==='ff')?'flex':'none';
+  if(is3){renderSettings();renderReport();}
+}
+
+function setAB(m){
+  method=m;
+  document.getElementById('btnA').className='ab-btn'+(m==='A'?' sel-a':'');
+  document.getElementById('btnB').className='ab-btn'+(m==='B'?' sel-b':'');
+  renderSettings();renderReport();
+}
+
+function selB(code){
+  selBonus=code;
+  renderSettings();renderReport();
+}
+
+function showPop(id){
+  document.querySelectorAll('.pop').forEach(p=>p.style.display='none');
+  document.getElementById(id).style.display='block';
+  document.getElementById('ovl').classList.add('on');
+}
+function cAll(){document.querySelectorAll('.pop').forEach(p=>p.style.display='none');document.getElementById('ovl').classList.remove('on')}
+function cPop(e){if(e.target===document.getElementById('ovl'))cAll()}
+
+// ────────────────────────────────────────────────
+// INIT
+// ────────────────────────────────────────────────
+renderSite();renderVars();renderSettings();renderReport();
+document.getElementById('body3col').style.display='flex';
+document.getElementById('abToggle').style.display='flex';
+</script>
+</body>
+</html>
