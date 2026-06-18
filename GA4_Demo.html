@@ -368,7 +368,7 @@ body{display:flex;height:100vh;overflow:hidden;font-family:'Segoe UI',Arial,sans
                 ⚠️ <strong>限制</strong><br>
                 · <strong>跨促銷加總麻煩：</strong>想看所有促銷 join_now 總數，要把 <code style="background:rgba(255,255,255,.6);padding:1px 4px;border-radius:2px">promo_A_join_now_before</code> + <code style="background:rgba(255,255,255,.6);padding:1px 4px;border-radius:2px">promo_A_join_now_after</code> + <code style="background:rgba(255,255,255,.6);padding:1px 4px;border-radius:2px">promo_B_join_now_before</code> + … 手動相加，GA4 裡沒有辦法一次收攏<br>
                 · GTM 可用變數動態組事件名稱，但 GA4 事件名稱數量仍持續累積（上限 500）<br>
-                · Funnel Breakdown 不支援 Filter，before/after 無法在漏斗內自動拆分
+                · 漏斗探索的 Breakdown 功能不支援 Filter，before/after 無法在漏斗內自動拆分
               </div>
             </div>
           </div>
@@ -399,8 +399,12 @@ body{display:flex;height:100vh;overflow:hidden;font-family:'Segoe UI',Arial,sans
               <div style="color:#7a4f00;background:#fff8e1;border-radius:4px;padding:6px 9px">
                 ⚠️ <strong>限制</strong><br>
                 · <strong>報表需主動加次要維度：</strong>事件名稱只有 <code style="background:rgba(255,255,255,.6);padding:1px 4px;border-radius:2px">promo_join_now</code>，不加 login_state 就看不到 before/after 差異<br>
-                · 需事先在 GA4 後台註冊自訂維度，初期設定門檻較高<br>
+                · 需事先在 GA4 後台 Custom Definitions 註冊自訂維度，才能在探索報表使用<br>
                 · 工程師漏帶參數就出現 (not set)，需維護 Data Dictionary 確保命名一致
+              </div>
+              <div style="margin-top:8px;background:#f0f4ff;border-left:3px solid #4285f4;border-radius:4px;padding:8px 10px;font-size:13px;color:#1a1a1a;line-height:1.8">
+                💡 <strong>為什麼需要自訂維度？</strong><br>
+                GA4 收到參數後資料有存，但探索報表的維度選單只顯示內建維度。去 Admin → Custom Definitions 登記一次，<code style="background:rgba(0,0,0,.06);padding:1px 4px;border-radius:2px">login_state</code> 才會出現在 Breakdown 選單裡。標準報表只能看事件觸發次數，參數的細部分析必須進探索。
               </div>
             </div>
           </div>
