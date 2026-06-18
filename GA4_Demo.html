@@ -319,14 +319,6 @@ body{display:flex;height:100vh;overflow:hidden;font-family:'Segoe UI',Arial,sans
     <div class="dv-wrap">
       <div class="dv-rc">
         <div class="dv-rct">📡 DebugView — 每次點擊即時對比方案 A vs 方案 B 的事件結構</div>
-        <div id="dvCounterWrap" style="margin-bottom:8px;display:flex;align-items:center;gap:8px;font-size:14px">
-          <span style="color:#5f6368">方案 A 已出現不同事件名稱：</span>
-          <span id="dvCounter" style="font-weight:700;color:#c5221f">0</span>
-          <span style="color:#5f6368">/ 500</span>
-          <div style="flex:1;height:8px;background:#f1f3f4;border-radius:4px;overflow:hidden">
-            <div id="dvCounterBar" style="height:100%;background:#c5221f;border-radius:4px;width:0%;transition:width .4s"></div>
-          </div>
-        </div>
         <div class="dv-cols">
           <div class="dv-col-lbl dv-col-a">❌ 方案 A（舊）— 事件名稱爆炸，無參數</div>
           <div class="dv-col-lbl dv-col-b">✅ 方案 B（新）— 通用事件名稱 + 參數</div>
@@ -1019,12 +1011,7 @@ function fmtP(p){return Object.entries(p).map(([k,v])=>`<span class="pk">${k}</s
 
 function logEvt(aEv,aP,bEv,bP){
   evtN++;
-  uniqueAEvts.add(aEv);
-  const cnt=uniqueAEvts.size;
-  const el2=document.getElementById('dvCounter');
-  const bar=document.getElementById('dvCounterBar');
-  if(el2){el2.textContent=cnt;el2.style.color=cnt>300?'#c5221f':cnt>100?'#e37400':'#c5221f';}
-  if(bar){bar.style.width=Math.min(cnt/500*100,100)+'%';bar.style.background=cnt>300?'#c5221f':cnt>100?'#fbbc04':'#ea4335';}
+
   const el=document.getElementById('logEntries');
   if(!el)return;
   const emp=el.querySelector('.empty-dv');
@@ -1095,7 +1082,9 @@ function fireJN(code,source,idx){
 }
 
 function fireOut(outcome){
-  logEvt(`promo_${sn}_${outcome}`,{},
+  const _p=activeBon?promos.find(p=>p.code===activeBon):null;
+  const _sn=_p?_p.sub.split('·')[0].trim().toLowerCase().replace(/ /g,'_'):'promo';
+  logEvt(`promo_${_sn}_${outcome}`,{},
     outcome,{bonus_code:activeBon});
   cAll();
 }
