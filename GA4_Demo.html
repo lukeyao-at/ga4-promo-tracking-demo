@@ -6,7 +6,7 @@
 <title>Promotion Page GA4 埋點方案 A vs B 實境展示</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{display:flex;height:100vh;overflow:hidden;font-family:'Segoe UI',Arial,sans-serif;font-size:16px}
+body{display:flex;height:100vh;overflow:hidden;font-family:'Segoe UI',Arial,sans-serif;font-size:18px}
 
 /* ── DARK (site) ── */
 :root{--dk:#0f1117;--dk2:#1a1d27;--dk3:#22263a;--bd:#2e3350;--acc:#5b6af0;--grn:#3dd68c;--red:#f05b5b;--ylw:#f0d45b;--txt:#e2e6ff;--mu:#7880a8}
@@ -15,53 +15,53 @@ body{display:flex;height:100vh;overflow:hidden;font-family:'Segoe UI',Arial,sans
 .sim.collapsed .sh-body,.sim.collapsed .stabs,.sim.collapsed .pg{display:none}
 .sh{background:var(--dk2);border-bottom:1px solid var(--bd);padding:10px 14px;flex-shrink:0}
 .sh-top{display:flex;align-items:center;justify-content:space-between;gap:6px}
-.sh h2{font-size:16px;font-weight:700}.sh p{font-size:14px;color:var(--mu);margin-top:2px}
-.sim-toggle{background:none;border:1px solid var(--bd);color:var(--mu);border-radius:4px;width:22px;height:22px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;transition:color .15s}
+.sh h2{font-size:18px;font-weight:700}.sh p{font-size:16px;color:var(--mu);margin-top:2px}
+.sim-toggle{background:none;border:1px solid var(--bd);color:var(--mu);border-radius:4px;width:22px;height:22px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;transition:color .15s}
 .sim-toggle:hover{color:var(--txt);border-color:var(--acc)}
 .sim-collapsed-btn{display:none;flex-direction:column;align-items:center;padding:10px 0;gap:6px;cursor:pointer;height:100%}
 .sim.collapsed .sim-collapsed-btn{display:flex}
-.sim-collapsed-label{writing-mode:vertical-rl;font-size:12px;color:var(--mu);letter-spacing:.5px;text-transform:uppercase;margin-top:4px}
+.sim-collapsed-label{writing-mode:vertical-rl;font-size:15px;color:var(--mu);letter-spacing:.5px;text-transform:uppercase;margin-top:4px}
 .lr{display:flex;align-items:center;gap:7px;margin-top:8px}
-.ls{font-size:14px;font-weight:700}
+.ls{font-size:16px;font-weight:700}
 .tgl{width:36px;height:20px;background:var(--bd);border-radius:10px;position:relative;cursor:pointer;transition:background .2s;flex-shrink:0}
 .tgl.on{background:var(--grn)}.tgl::after{content:'';position:absolute;top:3px;left:3px;width:14px;height:14px;background:#fff;border-radius:50%;transition:left .2s}.tgl.on::after{left:19px}
 .stabs{display:flex;border-bottom:1px solid var(--bd);flex-shrink:0}
-.stab{flex:1;padding:8px;text-align:center;cursor:pointer;font-size:14px;color:var(--mu);border-bottom:2px solid transparent}
+.stab{flex:1;padding:8px;text-align:center;cursor:pointer;font-size:16px;color:var(--mu);border-bottom:2px solid transparent}
 .stab.on{color:var(--acc);border-bottom-color:var(--acc)}
 .pg{padding:12px;display:none;overflow-y:auto;flex:1}
 .pg.on{display:block}
-.sl{font-size:12px;font-weight:700;color:var(--mu);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.sl{font-size:15px;font-weight:700;color:var(--mu);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
 .bnr{border-radius:8px;padding:14px;margin-bottom:8px}
-.bnr h3{font-size:18px;font-weight:700;margin-bottom:4px}.bnr p{font-size:14px;color:rgba(255,255,255,.7);margin-bottom:10px}
-.bnr .st{font-size:12px;font-weight:700;padding:2px 6px;border-radius:3px;display:inline-block;margin-bottom:6px;background:rgba(255,255,255,.2)}
+.bnr h3{font-size:20px;font-weight:700;margin-bottom:4px}.bnr p{font-size:16px;color:rgba(255,255,255,.7);margin-bottom:10px}
+.bnr .st{font-size:15px;font-weight:700;padding:2px 6px;border-radius:3px;display:inline-block;margin-bottom:6px;background:rgba(255,255,255,.2)}
 .bnav{display:flex;gap:5px;margin-bottom:10px}
 .bd{width:7px;height:7px;border-radius:50%;background:var(--bd);cursor:pointer}
 .bd.on{background:var(--acc)}
 .pc{background:var(--dk3);border:1px solid var(--bd);border-radius:7px;padding:12px;margin-bottom:8px}
 .pch{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
-.pcode{font-size:12px;color:var(--acc);font-family:monospace;font-weight:700}
-.pcat{font-size:12px;border:1px solid var(--bd);padding:1px 5px;border-radius:3px;color:var(--mu)}
-.pt{font-size:16px;font-weight:600;margin-bottom:3px}.ps{font-size:14px;color:var(--mu);margin-bottom:8px}
+.pcode{font-size:15px;color:var(--acc);font-family:monospace;font-weight:700}
+.pcat{font-size:15px;border:1px solid var(--bd);padding:1px 5px;border-radius:3px;color:var(--mu)}
+.pt{font-size:18px;font-weight:600;margin-bottom:3px}.ps{font-size:16px;color:var(--mu);margin-bottom:8px}
 .pbtns{display:flex;gap:6px;flex-wrap:wrap}
-.btn{padding:5px 12px;border-radius:4px;border:none;cursor:pointer;font-size:14px;font-weight:600;transition:opacity .15s}
+.btn{padding:5px 12px;border-radius:4px;border:none;cursor:pointer;font-size:16px;font-weight:600;transition:opacity .15s}
 .btn:hover{opacity:.85}
 .bo{background:transparent;border:1px solid var(--bd);color:var(--txt)}
 .bb{background:var(--acc);color:#fff}
 .bg{background:var(--grn);color:#000}
-.btag{font-size:12px;background:rgba(91,106,240,.25);color:#9aa5f5;padding:2px 5px;border-radius:3px}
+.btag{font-size:15px;background:rgba(91,106,240,.25);color:#9aa5f5;padding:2px 5px;border-radius:3px}
 
 /* ── GA4 LIGHT ── */
 .ga4{flex:1;background:#f1f3f4;display:flex;flex-direction:column;overflow:hidden;color:#202124;font-family:'Segoe UI',Arial,sans-serif}
 .ga4-ab{background:#fff;border-bottom:1px solid #dadce0;height:48px;display:flex;align-items:center;gap:10px;padding:0 16px;flex-shrink:0}
-.ga4-logo{width:24px;height:24px;border-radius:5px;background:linear-gradient(135deg,#ea4335,#fbbc04,#34a853,#4285f4);font-size:11px;font-weight:900;color:#fff;display:flex;align-items:center;justify-content:center}
-.ga4-bc{font-size:16px;color:#5f6368}.ga4-bc span{color:#1a73e8;font-weight:500;cursor:pointer}
-.ga4-date{margin-left:auto;font-size:14px;background:#e8f0fe;color:#1967d2;padding:3px 10px;border-radius:12px;font-weight:500}
+.ga4-logo{width:24px;height:24px;border-radius:5px;background:linear-gradient(135deg,#ea4335,#fbbc04,#34a853,#4285f4);font-size:14px;font-weight:900;color:#fff;display:flex;align-items:center;justify-content:center}
+.ga4-bc{font-size:18px;color:#5f6368}.ga4-bc span{color:#1a73e8;font-weight:500;cursor:pointer}
+.ga4-date{margin-left:auto;font-size:16px;background:#e8f0fe;color:#1967d2;padding:3px 10px;border-radius:12px;font-weight:500}
 .ga4-tabs{background:#fff;border-bottom:1px solid #dadce0;display:flex;align-items:center;padding:0 16px;flex-shrink:0}
-.gtab{padding:10px 16px;font-size:16px;color:#5f6368;cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;transition:color .15s}
+.gtab{padding:10px 16px;font-size:18px;color:#5f6368;cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;transition:color .15s}
 .gtab.on{color:#1a73e8;border-bottom-color:#1a73e8;font-weight:500}
 .gtab:hover{background:#f8f9fa}
 .ab-toggle{margin-left:auto;display:flex;align-items:center;gap:6px}
-.ab-btn{padding:5px 14px;border-radius:16px;border:1px solid #dadce0;background:#fff;font-size:15px;cursor:pointer;color:#5f6368;transition:all .2s}
+.ab-btn{padding:5px 14px;border-radius:16px;border:1px solid #dadce0;background:#fff;font-size:17px;cursor:pointer;color:#5f6368;transition:all .2s}
 .ab-btn.sel-a{background:#fce8e6;color:#c5221f;border-color:#ea4335;font-weight:700}
 .ab-btn.sel-b{background:#e6f4ea;color:#137333;border-color:#34a853;font-weight:700}
 
@@ -70,82 +70,82 @@ body{display:flex;height:100vh;overflow:hidden;font-family:'Segoe UI',Arial,sans
 
 /* variables */
 .gv{width:172px;min-width:172px;background:#fff;border-right:1px solid #dadce0;display:flex;flex-direction:column;overflow:hidden}
-.gv-hd{padding:9px 12px 7px;font-size:14px;font-weight:700;color:#5f6368;text-transform:uppercase;letter-spacing:.4px;border-bottom:1px solid #dadce0;flex-shrink:0}
+.gv-hd{padding:9px 12px 7px;font-size:16px;font-weight:700;color:#5f6368;text-transform:uppercase;letter-spacing:.4px;border-bottom:1px solid #dadce0;flex-shrink:0}
 .gv-body{overflow-y:auto;padding:8px;flex:1}
-.vs-title{font-size:12px;font-weight:700;color:#5f6368;text-transform:uppercase;letter-spacing:.5px;padding:6px 4px 4px;display:flex;justify-content:space-between;align-items:center}
-.vs-add{font-size:20px;color:#1a73e8;cursor:pointer}
-.dchip{display:flex;align-items:center;gap:4px;padding:5px 8px;border-radius:4px;cursor:default;margin-bottom:2px;font-size:15px;color:#202124;transition:background .15s}
+.vs-title{font-size:15px;font-weight:700;color:#5f6368;text-transform:uppercase;letter-spacing:.5px;padding:6px 4px 4px;display:flex;justify-content:space-between;align-items:center}
+.vs-add{font-size:22px;color:#1a73e8;cursor:pointer}
+.dchip{display:flex;align-items:center;gap:4px;padding:5px 8px;border-radius:4px;cursor:default;margin-bottom:2px;font-size:17px;color:#202124;transition:background .15s}
 .dchip:hover{background:#f1f3f4}
 .dchip.hl{background:#e8f0fe;color:#1967d2;font-weight:500}
-.dchip .ci{font-size:12px;color:#1a73e8;font-weight:700}
-.dchip .cb{margin-left:auto;font-size:11px;background:#1a73e8;color:#fff;padding:1px 4px;border-radius:3px}
-.mchip{display:flex;align-items:center;gap:4px;padding:5px 8px;border-radius:4px;margin-bottom:2px;font-size:15px;color:#202124}
+.dchip .ci{font-size:15px;color:#1a73e8;font-weight:700}
+.dchip .cb{margin-left:auto;font-size:14px;background:#1a73e8;color:#fff;padding:1px 4px;border-radius:3px}
+.mchip{display:flex;align-items:center;gap:4px;padding:5px 8px;border-radius:4px;margin-bottom:2px;font-size:17px;color:#202124}
 .mchip.hl{background:#e6f4ea;color:#137333;font-weight:500}
-.mchip .ci{font-size:12px;color:#188038;font-weight:700}
-.mchip .cb{margin-left:auto;font-size:11px;background:#188038;color:#fff;padding:1px 4px;border-radius:3px}
+.mchip .ci{font-size:15px;color:#188038;font-weight:700}
+.mchip .cb{margin-left:auto;font-size:14px;background:#188038;color:#fff;padding:1px 4px;border-radius:3px}
 
 /* settings */
 .gs{width:232px;min-width:232px;background:#fff;border-right:1px solid #dadce0;display:flex;flex-direction:column;overflow:hidden}
-.gs-hd{padding:9px 12px 7px;font-size:14px;font-weight:700;color:#5f6368;text-transform:uppercase;letter-spacing:.4px;border-bottom:1px solid #dadce0;flex-shrink:0;display:flex;justify-content:space-between;align-items:center}
+.gs-hd{padding:9px 12px 7px;font-size:16px;font-weight:700;color:#5f6368;text-transform:uppercase;letter-spacing:.4px;border-bottom:1px solid #dadce0;flex-shrink:0;display:flex;justify-content:space-between;align-items:center}
 .gs-body{overflow-y:auto;padding:10px;flex:1}
 .sr{margin-bottom:12px}
-.sl2{font-size:14px;color:#5f6368;font-weight:500;margin-bottom:5px}
-.sv{font-size:15px;color:#202124;background:#f1f3f4;border-radius:4px;padding:6px 8px}
-.sc{display:inline-flex;align-items:center;gap:4px;background:#e8f0fe;color:#1967d2;border-radius:12px;padding:3px 8px 3px 10px;font-size:14px;font-weight:500;margin:2px}
-.sc .x{cursor:pointer;color:#5f6368;font-size:15px}
+.sl2{font-size:16px;color:#5f6368;font-weight:500;margin-bottom:5px}
+.sv{font-size:17px;color:#202124;background:#f1f3f4;border-radius:4px;padding:6px 8px}
+.sc{display:inline-flex;align-items:center;gap:4px;background:#e8f0fe;color:#1967d2;border-radius:12px;padding:3px 8px 3px 10px;font-size:16px;font-weight:500;margin:2px}
+.sc .x{cursor:pointer;color:#5f6368;font-size:17px}
 .sc.g{background:#e6f4ea;color:#137333}
 .sc.y{background:#fef9c3;color:#856404}
 .sc.r{background:#fce8e6;color:#c5221f}
-.ac-btn{display:inline-flex;align-items:center;gap:3px;color:#1a73e8;font-size:14px;cursor:pointer;padding:3px 6px;border-radius:4px}
+.ac-btn{display:inline-flex;align-items:center;gap:3px;color:#1a73e8;font-size:16px;cursor:pointer;padding:3px 6px;border-radius:4px}
 .ac-btn:hover{background:#e8f0fe}
 .si{background:#f8f9fa;border:1px solid #dadce0;border-radius:6px;padding:8px 10px;margin-bottom:6px;position:relative}
-.si .sn{position:absolute;top:-8px;left:8px;background:#1a73e8;color:#fff;border-radius:50%;width:16px;height:16px;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center}
-.si .se{font-size:14px;font-weight:700;color:#202124;margin-bottom:3px;font-family:monospace;word-break:break-all}
-.si .sc2{font-size:12px;color:#5f6368;line-height:1.6}
+.si .sn{position:absolute;top:-8px;left:8px;background:#1a73e8;color:#fff;border-radius:50%;width:16px;height:16px;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.si .se{font-size:16px;font-weight:700;color:#202124;margin-bottom:3px;font-family:monospace;word-break:break-all}
+.si .sc2{font-size:15px;color:#5f6368;line-height:1.6}
 .si .or{color:#ea4335;font-weight:700}
 .si.bad{border-color:#ea4335;background:#fef7f7}
 .si.good{border-color:#34a853;background:#f6fbf7}
-.sdiv{text-align:center;color:#bdc1c6;font-size:14px;padding:2px 0}
-.pnote{font-size:12px;padding:7px 9px;border-radius:5px;margin-bottom:10px;line-height:1.6}
+.sdiv{text-align:center;color:#bdc1c6;font-size:16px;padding:2px 0}
+.pnote{font-size:15px;padding:7px 9px;border-radius:5px;margin-bottom:10px;line-height:1.6}
 .pnote.na{background:#fce8e6;color:#c5221f;border:1px solid #f5c6c2}
 .pnote.nb{background:#e6f4ea;color:#137333;border:1px solid #b7dfc3}
 
 /* report */
 .gr{flex:1;overflow-y:auto;padding:14px;background:#f1f3f4}
 .rc{background:#fff;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,.1);padding:14px;margin-bottom:12px}
-.rct{font-size:16px;font-weight:500;color:#202124;margin-bottom:12px;display:flex;align-items:center;gap:6px}
+.rct{font-size:18px;font-weight:500;color:#202124;margin-bottom:12px;display:flex;align-items:center;gap:6px}
 
 /* bonus filter */
 .bfr{display:flex;align-items:center;gap:6px;margin-bottom:12px;flex-wrap:wrap}
-.bfl{font-size:14px;color:#5f6368;white-space:nowrap}
-.bbtn{padding:4px 10px;border-radius:12px;border:1px solid #dadce0;background:#fff;font-size:14px;cursor:pointer;color:#5f6368;transition:all .2s;white-space:nowrap}
+.bfl{font-size:16px;color:#5f6368;white-space:nowrap}
+.bbtn{padding:4px 10px;border-radius:12px;border:1px solid #dadce0;background:#fff;font-size:16px;cursor:pointer;color:#5f6368;transition:all .2s;white-space:nowrap}
 .bbtn.on{background:#e8f0fe;color:#1967d2;border-color:#1a73e8;font-weight:600}
 
 /* funnel */
 .fs-row{display:flex;align-items:center;gap:8px;padding:3px 0}
-.fs-n{width:22px;height:22px;background:#1a73e8;color:#fff;border-radius:50%;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.fs-ev{font-size:14px;font-family:monospace;color:#202124;width:168px;flex-shrink:0;line-height:1.5}
+.fs-n{width:22px;height:22px;background:#1a73e8;color:#fff;border-radius:50%;font-size:15px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.fs-ev{font-size:16px;font-family:monospace;color:#202124;width:168px;flex-shrink:0;line-height:1.5}
 .fs-bw{flex:1;background:#f1f3f4;border-radius:4px;height:24px;position:relative;overflow:hidden;min-width:0}
 .fs-bi{height:100%;display:flex}
-.fs-bb{background:#fbbc04;height:100%;display:flex;align-items:center;padding:0 4px;font-size:11px;font-weight:700;color:#000;white-space:nowrap;overflow:hidden;transition:width .6s}
-.fs-ba{background:#34a853;height:100%;display:flex;align-items:center;padding:0 4px;font-size:11px;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;transition:width .6s}
-.fs-ct{font-size:15px;font-weight:600;color:#202124;width:52px;text-align:right;flex-shrink:0}
+.fs-bb{background:#fbbc04;height:100%;display:flex;align-items:center;padding:0 4px;font-size:14px;font-weight:700;color:#000;white-space:nowrap;overflow:hidden;transition:width .6s}
+.fs-ba{background:#34a853;height:100%;display:flex;align-items:center;padding:0 4px;font-size:14px;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;transition:width .6s}
+.fs-ct{font-size:17px;font-weight:600;color:#202124;width:52px;text-align:right;flex-shrink:0}
 .fa-row{display:flex;align-items:center;padding:1px 0 1px 30px;gap:8px}
-.fa-ln{color:#bdc1c6;font-size:14px;width:168px;flex-shrink:0;padding-left:8px;display:flex;align-items:center;gap:3px}
-.fa-pct{font-size:14px;color:#5f6368}
+.fa-ln{color:#bdc1c6;font-size:16px;width:168px;flex-shrink:0;padding-left:8px;display:flex;align-items:center;gap:3px}
+.fa-pct{font-size:16px;color:#5f6368}
 .fa-pct.w{color:#ea4335}
-.ns-bar{flex:1;height:24px;border-radius:4px;background:repeating-linear-gradient(45deg,#fce8e6,#fce8e6 4px,#fff 4px,#fff 8px);border:1px dashed #ea4335;display:flex;align-items:center;padding:0 8px;font-size:12px;color:#c5221f;font-weight:600}
+.ns-bar{flex:1;height:24px;border-radius:4px;background:repeating-linear-gradient(45deg,#fce8e6,#fce8e6 4px,#fff 4px,#fff 8px);border:1px dashed #ea4335;display:flex;align-items:center;padding:0 8px;font-size:15px;color:#c5221f;font-weight:600}
 .leg{display:flex;gap:12px;margin-bottom:10px}
-.leg-i{display:flex;align-items:center;gap:5px;font-size:14px;color:#5f6368}
+.leg-i{display:flex;align-items:center;gap:5px;font-size:16px;color:#5f6368}
 .leg-d{width:10px;height:10px;border-radius:2px;flex-shrink:0}
 
 /* free form table */
-.fft{width:100%;border-collapse:collapse;font-size:15px}
-.fft th{background:#f8f9fa;color:#5f6368;font-size:14px;font-weight:600;padding:7px 10px;border-bottom:2px solid #dadce0;text-align:left;white-space:nowrap}
+.fft{width:100%;border-collapse:collapse;font-size:17px}
+.fft th{background:#f8f9fa;color:#5f6368;font-size:16px;font-weight:600;padding:7px 10px;border-bottom:2px solid #dadce0;text-align:left;white-space:nowrap}
 .fft td{padding:7px 10px;border-bottom:1px solid #f1f3f4;white-space:nowrap}
 .fft tr:hover td{background:#f8f9fa}
 .fft .tc{color:#1a73e8;font-family:monospace;font-weight:600}
-.fb{display:inline-block;padding:2px 6px;border-radius:3px;font-size:12px;font-weight:500}
+.fb{display:inline-block;padding:2px 6px;border-radius:3px;font-size:15px;font-weight:500}
 .fb.new{background:#fce8e6;color:#c5221f}.fb.slots{background:#e8f0fe;color:#1967d2}
 .fb.sports{background:#e6f4ea;color:#137333}.fb.casino{background:#fff8e1;color:#e37400}
 .tr{text-align:right}
@@ -154,54 +154,54 @@ body{display:flex;height:100vh;overflow:hidden;font-family:'Segoe UI',Arial,sans
 /* DebugView */
 .dv-wrap{flex:1;overflow-y:auto;padding:14px;background:#f1f3f4}
 .dv-rc{background:#fff;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,.1);padding:14px;height:calc(100% - 2px);display:flex;flex-direction:column}
-.dv-rct{font-size:16px;font-weight:500;margin-bottom:10px;flex-shrink:0}
+.dv-rct{font-size:18px;font-weight:500;margin-bottom:10px;flex-shrink:0}
 .dv-cols{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;flex-shrink:0}
-.dv-col-lbl{text-align:center;padding:7px;border-radius:6px;font-size:15px;font-weight:700}
+.dv-col-lbl{text-align:center;padding:7px;border-radius:6px;font-size:17px;font-weight:700}
 .dv-col-a{background:#fce8e6;color:#c5221f}
 .dv-col-b{background:#e6f4ea;color:#137333}
 .dv-scroll{flex:1;overflow-y:auto}
 .dv-entry{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px}
-.dv-box{border-radius:6px;padding:10px;font-size:14px;font-family:monospace}
+.dv-box{border-radius:6px;padding:10px;font-size:16px;font-family:monospace}
 .dv-ba{background:#fef7f7;border:1px solid #f5c6c2}
 .dv-bb{background:#f6fbf7;border:1px solid #b7dfc3}
-.dv-ev{font-weight:700;margin-bottom:5px;font-size:15px;word-break:break-all}
+.dv-ev{font-weight:700;margin-bottom:5px;font-size:17px;word-break:break-all}
 .dv-pm{color:#5f6368;line-height:1.8}
 .dv-pm span{color:#202124}
 .dv-pm .pk{color:#1a73e8}
 .dv-pm .pv{color:#137333}
-.dv-tm{font-size:12px;color:#bdc1c6;margin-top:5px}
-.empty-dv{text-align:center;padding:40px 20px;color:#bdc1c6;font-size:15px;background:#f8f9fa;border-radius:8px;margin:8px 0}
+.dv-tm{font-size:15px;color:#bdc1c6;margin-top:5px}
+.empty-dv{text-align:center;padding:40px 20px;color:#bdc1c6;font-size:17px;background:#f8f9fa;border-radius:8px;margin:8px 0}
 
 /* Event Dict */
 .dict-wrap{flex:1;overflow-y:auto;padding:14px;background:#f1f3f4}
-.dict-intro{background:#e8f0fe;border:1px solid #c5d8f6;border-radius:8px;padding:12px 16px;margin-bottom:14px;font-size:15px;color:#1967d2;line-height:1.7}
-.dict-intro strong{font-size:16px;display:block;margin-bottom:4px}
+.dict-intro{background:#e8f0fe;border:1px solid #c5d8f6;border-radius:8px;padding:12px 16px;margin-bottom:14px;font-size:17px;color:#1967d2;line-height:1.7}
+.dict-intro strong{font-size:18px;display:block;margin-bottom:4px}
 .dict-rc{background:#fff;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,.1);padding:14px;margin-bottom:12px}
-.dict-rc h3{font-size:16px;font-weight:600;margin-bottom:12px;color:#202124;display:flex;align-items:center;gap:8px}
-.dict-table{width:100%;border-collapse:collapse;font-size:15px}
-.dict-table th{background:#f8f9fa;color:#5f6368;font-size:14px;font-weight:600;padding:8px 12px;border-bottom:2px solid #dadce0;text-align:left;white-space:nowrap}
+.dict-rc h3{font-size:18px;font-weight:600;margin-bottom:12px;color:#202124;display:flex;align-items:center;gap:8px}
+.dict-table{width:100%;border-collapse:collapse;font-size:17px}
+.dict-table th{background:#f8f9fa;color:#5f6368;font-size:16px;font-weight:600;padding:8px 12px;border-bottom:2px solid #dadce0;text-align:left;white-space:nowrap}
 .dict-table td{padding:8px 12px;border-bottom:1px solid #f1f3f4;vertical-align:top;line-height:1.6}
 .dict-table tr:hover td{background:#f8f9fa}
-.ev-name{font-family:monospace;font-weight:700;color:#1a73e8;font-size:15px}
-.ev-trigger{font-size:14px;color:#5f6368}
-.param-chip{display:inline-block;background:#e8f0fe;color:#1967d2;border-radius:10px;padding:2px 8px;font-size:12px;font-weight:500;margin:2px;white-space:nowrap}
+.ev-name{font-family:monospace;font-weight:700;color:#1a73e8;font-size:17px}
+.ev-trigger{font-size:16px;color:#5f6368}
+.param-chip{display:inline-block;background:#e8f0fe;color:#1967d2;border-radius:10px;padding:2px 8px;font-size:15px;font-weight:500;margin:2px;white-space:nowrap}
 .param-chip.req{background:#e6f4ea;color:#137333}
 .param-chip.opt{background:#f1f3f4;color:#5f6368}
-.ev-note{font-size:14px;color:#5f6368;line-height:1.5}
-.path-box{background:#f8f9fa;border-radius:6px;padding:12px;font-size:15px;color:#5f6368;line-height:2.2}
+.ev-note{font-size:16px;color:#5f6368;line-height:1.5}
+.path-box{background:#f8f9fa;border-radius:6px;padding:12px;font-size:17px;color:#5f6368;line-height:2.2}
 .path-ev{color:#1a73e8;font-family:monospace;font-weight:600}
-.path-arrow{color:#bdc1c6;font-size:14px}
-.path-case{color:#137333;font-size:12px;font-style:italic}
+.path-arrow{color:#bdc1c6;font-size:16px}
+.path-case{color:#137333;font-size:15px;font-style:italic}
 .ab-compare-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
-.ab-side{border-radius:7px;padding:12px;font-size:14px}
+.ab-side{border-radius:7px;padding:12px;font-size:16px}
 .ab-side-a{background:#fef7f7;border:1px solid #f5c6c2}
 .ab-side-b{background:#f6fbf7;border:1px solid #b7dfc3}
-.ab-side h4{font-size:15px;font-weight:700;margin-bottom:8px}
+.ab-side h4{font-size:17px;font-weight:700;margin-bottom:8px}
 .ab-side h4.a{color:#c5221f}.ab-side h4.b{color:#137333}
-.ab-ev-list{font-family:monospace;font-size:12px;line-height:2;color:#5f6368}
+.ab-ev-list{font-family:monospace;font-size:15px;line-height:2;color:#5f6368}
 .ab-ev-list .ev{color:#202124}.ab-ev-list .bad{color:#c5221f}.ab-ev-list .good{color:#137333}
 .quota-bar-wrap{background:#f1f3f4;border-radius:4px;height:18px;overflow:hidden;margin-bottom:6px}
-.quota-bar{height:100%;border-radius:4px;display:flex;align-items:center;padding:0 8px;font-size:12px;font-weight:700;color:#fff;transition:width .6s}
+.quota-bar{height:100%;border-radius:4px;display:flex;align-items:center;padding:0 8px;font-size:15px;font-weight:700;color:#fff;transition:width .6s}
 
 /* panels (full-width) */
 .full-panel{display:none;flex:1;overflow:hidden;flex-direction:column}
@@ -211,12 +211,12 @@ body{display:flex;height:100vh;overflow:hidden;font-family:'Segoe UI',Arial,sans
 .ovl{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:200;align-items:center;justify-content:center}
 .ovl.on{display:flex}
 .pop{background:#fff;border-radius:10px;box-shadow:0 4px 24px rgba(0,0,0,.25);width:300px;padding:20px;position:relative;color:#202124}
-.pop h3{font-size:19px;font-weight:600;margin-bottom:10px}
-.pop-x{position:absolute;top:12px;right:14px;background:none;border:none;cursor:pointer;color:#5f6368;font-size:22px}
+.pop h3{font-size:21px;font-weight:600;margin-bottom:10px}
+.pop-x{position:absolute;top:12px;right:14px;background:none;border:none;cursor:pointer;color:#5f6368;font-size:24px}
 .og{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
-.obtn{border:1px solid #dadce0;background:#f8f9fa;border-radius:6px;padding:10px;cursor:pointer;text-align:center;font-size:14px;color:#202124;transition:border-color .15s}
+.obtn{border:1px solid #dadce0;background:#f8f9fa;border-radius:6px;padding:10px;cursor:pointer;text-align:center;font-size:16px;color:#202124;transition:border-color .15s}
 .obtn:hover{border-color:#1a73e8;background:#e8f0fe}
-.obtn .oi{font-size:25px;display:block;margin-bottom:4px}
+.obtn .oi{font-size:27px;display:block;margin-bottom:4px}
 
 /* scrollbar */
 ::-webkit-scrollbar{width:5px;height:5px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:#dadce0;border-radius:3px}
@@ -234,14 +234,14 @@ body{display:flex;height:100vh;overflow:hidden;font-family:'Segoe UI',Arial,sans
     <div class="sh-body">
     <p>點擊任意按鈕 → 右側 DebugView 即時更新</p>
     <div class="lr">
-      <span style="font-size:11px;color:var(--mu)">登入狀態：</span>
+      <span style="font-size:14px;color:var(--mu)">登入狀態：</span>
       <span class="ls" id="loginLabel" style="color:var(--red)">未登入 (before)</span>
       <div class="tgl" id="loginTgl" onclick="toggleLogin()"></div>
     </div>
     </div><!-- end sh-body -->
   </div>
   <div class="sim-collapsed-btn" onclick="toggleSim()">
-    <span style="color:var(--mu);font-size:14px">▶</span>
+    <span style="color:var(--mu);font-size:16px">▶</span>
     <span class="sim-collapsed-label">模擬站台</span>
   </div>
   <div class="stabs">
@@ -252,9 +252,9 @@ body{display:flex;height:100vh;overflow:hidden;font-family:'Segoe UI',Arial,sans
     <div class="sl">Homepage Banners</div>
     <div id="bCont"></div>
     <div class="bnav" id="bNav"></div>
-    <div style="text-align:center;padding:16px 0;color:var(--mu);font-size:11px">
+    <div style="text-align:center;padding:16px 0;color:var(--mu);font-size:14px">
       ↑ 點 Banner 按鈕觸發 homepage_banner_click 事件<br>
-      <button class="btn bo" style="margin-top:8px;font-size:11px" onclick="sp('promo',document.querySelectorAll('.stab')[1])">前往優惠頁 →</button>
+      <button class="btn bo" style="margin-top:8px;font-size:14px" onclick="sp('promo',document.querySelectorAll('.stab')[1])">前往優惠頁 →</button>
     </div>
   </div>
   <div class="pg" id="sp-promo">
@@ -280,7 +280,7 @@ body{display:flex;height:100vh;overflow:hidden;font-family:'Segoe UI',Arial,sans
     <div class="gtab" id="gt-dv" onclick="gt('dv',this)">📡 DebugView（事件 Log）</div>
     <div class="gtab" id="gt-dict" onclick="gt('dict',this)">📖 方案說明</div>
     <div class="ab-toggle" id="abToggle">
-      <span style="font-size:11px;color:#5f6368">方案：</span>
+      <span style="font-size:14px;color:#5f6368">方案：</span>
       <button class="ab-btn sel-a" id="btnA" onclick="setAB('A')">❌ 方案 A</button>
       <button class="ab-btn" id="btnB" onclick="setAB('B')">✅ 方案 B</button>
     </div>
@@ -304,7 +304,7 @@ body{display:flex;height:100vh;overflow:hidden;font-family:'Segoe UI',Arial,sans
     <div class="gs">
       <div class="gs-hd">
         <span>分頁設定</span>
-        <span style="font-size:10px;color:#5f6368" id="sMethod"></span>
+        <span style="font-size:13px;color:#5f6368" id="sMethod"></span>
       </div>
       <div class="gs-body" id="sBody"></div>
     </div>
@@ -342,7 +342,7 @@ body{display:flex;height:100vh;overflow:hidden;font-family:'Segoe UI',Arial,sans
         <div class="ab-compare-row">
           <div class="ab-side ab-side-a">
             <h4 class="a">方案 A（舊版 UA 思維）</h4>
-            <div style="font-size:11px;color:#5f6368;margin-bottom:8px">把頁面、位置、動作全塞進事件名稱，每個場景獨立命名。</div>
+            <div style="font-size:14px;color:#5f6368;margin-bottom:8px">把頁面、位置、動作全塞進事件名稱，每個場景獨立命名。</div>
             <div class="ab-ev-list">
               <span class="bad">promo_more_info_before_login</span><br>
               <span class="bad">promo_more_info_after_login</span><br>
@@ -357,7 +357,7 @@ body{display:flex;height:100vh;overflow:hidden;font-family:'Segoe UI',Arial,sans
               <span class="bad">home_bwing_banner_click</span><br>
               <span style="color:#c5221f">… 每個促銷再各一組 → 40+ 事件</span>
             </div>
-            <div style="margin-top:8px;font-size:10px;line-height:1.7">
+            <div style="margin-top:8px;font-size:13px;line-height:1.7">
               <div style="color:#1967d2;background:#e8f0fe;border-radius:4px;padding:5px 7px;margin-bottom:5px">
                 ✅ <strong>好處：</strong><br>
                 · 事件名稱自帶說明，行銷直接看懂<br>
@@ -376,7 +376,7 @@ body{display:flex;height:100vh;overflow:hidden;font-family:'Segoe UI',Arial,sans
           </div>
           <div class="ab-side ab-side-b">
             <h4 class="b">方案 B（GA4 標準架構）</h4>
-            <div style="font-size:11px;color:#5f6368;margin-bottom:8px">統一事件名稱，細節全部透過參數區分，永遠只有 11 個事件。</div>
+            <div style="font-size:14px;color:#5f6368;margin-bottom:8px">統一事件名稱，細節全部透過參數區分，永遠只有 11 個事件。</div>
             <div class="ab-ev-list">
               <span class="good">view_promotion_page</span><br>
               <span class="good">more_info</span><br>
@@ -391,7 +391,7 @@ body{display:flex;height:100vh;overflow:hidden;font-family:'Segoe UI',Arial,sans
               <span class="good">all_promos_click</span><br>
               <span style="color:#137333">共 11 個，永遠不會增加 ✓</span>
             </div>
-            <div style="margin-top:8px;font-size:10px;line-height:1.7">
+            <div style="margin-top:8px;font-size:13px;line-height:1.7">
               <div style="color:#137333;background:#e6f4ea;border-radius:4px;padding:5px 7px;margin-bottom:5px">
                 ✅ <strong>好處：</strong><br>
                 · 事件名稱固定，新增促銷不需改 GTM / GA4<br>
@@ -413,30 +413,30 @@ body{display:flex;height:100vh;overflow:hidden;font-family:'Segoe UI',Arial,sans
         <h3 style="margin-top:4px">📐 GA4 自訂維度配額消耗對比（免費版上限：50 個）</h3>
         <div style="margin-top:8px">
           <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
-            <span style="font-size:11px;color:#5f6368;width:80px">方案 A</span>
+            <span style="font-size:14px;color:#5f6368;width:80px">方案 A</span>
             <div class="quota-bar-wrap" style="flex:1;background:#f1f3f4;position:relative">
-              <div style="height:100%;display:flex;align-items:center;padding:0 10px;font-size:10px;color:#5f6368">0 個 — 不需要（所有資訊都在事件名稱裡，無需自訂維度）</div>
+              <div style="height:100%;display:flex;align-items:center;padding:0 10px;font-size:13px;color:#5f6368">0 個 — 不需要（所有資訊都在事件名稱裡，無需自訂維度）</div>
             </div>
           </div>
           <div style="display:flex;align-items:center;gap:10px">
-            <span style="font-size:11px;color:#5f6368;width:80px">方案 B</span>
+            <span style="font-size:14px;color:#5f6368;width:80px">方案 B</span>
             <div class="quota-bar-wrap" style="flex:1">
               <div class="quota-bar" style="width:22%;background:#34a853">11 個（22%）— 仍有充裕空間</div>
             </div>
           </div>
-          <p style="font-size:10px;color:#5f6368;margin-top:8px">方案 B 需要在 GA4 後台註冊 bonus_code、login_state、source 等自訂維度，才能在報表中使用這些參數做篩選與 Breakdown。方案 A 不需要這個步驟，但也因此失去了彈性分析的能力。</p>
+          <p style="font-size:13px;color:#5f6368;margin-top:8px">方案 B 需要在 GA4 後台註冊 bonus_code、login_state、source 等自訂維度，才能在報表中使用這些參數做篩選與 Breakdown。方案 A 不需要這個步驟，但也因此失去了彈性分析的能力。</p>
         </div>
       </div>
 
       <!-- GTM vs GA4 analysis explanation -->
       <div class="dict-rc">
         <h3>⚖️ GTM 設定工作量相同，差異在 GA4 分析能力</h3>
-        <div style="background:#e8f0fe;border:1px solid #c5d8f6;border-radius:6px;padding:10px 12px;margin-bottom:12px;font-size:11px;color:#1967d2;line-height:1.8">
+        <div style="background:#e8f0fe;border:1px solid #c5d8f6;border-radius:6px;padding:10px 12px;margin-bottom:12px;font-size:14px;color:#1967d2;line-height:1.8">
           <strong>GTM 的部分：兩個方案工作量相近</strong><br>
           兩個方案都需要在 GTM 設定 trigger、tag、dataLayer 變數。方案 A 的事件名稱也可以用 GTM 變數動態組合（例如 <code style="background:rgba(255,255,255,.6);padding:1px 4px;border-radius:2px">promo_{{action}}_{{login_state}}_{{bonus_code}}</code>），不需要手動寫死每一個名稱。因此「要不要改 GTM」這件事對兩個方案來說工作量是一樣的。
         </div>
-        <div style="font-size:12px;font-weight:600;margin-bottom:8px;color:#202124">📊 真正的差異：GA4 收到資料後，能做什麼？</div>
-        <table style="width:100%;border-collapse:collapse;font-size:11px;margin-bottom:12px">
+        <div style="font-size:15px;font-weight:600;margin-bottom:8px;color:#202124">📊 真正的差異：GA4 收到資料後，能做什麼？</div>
+        <table style="width:100%;border-collapse:collapse;font-size:14px;margin-bottom:12px">
           <thead>
             <tr style="background:#f8f9fa">
               <th style="padding:7px 10px;border-bottom:2px solid #dadce0;text-align:left">分析場景</th>
@@ -467,7 +467,7 @@ body{display:flex;height:100vh;overflow:hidden;font-family:'Segoe UI',Arial,sans
             </tr>
           </tbody>
         </table>
-        <div style="background:#fce8e6;border:1px solid #f5c6c2;border-radius:6px;padding:9px 12px;font-size:11px;color:#c5221f;line-height:1.7">
+        <div style="background:#fce8e6;border:1px solid #f5c6c2;border-radius:6px;padding:9px 12px;font-size:14px;color:#c5221f;line-height:1.7">
           <strong>⚠️ 關鍵限制：GA4 漏斗 Breakdown 不接受 Filter</strong><br>
           GA4 漏斗探索的「細分」欄位只能選已定義的<strong>維度</strong>（Dimension），無法用事件名稱的字串去比對。方案 A 的 login_state 藏在事件名稱裡，GA4 永遠認不出它是獨立維度，因此漏斗的 before/after 對比在方案 A 中根本做不到，Filter 也繞不過去。
         </div>
@@ -590,7 +590,7 @@ body{display:flex;height:100vh;overflow:hidden;font-family:'Segoe UI',Arial,sans
             </tbody>
           </table>
         </div>
-        <div style="margin-top:8px;font-size:11px;color:#5f6368">
+        <div style="margin-top:8px;font-size:14px;color:#5f6368">
           <span style="background:#e6f4ea;color:#137333;padding:2px 7px;border-radius:3px;margin-right:6px">必填</span>
           <span style="background:#f1f3f4;color:#5f6368;padding:2px 7px;border-radius:3px">選填（依入口情境）</span>
         </div>
@@ -612,7 +612,7 @@ body{display:flex;height:100vh;overflow:hidden;font-family:'Segoe UI',Arial,sans
           &nbsp;&nbsp;│<br>
           &nbsp;&nbsp;└── <span class="path-ev">open_csd_chat</span> &nbsp;<span class="path-case">（需聯繫客服）</span>
         </div>
-        <p style="font-size:11px;color:#5f6368;margin-top:8px">每個促銷可能只出現其中幾種結果，依促銷類型而定。在 GA4 探索漏斗中，這 5 個事件作為步驟 5 的並行分支分別追蹤。</p>
+        <p style="font-size:14px;color:#5f6368;margin-top:8px">每個促銷可能只出現其中幾種結果，依促銷類型而定。在 GA4 探索漏斗中，這 5 個事件作為步驟 5 的並行分支分別追蹤。</p>
       </div>
 
     </div>
@@ -625,7 +625,7 @@ body{display:flex;height:100vh;overflow:hidden;font-family:'Segoe UI',Arial,sans
   <div class="pop" id="pop-join" style="display:none">
     <button class="pop-x" onclick="cAll()">✕</button>
     <h3>Join Now — 選擇結果模擬</h3>
-    <p style="font-size:12px;color:#5f6368;margin-bottom:2px">Bonus: <span id="jBonus" style="color:#1a73e8;font-weight:700"></span></p>
+    <p style="font-size:15px;color:#5f6368;margin-bottom:2px">Bonus: <span id="jBonus" style="color:#1a73e8;font-weight:700"></span></p>
     <div class="og">
       <div class="obtn" onclick="fireOut('deposit_page')"><span class="oi">💳</span>deposit_page</div>
       <div class="obtn" onclick="fireOut('join_success')"><span class="oi">✅</span>join_success</div>
@@ -636,7 +636,7 @@ body{display:flex;height:100vh;overflow:hidden;font-family:'Segoe UI',Arial,sans
   <div class="pop" id="pop-login" style="display:none">
     <button class="pop-x" onclick="cAll()">✕</button>
     <h3>🔒 請先登入</h3>
-    <p style="font-size:12px;color:#5f6368;margin:8px 0 12px">Join Now 前須先登入。<br>Bonus: <span id="lBonus" style="color:#1a73e8;font-weight:700"></span></p>
+    <p style="font-size:15px;color:#5f6368;margin:8px 0 12px">Join Now 前須先登入。<br>Bonus: <span id="lBonus" style="color:#1a73e8;font-weight:700"></span></p>
     <button class="btn bb" style="width:100%;padding:8px" onclick="doLogin()">登入並繼續</button>
   </div>
 </div>
@@ -689,8 +689,8 @@ function renderSite(){
       <span class="st">${p.sub.split('·')[0].trim()}</span>
       <h3>${p.title}</h3><p>${p.sub}</p>
       <div style="display:flex;gap:6px">
-        <button class="btn bb" style="font-size:11px" onclick="fireHB('${p.code}','top_banner',${i})">立即加入</button>
-        <button class="btn bo" style="font-size:11px" onclick="fireAP('${p.code}','${p.cat.toLowerCase().replace(/ /g,'_')}')">查看所有優惠 →</button>
+        <button class="btn bb" style="font-size:14px" onclick="fireHB('${p.code}','top_banner',${i})">立即加入</button>
+        <button class="btn bo" style="font-size:14px" onclick="fireAP('${p.code}','${p.cat.toLowerCase().replace(/ /g,'_')}')">查看所有優惠 →</button>
       </div>
     </div>`).join('');
   document.getElementById('bNav').innerHTML=bnrPromos.map((_,i)=>`<div class="bd ${i===0?'on':''}" onclick="swBnr(${i})"></div>`).join('');
@@ -746,11 +746,11 @@ function renderSettings(){
         <div class="sr"><div class="sl2">技巧</div><div class="sv">自由形式</div></div>
         <div class="sr"><div class="sl2">列 (Rows)</div><span class="sc r">event_name <span class="x">×</span></span></div>
         <div class="sr"><div class="sl2">欄細分 (Breakdown)</div>
-          <div style="background:#fce8e6;border-radius:4px;padding:6px;font-size:11px;color:#c5221f">⚠ 無維度可用 — login_state 不是獨立參數</div>
+          <div style="background:#fce8e6;border-radius:4px;padding:6px;font-size:14px;color:#c5221f">⚠ 無維度可用 — login_state 不是獨立參數</div>
         </div>
         <div class="sr"><div class="sl2">值 (Values)</div><span class="sc g">事件計數 <span class="x">×</span></span></div>
         <div class="sr"><div class="sl2">Filter（替代方案）</div>
-          <div style="background:#fff8e1;border:1px solid #f0c96c;border-radius:4px;padding:7px 9px;font-size:10px;color:#7a4f00;line-height:1.8">
+          <div style="background:#fff8e1;border:1px solid #f0c96c;border-radius:4px;padding:7px 9px;font-size:13px;color:#7a4f00;line-height:1.8">
             💡 想看未登入：event_name <strong>contains</strong> <code>_before_</code><br>
             💡 想看已登入：event_name <strong>contains</strong> <code>_after_</code><br>
             <span style="color:#c5221f">→ 要跑兩次、人工比對</span>
@@ -767,23 +767,23 @@ function renderSettings(){
     }
     return;
   }
-  if(curTab!=='funnel'){b.innerHTML='<p style="font-size:11px;color:#5f6368;padding:8px">此分頁無設定項目。</p>';return;}
+  if(curTab!=='funnel'){b.innerHTML='<p style="font-size:14px;color:#5f6368;padding:8px">此分頁無設定項目。</p>';return;}
   const sn=selBonus.length>14?selBonus.slice(0,13)+'…':selBonus;
   if(method==='A'){
     b.innerHTML=`
-      <div style="background:#e8f0fe;border:1px solid #c5d8f6;border-radius:5px;padding:7px 9px;margin-bottom:6px;font-size:10px;color:#1967d2;line-height:1.6">
+      <div style="background:#e8f0fe;border:1px solid #c5d8f6;border-radius:5px;padding:7px 9px;margin-bottom:6px;font-size:13px;color:#1967d2;line-height:1.6">
         ✅ <strong>方案 A 的好處：</strong>事件名稱自帶說明，行銷直接看懂；不需在 GA4 後台設定自訂維度，初期門檻低。
       </div>
       <div class="pnote na">⚠️ 方案 A 的限制：步驟需大量 OR 條件；事件數爆炸後難維護；無法做 Breakdown；跨促銷加總數據麻煩</div>
       <div class="sr"><div class="sl2">技巧</div><div class="sv">漏斗探索</div></div>
       <div class="sr"><div class="sl2">視覺呈現</div><div class="sv">📊 標準漏斗</div></div>
       <div class="sr"><div class="sl2">細分 (Breakdown)</div>
-        <div style="background:#fce8e6;border-radius:4px;padding:6px;font-size:11px;color:#c5221f">
+        <div style="background:#fce8e6;border-radius:4px;padding:6px;font-size:14px;color:#c5221f">
           ⚠ 無法細分 — before/after 已埋在事件名稱裡，無參數可拆
         </div>
       </div>
       <div class="sr"><div class="sl2">篩選器</div>
-        <div style="background:#fce8e6;border-radius:4px;padding:6px;font-size:11px;color:#c5221f">
+        <div style="background:#fce8e6;border-radius:4px;padding:6px;font-size:14px;color:#c5221f">
           ⚠ 無 bonus_code 參數，無法篩單一促銷
         </div>
       </div>
@@ -852,12 +852,12 @@ function renderReport(){
       ];
       rp.innerHTML=`<div class="rc">
         <div class="rct">⚠️ 方案 A 自由形式 — before/after 無法並排，需分兩次 Filter</div>
-        <div style="background:#fce8e6;border:1px solid #f5c6c2;border-radius:6px;padding:10px 12px;margin-bottom:12px;font-size:11px;color:#c5221f;line-height:1.8">
+        <div style="background:#fce8e6;border:1px solid #f5c6c2;border-radius:6px;padding:10px 12px;margin-bottom:12px;font-size:14px;color:#c5221f;line-height:1.8">
           <strong>為什麼做不到 before vs after 並排？</strong><br>
           login_state 埋在事件名稱裡，GA4 不認識它是維度，無法做欄細分。<br>
           替代做法：① Filter: event_name contains "_before_" → 截圖；② 換 "_after_" → 再截圖；③ 手動合併比較。
         </div>
-        <div style="background:#fff8e1;border:1px solid #f0c96c;border-radius:5px;padding:7px 10px;margin-bottom:10px;font-size:10px;color:#7a4f00">
+        <div style="background:#fff8e1;border:1px solid #f0c96c;border-radius:5px;padding:7px 10px;margin-bottom:10px;font-size:13px;color:#7a4f00">
           📌 以下是套用 <strong>Filter: event_name contains "_before_"</strong> 的結果（只有報表的一半）
         </div>
         <div style="overflow-x:auto"><table class="fft">
@@ -867,18 +867,18 @@ function renderReport(){
             <th>Before/After 欄細分</th>
           </tr></thead><tbody>
           ${aRows.filter((_,i)=>i%2===0).map(r=>`<tr>
-            <td class="tc" style="font-size:10px;word-break:break-all">${r.ev}</td>
+            <td class="tc" style="font-size:13px;word-break:break-all">${r.ev}</td>
             <td class="tr">${r.cnt.toLocaleString()}</td>
-            <td><span style="background:#fce8e6;color:#c5221f;padding:2px 7px;border-radius:3px;font-size:10px;white-space:nowrap">⚠ 無法細分</span></td>
+            <td><span style="background:#fce8e6;color:#c5221f;padding:2px 7px;border-radius:3px;font-size:13px;white-space:nowrap">⚠ 無法細分</span></td>
           </tr>`).join('')}
           </tbody>
         </table></div>
-        <p style="font-size:11px;color:#c5221f;margin-top:8px">↑ 這只是報表的一半（before）。看 after 要重開一張報表，人工比對。</p>
-        <p style="font-size:11px;color:#5f6368;margin-top:4px">5 個促銷 × 2 個登入狀態 = 每類動作 2 行事件名稱。新增促銷或入口，列表繼續翻倍。</p>
+        <p style="font-size:14px;color:#c5221f;margin-top:8px">↑ 這只是報表的一半（before）。看 after 要重開一張報表，人工比對。</p>
+        <p style="font-size:14px;color:#5f6368;margin-top:4px">5 個促銷 × 2 個登入狀態 = 每類動作 2 行事件名稱。新增促銷或入口，列表繼續翻倍。</p>
       </div>`;
     } else {
       rp.innerHTML=`<div class="rc"><div class="rct">✅ 方案 B 自由形式 — 列: bonus_code，欄細分: login_state（before / after 自動並排）</div>
-        <div style="background:#e6f4ea;border:1px solid #b7dfc3;border-radius:6px;padding:8px 12px;margin-bottom:12px;font-size:11px;color:#137333">
+        <div style="background:#e6f4ea;border:1px solid #b7dfc3;border-radius:6px;padding:8px 12px;margin-bottom:12px;font-size:14px;color:#137333">
           login_state 是獨立維度 → 直接做欄細分，before vs after 並排在同一張報表。切換促銷只改篩選器，報表設定不用動。
         </div>
         <div style="overflow-x:auto"><table class="fft">
@@ -911,7 +911,7 @@ function renderReport(){
           }).join('')}
           </tbody>
         </table></div>
-        <p style="font-size:11px;color:#5f6368;margin-top:8px">Before = 未登入點擊 · After = 已登入點擊 · Exploration Rate = (More Info Before + After) ÷ Page Views</p>
+        <p style="font-size:14px;color:#5f6368;margin-top:8px">Before = 未登入點擊 · After = 已登入點擊 · Exploration Rate = (More Info Before + After) ÷ Page Views</p>
       </div>`;
     }
     return;
@@ -925,7 +925,7 @@ function renderReport(){
   if(method==='A'){
     rp.innerHTML=`${bfHtml}<div class="rc">
       <div class="rct">⚠️ 方案 A 漏斗問題 — ${selBonus}</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;font-size:11px">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;font-size:14px">
         <div style="background:#e8f0fe;border:1px solid #c5d8f6;border-radius:6px;padding:10px;color:#1967d2;line-height:1.7">
           ✅ <strong>方案 A 的好處</strong><br>
           · 事件名稱直覺，行銷開報表一看就懂<br>
@@ -949,7 +949,7 @@ function renderReport(){
   } else {
     rp.innerHTML=`${bfHtml}<div class="rc">
       <div class="rct">✅ 方案 B 漏斗探索 — ${selBonus}</div>
-      <div style="background:#e6f4ea;border:1px solid #b7dfc3;border-radius:6px;padding:10px;margin-bottom:12px;font-size:12px;color:#137333">
+      <div style="background:#e6f4ea;border:1px solid #b7dfc3;border-radius:6px;padding:10px;margin-bottom:12px;font-size:15px;color:#137333">
         Breakdown 設為 login_state，黃色 = Before login，綠色 = After login。<br>
         切換下方 bonus_code 篩選可即時查看不同促銷的漏斗，無需修改任何設定。
       </div>
@@ -1003,7 +1003,7 @@ function renderSteps(steps,mx){
     }
     h+=`<div class="fs-row">
       <div class="fs-n">${s.n}</div>
-      <div class="fs-ev">${evLines.map((l,j)=>j===0?l:`<span style="font-size:9px;color:#ea4335">${l}</span>`).join('<br>')}</div>
+      <div class="fs-ev">${evLines.map((l,j)=>j===0?l:`<span style="font-size:13px;color:#ea4335">${l}</span>`).join('<br>')}</div>
       <div class="fs-bw">`;
     if(s.ns){
       h+=`<div class="ns-bar">⚠ ${s.nm||'(not set)'}</div>`;
