@@ -218,6 +218,24 @@ body{display:flex;height:100vh;overflow:hidden;font-family:'Segoe UI',Arial,sans
 .obtn:hover{border-color:#1a73e8;background:#e8f0fe}
 .obtn .oi{font-size:27px;display:block;margin-bottom:4px}
 
+
+/* path exploration */
+.path-tree{display:flex;gap:0;min-height:360px;overflow-x:auto;padding:4px 0}
+.path-col{display:flex;flex-direction:column;gap:4px;min-width:230px;max-width:260px;padding-right:28px;position:relative;flex-shrink:0}
+.path-col-hd{font-size:13px;font-weight:700;color:#5f6368;margin-bottom:6px;text-transform:uppercase;letter-spacing:.4px}
+.path-arrow{position:absolute;right:6px;top:50%;transform:translateY(-50%);font-size:18px;color:#bdc1c6}
+.pn{border-radius:6px;padding:8px 10px;position:relative;flex-shrink:0}
+.pn-name{font-size:12px;font-family:monospace;font-weight:600;word-break:break-all;line-height:1.4}
+.pn-cnt{font-size:15px;font-weight:700;margin-top:3px}
+.pn-pct{font-size:12px;opacity:.65;margin-top:1px}
+.pn-start{background:#e8f0fe;border:2px solid #1a73e8;color:#1967d2}
+.pn-a{background:#fff2f2;border-left:4px solid #c5221f;color:#202124}
+.pn-b{background:#f0faf3;border-left:4px solid #137333;color:#202124}
+.pn-sub{background:#f8f9fa;border-left:3px solid #bdc1c6;color:#5f6368;font-size:12px;margin-left:12px;padding:5px 8px;border-radius:4px}
+.pn-sub .pn-name{font-size:11px}
+.pn-sub .pn-cnt{font-size:13px}
+.pn-more{background:#fff8e1;border:1px dashed #fbbc04;border-radius:6px;padding:8px 10px;font-size:13px;color:#856404;text-align:center;font-weight:600}
+
 /* scrollbar */
 ::-webkit-scrollbar{width:5px;height:5px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:#dadce0;border-radius:3px}
 </style>
@@ -277,6 +295,7 @@ body{display:flex;height:100vh;overflow:hidden;font-family:'Segoe UI',Arial,sans
   <div class="ga4-tabs">
     <div class="gtab on" id="gt-funnel" onclick="gt('funnel',this)">漏斗探索</div>
     <div class="gtab" id="gt-ff" onclick="gt('ff',this)">自由形式</div>
+    <div class="gtab" id="gt-path" onclick="gt('path',this)">路徑探索</div>
     <div class="gtab" id="gt-dv" onclick="gt('dv',this)">📡 DebugView（事件 Log）</div>
     <div class="gtab" id="gt-dict" onclick="gt('dict',this)">📖 方案說明</div>
     <div class="ab-toggle" id="abToggle">
@@ -751,6 +770,30 @@ function renderSettings(){
     }
     return;
   }
+
+  if(curTab==='path'){
+    if(method==='A'){
+      b.innerHTML=`
+        <div class="pnote na">⚠️ 方案 A：每個促銷 × login_state 是獨立事件名稱，路徑圖節點爆炸</div>
+        <div class="sr"><div class="sl2">技巧</div><div class="sv">路徑探索</div></div>
+        <div class="sr"><div class="sl2">起點</div><span class="sc">事件 = view_promotion_page <span class="x">×</span></span></div>
+        <div class="sr"><div class="sl2">步驟類型</div><div class="sv">事件名稱</div></div>
+        <div class="sr"><div class="sl2">問題</div>
+          <div style="background:#fce8e6;border-radius:4px;padding:7px 9px;font-size:14px;color:#c5221f;line-height:1.7">
+            Step +1 展開 <strong>20+ 個節點</strong>，無法從視覺上看出行為規律<br>
+            無法合併「同類行為」，每促銷各自獨立
+          </div>
+        </div>`;
+    } else {
+      b.innerHTML=`
+        <div class="pnote nb">✅ 方案 B：事件名稱固定，路徑圖只有 3 個主節點，可按 login_state 展開</div>
+        <div class="sr"><div class="sl2">技巧</div><div class="sv">路徑探索</div></div>
+        <div class="sr"><div class="sl2">起點</div><span class="sc">事件 = view_promotion_page <span class="x">×</span></span></div>
+        <div class="sr"><div class="sl2">步驟類型</div><div class="sv">事件名稱</div></div>
+        <div class="sr"><div class="sl2">細分</div><span class="sc g">login_state <span class="x">×</span></span><div class="ac-btn">＋</div></div>`;
+    }
+    return;
+  }
   if(curTab!=='funnel'){b.innerHTML='<p style="font-size:14px;color:#5f6368;padding:8px">此分頁無設定項目。</p>';return;}
   const sn=selBonus.length>14?selBonus.slice(0,13)+'…':selBonus;
   if(method==='A'){
@@ -894,6 +937,100 @@ function renderReport(){
           </tbody>
         </table></div>
         <p style="font-size:14px;color:#5f6368;margin-top:8px">Before = 未登入 · After = 已登入 · login_state 欄細分讓三個事件的 before/after 自動並排，不需分開跑報表</p>
+      </div>`;
+    }
+    return;
+  }
+  if(curTab==='path'){
+    const total=14000;
+    if(method==='A'){
+      const aNodes=[
+        {name:'promo_nova_more_info_before_click',cnt:890},
+        {name:'promo_goal_more_info_before_click',cnt:640},
+        {name:'promo_nova_join_now_before',cnt:560},
+        {name:'promo_bw_slots_more_info_before_click',cnt:520},
+        {name:'promo_goal_more_info_after_click',cnt:510},
+        {name:'promo_nova_join_now_after',cnt:420},
+        {name:'promo_goal_join_now_before',cnt:380},
+        {name:'promo_bw_slots_more_info_after_click',cnt:430},
+        {name:'promo_nova_more_info_after_click',cnt:350},
+        {name:'promo_bw_slots_join_now_before',cnt:310},
+      ];
+      rp.innerHTML=`<div class="rc">
+        <div class="rct">⚠️ 方案 A 路徑探索 — 節點爆炸，行為規律消失在事件名稱裡</div>
+        <div style="background:#fce8e6;border:1px solid #f5c6c2;border-radius:6px;padding:8px 12px;margin-bottom:12px;font-size:14px;color:#c5221f">
+          Step +1 已有 <strong>20+ 個不同節點</strong>（每個促銷 × 動作 × login_state 各一個）。以下只顯示前 10 個，仍看不出整體規律。
+        </div>
+        <div class="path-tree">
+          <div class="path-col">
+            <div class="path-col-hd">起點</div>
+            <div class="pn pn-start" style="flex:1;display:flex;flex-direction:column;justify-content:center">
+              <div class="pn-name">view_promotion_page</div>
+              <div class="pn-cnt">${total.toLocaleString()}</div>
+              <div class="pn-pct">100%</div>
+            </div>
+            <div class="path-arrow">→</div>
+          </div>
+          <div class="path-col" style="max-width:300px">
+            <div class="path-col-hd">Step +1（前10 / 共20+）</div>
+            ${aNodes.map(n=>`
+            <div class="pn pn-a">
+              <div class="pn-name">${n.name}</div>
+              <div class="pn-cnt">${n.cnt.toLocaleString()}</div>
+              <div class="pn-pct">${(n.cnt/total*100).toFixed(1)}%</div>
+            </div>`).join('')}
+            <div class="pn-more">⚠ 還有 10+ 個事件節點未顯示…</div>
+          </div>
+        </div>
+      </div>`;
+    } else {
+      const bNodes=[
+        {name:'more_info',cnt:4390,before:2620,after:1770},
+        {name:'view_promotion_info',cnt:3164,before:1889,after:1275},
+        {name:'join_now',cnt:2540,before:1430,after:1110},
+      ];
+      rp.innerHTML=`<div class="rc">
+        <div class="rct">✅ 方案 B 路徑探索 — 3 個主節點，login_state 自動展開 before / after</div>
+        <div style="background:#e6f4ea;border:1px solid #b7dfc3;border-radius:6px;padding:8px 12px;margin-bottom:12px;font-size:14px;color:#137333">
+          事件名稱固定，行為一目了然。點開任一節點可看 login_state 細分（before / after）。
+        </div>
+        <div class="path-tree">
+          <div class="path-col">
+            <div class="path-col-hd">起點</div>
+            <div class="pn pn-start" style="flex:1;display:flex;flex-direction:column;justify-content:center">
+              <div class="pn-name">view_promotion_page</div>
+              <div class="pn-cnt">${total.toLocaleString()}</div>
+              <div class="pn-pct">100%</div>
+            </div>
+            <div class="path-arrow">→</div>
+          </div>
+          <div class="path-col">
+            <div class="path-col-hd">Step +1（共 3 個）</div>
+            ${bNodes.map(n=>`
+            <div class="pn pn-b">
+              <div class="pn-name">${n.name}</div>
+              <div class="pn-cnt">${n.cnt.toLocaleString()}</div>
+              <div class="pn-pct">${(n.cnt/total*100).toFixed(1)}%</div>
+            </div>`).join('')}
+            <div class="path-arrow">→</div>
+          </div>
+          <div class="path-col">
+            <div class="path-col-hd">Step +2（login_state 細分）</div>
+            ${bNodes.map(n=>`
+            <div style="margin-bottom:8px">
+              <div class="pn-sub">
+                <div class="pn-name" style="color:#856404">◀ before</div>
+                <div class="pn-cnt">${n.before.toLocaleString()}</div>
+                <div class="pn-pct">${(n.before/n.cnt*100).toFixed(0)}%</div>
+              </div>
+              <div class="pn-sub" style="margin-top:3px">
+                <div class="pn-name" style="color:#137333">◀ after</div>
+                <div class="pn-cnt">${n.after.toLocaleString()}</div>
+                <div class="pn-pct">${(n.after/n.cnt*100).toFixed(0)}%</div>
+              </div>
+            </div>`).join('')}
+          </div>
+        </div>
       </div>`;
     }
     return;
@@ -1126,11 +1263,11 @@ function gt(name,el){
   document.querySelectorAll('.gtab').forEach(t=>t.classList.remove('on'));
   el.classList.add('on');
   curTab=name;
-  const is3=(name==='funnel'||name==='ff');
+  const is3=(name==='funnel'||name==='ff'||name==='path');
   document.getElementById('body3col').style.display=is3?'flex':'none';
     document.getElementById('panel-dv').classList.toggle('on',name==='dv');
   document.getElementById('panel-dict').classList.toggle('on',name==='dict');
-  document.getElementById('abToggle').style.display=(name==='funnel'||name==='ff')?'flex':'none';
+  document.getElementById('abToggle').style.display=(name==='funnel'||name==='ff'||name==='path')?'flex':'none';
   if(is3){renderSettings();renderReport();}
 }
 
