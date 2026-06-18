@@ -746,7 +746,7 @@ function renderSettings(){
         <div class="sr"><div class="sl2">技巧</div><div class="sv">自由形式</div></div>
         <div class="sr"><div class="sl2">列 (Rows)</div><span class="sc">bonus_code <span class="x">×</span></span><div class="ac-btn">＋</div></div>
         <div class="sr"><div class="sl2">欄細分 (Breakdown)</div><span class="sc y">login_state <span class="x">×</span></span><div class="ac-btn">＋</div></div>
-        <div class="sr"><div class="sl2">值 (Values)</div><span class="sc g">事件計數 <span class="x">×</span></span><span class="sc g">不重複使用者 <span class="x">×</span></span><div class="ac-btn">＋</div></div>
+        <div class="sr"><div class="sl2">值 (Values)</div><span class="sc g">more_info <span class="x">×</span></span><span class="sc g">view_promotion_info <span class="x">×</span></span><span class="sc g">join_now <span class="x">×</span></span><div class="ac-btn">＋</div></div>
         <div class="sr"><div class="sl2">篩選器</div><div class="ac-btn">＋ 新增篩選器</div></div>`;
     }
     return;
@@ -861,30 +861,39 @@ function renderReport(){
         <p style="font-size:14px;color:#5f6368;margin-top:4px">5 個促銷 × 2 個登入狀態 = 每類動作 2 行事件名稱。新增促銷或入口，列表繼續翻倍。</p>
       </div>`;
     } else {
-      rp.innerHTML=`<div class="rc"><div class="rct">✅ 方案 B 自由形式 — 列: bonus_code，欄細分: login_state</div>
+      rp.innerHTML=`<div class="rc"><div class="rct">✅ 方案 B 自由形式 — 列: bonus_code，欄細分: login_state（before / after 自動並排）</div>
         <div style="background:#e6f4ea;border:1px solid #b7dfc3;border-radius:6px;padding:8px 12px;margin-bottom:12px;font-size:14px;color:#137333">
-          login_state 是獨立維度 → before / after 自動並排在同一張報表，不需分兩次跑。
+          login_state 是獨立維度 → 同一張報表直接並排，不需分兩次跑。
         </div>
         <div style="overflow-x:auto"><table class="fft">
-          <thead><tr>
-            <th>bonus_code</th>
-            <th class="tr" style="color:#856404">事件計數 (before)</th>
-            <th class="tr" style="color:#137333">事件計數 (after)</th>
-            <th class="tr">不重複使用者</th>
-          </tr></thead><tbody>
+          <thead>
+            <tr>
+              <th rowspan="2" style="vertical-align:bottom">bonus_code</th>
+              <th colspan="2" style="text-align:center;border-bottom:1px solid #dadce0">more_info</th>
+              <th colspan="2" style="text-align:center;border-bottom:1px solid #dadce0">view_promotion_info</th>
+              <th colspan="2" style="text-align:center;border-bottom:1px solid #dadce0">join_now</th>
+            </tr>
+            <tr>
+              <th class="tr" style="color:#856404">before</th><th class="tr" style="color:#137333">after</th>
+              <th class="tr" style="color:#856404">before</th><th class="tr" style="color:#137333">after</th>
+              <th class="tr" style="color:#856404">before</th><th class="tr" style="color:#137333">after</th>
+            </tr>
+          </thead><tbody>
           ${sumData.map(r=>{
-            const jnb=r.jnb!=='-'?r.jnb:0;
-            const jna=r.jna!=='-'?r.jna:0;
+            const d=fd[r.code];
             return `<tr>
               <td class="tc">${r.code}</td>
-              <td class="tr tb">${(r.mib+jnb+r.vib).toLocaleString()}</td>
-              <td class="tr ta">${(r.mia+jna+r.via).toLocaleString()}</td>
-              <td class="tr">${r.u.toLocaleString()}</td>
+              <td class="tr tb">${r.mib.toLocaleString()}</td>
+              <td class="tr ta">${r.mia.toLocaleString()}</td>
+              <td class="tr tb">${d.vib.toLocaleString()}</td>
+              <td class="tr ta">${d.via.toLocaleString()}</td>
+              <td class="tr tb">${r.jnb!=='-'?Number(r.jnb).toLocaleString():'—'}</td>
+              <td class="tr ta">${r.jna!=='-'?Number(r.jna).toLocaleString():'—'}</td>
             </tr>`;
           }).join('')}
           </tbody>
         </table></div>
-        <p style="font-size:14px;color:#5f6368;margin-top:8px">事件計數 = join_now + more_info + view_promotion_info 加總 · Before = 未登入 · After = 已登入</p>
+        <p style="font-size:14px;color:#5f6368;margin-top:8px">Before = 未登入 · After = 已登入 · login_state 欄細分讓三個事件的 before/after 自動並排，不需分開跑報表</p>
       </div>`;
     }
     return;
