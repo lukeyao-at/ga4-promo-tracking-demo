@@ -772,26 +772,15 @@ function renderSettings(){
   }
 
   if(curTab==='path'){
-    if(method==='A'){
-      b.innerHTML=`
-        <div class="pnote na">⚠️ 方案 A：每個促銷 × login_state 是獨立事件名稱，路徑圖節點爆炸</div>
-        <div class="sr"><div class="sl2">技巧</div><div class="sv">路徑探索</div></div>
-        <div class="sr"><div class="sl2">起點</div><span class="sc">事件 = view_promotion_page <span class="x">×</span></span></div>
-        <div class="sr"><div class="sl2">步驟類型</div><div class="sv">事件名稱</div></div>
-        <div class="sr"><div class="sl2">問題</div>
-          <div style="background:#fce8e6;border-radius:4px;padding:7px 9px;font-size:14px;color:#c5221f;line-height:1.7">
-            Step +1 展開 <strong>20+ 個節點</strong>，無法從視覺上看出行為規律<br>
-            無法合併「同類行為」，每促銷各自獨立
-          </div>
-        </div>`;
-    } else {
-      b.innerHTML=`
-        <div class="pnote nb">✅ 方案 B：事件名稱固定，路徑圖只有 3 個主節點，可按 login_state 展開</div>
-        <div class="sr"><div class="sl2">技巧</div><div class="sv">路徑探索</div></div>
-        <div class="sr"><div class="sl2">起點</div><span class="sc">事件 = view_promotion_page <span class="x">×</span></span></div>
-        <div class="sr"><div class="sl2">步驟類型</div><div class="sv">事件名稱</div></div>
-        <div class="sr"><div class="sl2">細分</div><span class="sc g">login_state <span class="x">×</span></span><div class="ac-btn">＋</div></div>`;
-    }
+    const pathNote=method==='A'
+      ?`<div class="pnote na">⚠️ 設定相同，但事件名稱爆炸 → Step +1 展開 20+ 個節點，看不出規律</div>`
+      :`<div class="pnote nb">✅ 設定相同，但事件名稱固定 → Step +1 只有 3 個節點，一目了然</div>`;
+    b.innerHTML=`
+      ${pathNote}
+      <div class="sr"><div class="sl2">技巧</div><div class="sv">路徑探索</div></div>
+      <div class="sr"><div class="sl2">起點事件</div><span class="sc">view_promotion_page <span class="x">×</span></span></div>
+      <div class="sr"><div class="sl2">節點類型</div><div class="sv">事件名稱</div></div>
+      <div class="sr"><div class="sl2">顯示步驟數</div><div class="sv">Step +1 → Step +2</div></div>`;
     return;
   }
   if(curTab!=='funnel'){b.innerHTML='<p style="font-size:14px;color:#5f6368;padding:8px">此分頁無設定項目。</p>';return;}
