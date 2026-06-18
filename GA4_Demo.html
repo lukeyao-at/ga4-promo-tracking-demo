@@ -1158,4 +1158,17 @@ function selB(code){
 function showPop(id){
   document.querySelectorAll('.pop').forEach(p=>p.style.display='none');
   document.getElementById(id).style.display='block';
- 
+  document.getElementById('ovl').classList.add('on');
+}
+function cAll(){document.querySelectorAll('.pop').forEach(p=>p.style.display='none');document.getElementById('ovl').classList.remove('on')}
+function cPop(e){if(e.target===document.getElementById('ovl'))cAll()}
+
+// ────────────────────────────────────────────────
+// INIT
+// ────────────────────────────────────────────────
+renderSite();renderVars();renderSettings();renderReport();
+document.getElementById('body3col').style.display='flex';
+document.getElementById('abToggle').style.display='flex';
+</script>
+</body>
+</html>
