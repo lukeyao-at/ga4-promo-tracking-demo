@@ -410,30 +410,14 @@ body{display:flex;height:100vh;overflow:hidden;font-family:'Segoe UI',Arial,sans
           </div>
         </div>
 
-        <h3 style="margin-top:4px">📐 GA4 自訂維度配額消耗對比（免費版上限：50 個）</h3>
-        <div style="margin-top:8px">
-          <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
-            <span style="font-size:14px;color:#5f6368;width:80px">方案 A</span>
-            <div class="quota-bar-wrap" style="flex:1;background:#f1f3f4;position:relative">
-              <div style="height:100%;display:flex;align-items:center;padding:0 10px;font-size:13px;color:#5f6368">0 個 — 不需要（所有資訊都在事件名稱裡，無需自訂維度）</div>
-            </div>
-          </div>
-          <div style="display:flex;align-items:center;gap:10px">
-            <span style="font-size:14px;color:#5f6368;width:80px">方案 B</span>
-            <div class="quota-bar-wrap" style="flex:1">
-              <div class="quota-bar" style="width:22%;background:#34a853">11 個（22%）— 仍有充裕空間</div>
-            </div>
-          </div>
-          <p style="font-size:13px;color:#5f6368;margin-top:8px">方案 B 需要在 GA4 後台註冊 bonus_code、login_state、source 等自訂維度，才能在報表中使用這些參數做篩選與 Breakdown。方案 A 不需要這個步驟，但也因此失去了彈性分析的能力。</p>
-        </div>
       </div>
 
+      <!-- GTM vs GA4
       <!-- GTM vs GA4 analysis explanation -->
       <div class="dict-rc">
         <h3>⚖️ GTM 設定工作量相同，差異在 GA4 分析能力</h3>
-        <div style="background:#e8f0fe;border:1px solid #c5d8f6;border-radius:6px;padding:10px 12px;margin-bottom:12px;font-size:14px;color:#1967d2;line-height:1.8">
-          <strong>GTM 的部分：兩個方案工作量相近</strong><br>
-          兩個方案都需要在 GTM 設定 trigger、tag、dataLayer 變數。方案 A 的事件名稱也可以用 GTM 變數動態組合（例如 <code style="background:rgba(255,255,255,.6);padding:1px 4px;border-radius:2px">promo_{{action}}_{{login_state}}_{{bonus_code}}</code>），不需要手動寫死每一個名稱。因此「要不要改 GTM」這件事對兩個方案來說工作量是一樣的。
+        <div style="background:#e8f0fe;border:1px solid #c5d8f6;border-radius:6px;padding:8px 12px;margin-bottom:12px;font-size:14px;color:#1967d2;line-height:1.6">
+          兩個方案的 GTM 設定工作量相近，事件名稱都可以用變數動態組合，例如 <code style="background:rgba(255,255,255,.6);padding:1px 4px;border-radius:2px">promo_{{action}}_{{login_state}}</code>，不需手動寫死。差異在於 GA4 收到資料後能做什麼。
         </div>
         <div style="font-size:15px;font-weight:600;margin-bottom:8px;color:#202124">📊 真正的差異：GA4 收到資料後，能做什麼？</div>
         <table style="width:100%;border-collapse:collapse;font-size:14px;margin-bottom:12px">
@@ -1050,9 +1034,9 @@ function logEvt(aEv,aP,bEv,bP){
 function fireHB(code,pos,idx){
   const ls=loggedIn?'after':'before';
   const sn=promos.find(p=>p.code===code).sub.split('·')[0].trim().toLowerCase().replace(/ /g,'_');
-  logEvt(`home_${sn}_banner_click`,{bonus:code.toLowerCase(),pos},
+  logEvt(`home_${sn}_banner_click`,{},
     'homepage_banner_click',{bonus_code:code,position:pos,login_state:ls});
-  logEvt(`home_${sn}_promo_popup_view`,{bonus:code.toLowerCase()},
+  logEvt(`home_${sn}_promo_popup_view`,{},
     'view_promotion_info',{bonus_code:code,source:'homepage_banner'});
   activeBon=code;
   document.getElementById('jBonus').textContent=code;
@@ -1062,20 +1046,20 @@ function fireHB(code,pos,idx){
 function fireAP(code,cat){
   const ls=loggedIn?'after':'before';
   const sn=promos.find(p=>p.code===code).sub.split('·')[0].trim().toLowerCase().replace(/ /g,'_');
-  logEvt(`home_${sn}_all_promos_${ls}_click`,{bonus:code.toLowerCase(),cat},
+  logEvt(`home_${sn}_all_promos_${ls}_click`,{},
     'all_promos_click',{bonus_code:code,target_category:cat,login_state:ls});
   sp('promo',document.querySelectorAll('.stab')[1]);
 }
 
 function fireMI(code,type,idx){
   const ls=loggedIn?'after':'before';
-  logEvt(`promo_more_info_${ls}_login_click`,{bonus:code.toLowerCase()},
+  logEvt(`promo_more_info_${ls}_login_click`,{},
     'more_info',{bonus_code:code,login_state:ls,entry_source:'promo_page'});
   if(type==='popup'){
-    logEvt(`promo_popup_view_${ls}`,{bonus:code.toLowerCase()},
+    logEvt(`promo_popup_view_${ls}`,{},
       'view_promotion_info',{bonus_code:code,source:'promo_page'});
   } else {
-    logEvt(`promo_redirect_page_view`,{url:`/promotions/${code.toLowerCase()}`},
+    logEvt(`promo_redirect_page_view`,{},
       'page_view',{page_url:`/promotions/${code.toLowerCase()}`});
   }
 }
@@ -1083,10 +1067,10 @@ function fireMI(code,type,idx){
 function fireJN(code,source,idx){
   const ls=loggedIn?'after':'before';
   activeBon=code;
-  logEvt(`promo_join_now_${ls}_login_click`,{bonus:code.toLowerCase(),source},
+  logEvt(`promo_join_now_${ls}_login_click`,{},
     'join_now',{bonus_code:code,login_state:ls,source});
   if(!loggedIn){
-    logEvt('promo_login_modal_appear',{bonus:code.toLowerCase()},
+    logEvt('promo_login_modal_appear',{},
       'login_modal',{bonus_code:code});
     document.getElementById('lBonus').textContent=code;
     showPop('pop-login');
@@ -1097,7 +1081,7 @@ function fireJN(code,source,idx){
 }
 
 function fireOut(outcome){
-  logEvt(`promo_${outcome}_trigger`,{bonus:activeBon?.toLowerCase()},
+  logEvt(`promo_${outcome}_trigger`,{},
     outcome,{bonus_code:activeBon});
   cAll();
 }
