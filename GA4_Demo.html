@@ -122,6 +122,13 @@ body{display:flex;height:100vh;overflow:hidden;font-family:'Segoe UI',Arial,sans
 .bbtn.on{background:#e8f0fe;color:#1967d2;border-color:#1a73e8;font-weight:600}
 
 /* funnel */
+/* toggle widget */
+.stoggle{display:inline-block;width:38px;height:20px;border-radius:10px;position:relative;vertical-align:middle;margin-left:4px}
+.stoggle.on{background:#1a73e8}
+.stoggle.off{background:#dadce0}
+.stoggle::after{content:'';position:absolute;width:16px;height:16px;border-radius:50%;background:#fff;top:2px;transition:.2s}
+.stoggle.on::after{left:20px}
+.stoggle.off::after{left:2px}
 .fs-row{display:flex;align-items:center;gap:8px;padding:3px 0}
 .fs-n{width:22px;height:22px;background:#1a73e8;color:#fff;border-radius:50%;font-size:15px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .fs-ev{font-size:16px;font-family:monospace;color:#202124;width:168px;flex-shrink:0;line-height:1.5}
@@ -775,12 +782,18 @@ function renderSettings(){
     const pathNote=method==='A'
       ?`<div class="pnote na">⚠️ 設定相同，但事件名稱爆炸 → Step +1 展開 20+ 個節點，看不出規律</div>`
       :`<div class="pnote nb">✅ 設定相同，但事件名稱固定 → Step +1 只有 3 個節點，一目了然</div>`;
-    b.innerHTML=`
+    const pathCellFen = method==='A'
+    ? `<div class="sv">事件名稱</div>`
+    : `<span class="sc g">login_state <span class="x">×</span></span><div class="ac-btn">＋</div>`;
+  b.innerHTML=`
       ${pathNote}
       <div class="sr"><div class="sl2">技巧</div><div class="sv">路徑探索</div></div>
-      <div class="sr"><div class="sl2">起點事件</div><span class="sc">view_promotion_page <span class="x">×</span></span></div>
+      <div class="sr"><div class="sl2">區隔</div><div class="ac-btn">＋ 拖放或選取區段</div></div>
       <div class="sr"><div class="sl2">節點類型</div><div class="sv">事件名稱</div></div>
-      <div class="sr"><div class="sl2">顯示步驟數</div><div class="sv">Step +1 → Step +2</div></div>`;
+      <div class="sr"><div class="sl2">僅查看不重複節點</div><div class="stoggle on"></div></div>
+      <div class="sr"><div class="sl2">細分</div>${pathCellFen}</div>
+      <div class="sr"><div class="sl2">值</div><div class="ac-btn">＋ 拖放或選取指標</div></div>
+      <div class="sr"><div class="sl2">篩選器</div></div>`;
     return;
   }
   if(curTab!=='funnel'){b.innerHTML='<p style="font-size:14px;color:#5f6368;padding:8px">此分頁無設定項目。</p>';return;}
@@ -793,9 +806,11 @@ function renderSettings(){
       <div class="pnote na">⚠️ 方案 A 的限制：步驟需大量 OR 條件；事件數爆炸後難維護；無法做 Breakdown；跨促銷加總數據麻煩</div>
       <div class="sr"><div class="sl2">技巧</div><div class="sv">漏斗探索</div></div>
       <div class="sr"><div class="sl2">視覺呈現</div><div class="sv">📊 標準漏斗</div></div>
-      <div class="sr"><div class="sl2">細分 (Breakdown)</div>
+      <div class="sr"><div class="sl2">投為開放式漏斗</div><div class="stoggle off"></div></div>
+      <div class="sr"><div class="sl2">區隔比較</div><div class="ac-btn">＋ 拖放或選取區段</div></div>
+      <div class="sr"><div class="sl2">組分 (Breakdown)</div>
         <div style="background:#fce8e6;border-radius:4px;padding:6px;font-size:14px;color:#c5221f">
-          ⚠ 無法細分 — before/after 已埋在事件名稱裡，無參數可拆
+          ⚠ 無法使用 — before/after 已埋在事件名稱裡，無法當維度拆分
         </div>
       </div>
       <div class="sr"><div class="sl2">篩選器</div>
@@ -830,9 +845,11 @@ function renderSettings(){
       <div class="pnote nb">✅ 方案 B：5 個乾淨步驟，login_state 做 Breakdown，換促銷只改篩選器</div>
       <div class="sr"><div class="sl2">技巧</div><div class="sv">漏斗探索</div></div>
       <div class="sr"><div class="sl2">視覺呈現</div><div class="sv">📊 標準漏斗</div></div>
-      <div class="sr"><div class="sl2">細分 (Breakdown)</div>
+      <div class="sr"><div class="sl2">投為開放式漏斗</div><div class="stoggle off"></div></div>
+      <div class="sr"><div class="sl2">區隔比較</div><div class="ac-btn">＋ 拖放或選取區段</div></div>
+      <div class="sr"><div class="sl2">組分 (Breakdown)</div>
         <span class="sc g">login_state <span class="x">×</span></span>
-        <div class="ac-btn">＋ 新增細分</div>
+        <div class="ac-btn">＋ 新增組分</div>
       </div>
       <div class="sr"><div class="sl2">篩選器</div>
         <span class="sc">bonus_code = ${sn} <span class="x">×</span></span>
