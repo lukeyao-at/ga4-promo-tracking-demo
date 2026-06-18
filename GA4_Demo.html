@@ -357,20 +357,18 @@ body{display:flex;height:100vh;overflow:hidden;font-family:'Segoe UI',Arial,sans
               <span class="bad">home_bwing_banner_click</span><br>
               <span style="color:#c5221f">… 每個促銷再各一組 → 40+ 事件</span>
             </div>
-            <div style="margin-top:8px;font-size:13px;line-height:1.7">
-              <div style="color:#1967d2;background:#e8f0fe;border-radius:4px;padding:5px 7px;margin-bottom:5px">
-                ✅ <strong>好處：</strong><br>
-                · 事件名稱自帶說明，行銷直接看懂<br>
-                · GA4 標準報表不需加次要維度<br>
-                · 初期設定簡單，不需定義自訂維度<br>
-                · 適合規模小、促銷種類少的早期階段
+            <div style="margin-top:8px;font-size:13px;line-height:1.8">
+              <div style="color:#1967d2;background:#e8f0fe;border-radius:4px;padding:6px 9px;margin-bottom:6px">
+                ✅ <strong>好處</strong><br>
+                · 事件名稱自帶語意，<code style="background:rgba(255,255,255,.6);padding:1px 4px;border-radius:2px">promo_more_info_before_login</code> 一看就懂，GA4 不需加次要維度<br>
+                · 不需在 GA4 後台預先設定，開箱即用<br>
+                · 自訂維度配額消耗 0 個
               </div>
-              <div style="color:#c5221f;background:#fce8e6;border-radius:4px;padding:5px 7px">
-                ⚠️ <strong>限制：</strong><br>
-                · 促銷增加後事件數爆炸，維護困難<br>
-                · 無法用 Breakdown 自動拆 before/after（已嵌在名稱裡）<br>
-                · 新增促銷或入口，必須回頭改 GTM + GA4 設定<br>
-                · 跨促銷加總數據麻煩（需手動把多個事件相加）
+              <div style="color:#c5221f;background:#fce8e6;border-radius:4px;padding:6px 9px">
+                ⚠️ <strong>限制</strong><br>
+                · <strong>跨促銷加總麻煩：</strong>想看所有促銷 join_now 總數，要把 <code style="background:rgba(255,255,255,.6);padding:1px 4px;border-radius:2px">promo_A_join_now_before</code> + <code style="background:rgba(255,255,255,.6);padding:1px 4px;border-radius:2px">promo_A_join_now_after</code> + <code style="background:rgba(255,255,255,.6);padding:1px 4px;border-radius:2px">promo_B_join_now_before</code> + … 手動相加，GA4 裡沒有辦法一次收攏<br>
+                · GTM 可用變數動態組事件名稱，但 GA4 事件名稱數量仍持續累積（上限 500）<br>
+                · Funnel Breakdown 不支援 Filter，before/after 無法在漏斗內自動拆分
               </div>
             </div>
           </div>
@@ -391,20 +389,18 @@ body{display:flex;height:100vh;overflow:hidden;font-family:'Segoe UI',Arial,sans
               <span class="good">all_promos_click</span><br>
               <span style="color:#137333">共 11 個，永遠不會增加 ✓</span>
             </div>
-            <div style="margin-top:8px;font-size:13px;line-height:1.7">
-              <div style="color:#137333;background:#e6f4ea;border-radius:4px;padding:5px 7px;margin-bottom:5px">
-                ✅ <strong>好處：</strong><br>
-                · 事件名稱固定，新增促銷不需改 GTM / GA4<br>
-                · login_state 可直接做 Breakdown，before/after 自動拆分<br>
-                · bonus_code 可做篩選器，一個漏斗套用所有促銷<br>
-                · 自訂維度只消耗 11/50，配額充裕
+            <div style="margin-top:8px;font-size:13px;line-height:1.8">
+              <div style="color:#137333;background:#e6f4ea;border-radius:4px;padding:6px 9px;margin-bottom:6px">
+                ✅ <strong>好處</strong><br>
+                · <strong>跨促銷一鍵比較：</strong>事件名稱固定為 <code style="background:rgba(255,255,255,.6);padding:1px 4px;border-radius:2px">promo_join_now</code>，加 bonus_code 做 Breakdown，所有促銷數據自動並排，不需手動加總<br>
+                · login_state 是維度，Funnel Breakdown 可自動拆 before/after，一張漏斗看完<br>
+                · 新增促銷只傳新 bonus_code 值，GA4 事件名稱永遠固定幾個，不會膨脹
               </div>
-              <div style="color:#7a4f00;background:#fff8e1;border-radius:4px;padding:5px 7px">
-                ⚠️ <strong>限制：</strong><br>
-                · 行銷開報表需加次要維度才看到細節<br>
-                · 需事先在 GA4 後台註冊自訂維度，初期門檻較高<br>
-                · 需維護 Data Dictionary，參數命名不一致會髒掉數據<br>
-                · 工程師漏帶參數就出現 (not set)
+              <div style="color:#7a4f00;background:#fff8e1;border-radius:4px;padding:6px 9px">
+                ⚠️ <strong>限制</strong><br>
+                · <strong>報表需主動加次要維度：</strong>事件名稱只有 <code style="background:rgba(255,255,255,.6);padding:1px 4px;border-radius:2px">promo_join_now</code>，不加 login_state 就看不到 before/after 差異<br>
+                · 需事先在 GA4 後台註冊自訂維度，初期設定門檻較高<br>
+                · 工程師漏帶參數就出現 (not set)，需維護 Data Dictionary 確保命名一致
               </div>
             </div>
           </div>
@@ -1162,17 +1158,4 @@ function selB(code){
 function showPop(id){
   document.querySelectorAll('.pop').forEach(p=>p.style.display='none');
   document.getElementById(id).style.display='block';
-  document.getElementById('ovl').classList.add('on');
-}
-function cAll(){document.querySelectorAll('.pop').forEach(p=>p.style.display='none');document.getElementById('ovl').classList.remove('on')}
-function cPop(e){if(e.target===document.getElementById('ovl'))cAll()}
-
-// ────────────────────────────────────────────────
-// INIT
-// ────────────────────────────────────────────────
-renderSite();renderVars();renderSettings();renderReport();
-document.getElementById('body3col').style.display='flex';
-document.getElementById('abToggle').style.display='flex';
-</script>
-</body>
-</html>
+ 
