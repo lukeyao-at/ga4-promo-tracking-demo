@@ -121,6 +121,98 @@ body{display:flex;height:100vh;overflow:hidden;font-family:'Segoe UI',Arial,sans
 .bbtn{padding:4px 10px;border-radius:12px;border:1px solid #dadce0;background:#fff;font-size:16px;cursor:pointer;color:#5f6368;transition:all .2s;white-space:nowrap}
 .bbtn.on{background:#e8f0fe;color:#1967d2;border-color:#1a73e8;font-weight:600}
 
+
+/* ═══ TRACKING SPEC PANEL ═══ */
+.tracking-wrap{display:grid;grid-template-columns:440px 1fr;height:100%;overflow:hidden}
+.tracking-left{overflow-y:auto;padding:16px;border-right:1px solid #e0e0e0;background:#fafafa}
+.tracking-right{overflow-y:auto;padding:20px 24px}
+.tracking-mockup-title{font-size:13px;font-weight:600;color:#5f6368;margin-bottom:10px;letter-spacing:.02em}
+.tracking-mockup{display:flex;flex-direction:column;gap:3px}
+
+/* zones */
+.tz{position:relative;cursor:pointer;border-radius:5px;overflow:hidden;border:2px solid transparent;transition:border-color .15s,box-shadow .15s}
+.tz:hover{box-shadow:0 2px 10px rgba(0,0,0,.18)}
+.tz.active-zone{box-shadow:0 0 0 3px currentColor}
+.tz-badge{position:absolute;right:8px;top:8px;font-size:11px;font-weight:700;color:#fff;padding:3px 8px;border-radius:10px;pointer-events:none;letter-spacing:.03em}
+
+/* topbar zone */
+.tz-a{background:#1a1a1a}
+.tz-inner-topbar{display:flex;align-items:center;justify-content:space-between;padding:8px 10px}
+.tz-logo{display:flex;align-items:center;gap:6px}
+.tz-logobx{background:#e53935;color:#fff;font-size:11px;font-weight:800;padding:2px 6px;border-radius:3px}
+.tz-rewards{color:#f4c842;font-size:11px;font-weight:700}
+.tz-topbar-r{display:flex;align-items:center;gap:6px}
+.tz-lang{color:#aaa;font-size:10px}
+.tz-sm-btn{background:#333;color:#aaa;font-size:9px;padding:3px 6px;border-radius:3px}
+.tz-login{background:#e53935;color:#fff;font-size:10px;font-weight:700;padding:4px 10px;border-radius:3px}
+.tz-reg{background:#2e7d32;color:#fff;font-size:10px;font-weight:700;padding:4px 10px;border-radius:3px}
+
+/* nav zone */
+.tz-b{background:#c62828}
+.tz-nav{display:flex;flex-wrap:wrap;padding:0;overflow:hidden}
+.tz-nav-item{color:#fff;font-size:9px;font-weight:700;padding:8px 7px;border-right:1px solid rgba(255,255,255,.15);white-space:nowrap;display:flex;align-items:center;gap:3px}
+.tz-nav-home{background:rgba(0,0,0,.3)}
+.tz-new{background:#f4c842;color:#b71c1c;font-size:7px;font-weight:800;padding:1px 3px;border-radius:2px}
+
+/* ticker */
+.tz-c{background:#1e1e1e}
+.tz-ticker{padding:6px 10px;color:#ccc;font-size:9px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* campaign */
+.tz-d{background:linear-gradient(135deg,#7b4f00,#c8830a)}
+.tz-campaign{display:flex;align-items:center;justify-content:center;gap:14px;padding:9px 12px}
+.tz-camp-text{color:#fff;font-size:12px;font-weight:700;letter-spacing:.06em}
+.tz-timer{display:flex;gap:5px}
+.tz-tbox{background:rgba(0,0,0,.4);color:#fff;font-size:11px;font-weight:700;padding:3px 7px;border-radius:3px;text-align:center;min-width:32px}
+.tz-tlbl{font-size:8px;color:rgba(255,255,255,.6)}
+
+/* hero */
+.tz-e{background:transparent}
+.tz-side-btn{background:rgba(0,0,0,.55);color:#fff;font-size:8px;padding:5px 3px;border-radius:0 3px 3px 0;text-align:center;border:1px solid rgba(255,255,255,.2);border-left:none}
+.tz-hot{background:#e53935;color:#fff;font-size:8px;font-weight:800;padding:2px 6px;border-radius:2px;display:inline-block;margin-bottom:5px}
+.tz-hero-title{color:#f4c842;font-size:18px;font-weight:900;line-height:1.1;text-shadow:0 2px 6px rgba(0,0,0,.5);margin-bottom:3px}
+.tz-hero-sub{color:#fff;font-size:10px;font-weight:600;margin-bottom:10px;line-height:1.5}
+.tz-hero-cta{background:#e53935;color:#fff;font-size:10px;font-weight:800;padding:6px 16px;border-radius:4px;display:inline-block}
+.tz-dots{display:flex;gap:4px;margin-top:10px}
+.tz-dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.4)}
+.tz-dot.active{background:#fff}
+
+/* side float */
+.tz-side-btn-big{background:#00838f;color:#fff;font-size:11px;font-weight:700;padding:7px 12px;border-radius:4px}
+
+/* legend */
+.tz-legend{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.tz-leg-item{display:flex;align-items:center;gap:5px;font-size:12px;color:#444;cursor:pointer;padding:4px 9px;border-radius:20px;border:1px solid #e0e0e0;background:#fff;font-weight:500;transition:background .12s}
+.tz-leg-item:hover{background:#f5f5f5}
+.tz-leg-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+
+/* spec content */
+.spec-zone-title{font-size:20px;font-weight:700;margin-bottom:16px;display:flex;align-items:center;gap:10px;padding-bottom:10px;border-bottom:2px solid #e0e0e0}
+.spec-zone-badge{font-size:13px;font-weight:700;color:#fff;padding:4px 12px;border-radius:20px}
+.spec-evt-card{background:#fff;border:1px solid #e0e0e0;border-radius:10px;margin-bottom:14px;overflow:hidden}
+.spec-evt-head{padding:13px 16px;display:flex;align-items:center;gap:12px;border-bottom:1px solid #f0f0f0}
+.spec-evt-name{font-family:'SF Mono',Monaco,monospace;font-size:16px;font-weight:700;color:#1a73e8}
+.spec-evt-desc{font-size:14px;color:#5f6368}
+.spec-ptable{width:100%;border-collapse:collapse}
+.spec-ptable th{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:#999;padding:8px 16px;text-align:left;background:#fafafa;border-bottom:1px solid #f0f0f0}
+.spec-ptable td{padding:9px 16px;border-bottom:1px solid #f5f5f5;font-size:15px;vertical-align:top}
+.spec-ptable tr:last-child td{border-bottom:none}
+.spec-pn{font-family:'SF Mono',Monaco,monospace;font-size:14px;font-weight:600;color:#202124;white-space:nowrap}
+.spec-pdesc{color:#5f6368;line-height:1.5;font-size:14px}
+.spec-pvals{line-height:2}
+.sv{font-family:'SF Mono',Monaco,monospace;font-size:13px;color:#137333;background:#e6f4ea;padding:2px 7px;border-radius:4px;margin:1px 2px;display:inline-block}
+.snv{font-family:'SF Mono',Monaco,monospace;font-size:13px;color:#c5221f;background:#fce8e6;padding:2px 7px;border-radius:4px;margin:1px 2px;display:inline-block}
+.sbv{font-family:'SF Mono',Monaco,monospace;font-size:13px;color:#7b4f00;background:#fef3d0;padding:2px 7px;border-radius:4px;margin:1px 2px;display:inline-block}
+.spec-all-pages{font-size:13px;color:#9aa0a6;font-style:italic}
+
+/* param dict */
+.dict-grid-spec{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;margin-top:10px}
+.dict-card-spec{background:#fff;border:1px solid #e0e0e0;border-radius:10px;padding:14px 16px}
+.dict-card-name{font-family:'SF Mono',Monaco,monospace;font-size:15px;font-weight:700;color:#1a73e8;margin-bottom:3px}
+.dict-card-type{font-size:12px;background:#f0f0f0;color:#666;padding:2px 8px;border-radius:4px;display:inline-block;margin-bottom:8px}
+.dict-card-desc{font-size:14px;color:#444;line-height:1.55;margin-bottom:8px}
+.dict-card-vals{font-size:13px;color:#555;line-height:2}
+
 /* funnel */
 /* toggle widget */
 .stoggle{display:inline-block;width:38px;height:20px;border-radius:10px;position:relative;vertical-align:middle;margin-left:4px}
@@ -300,12 +392,13 @@ body{display:flex;height:100vh;overflow:hidden;font-family:'Segoe UI',Arial,sans
 
   <!-- Tabs + A/B toggle -->
   <div class="ga4-tabs">
-    <div class="gtab on" id="gt-funnel" onclick="gt('funnel',this)">漏斗探索</div>
+    <div class="gtab on" id="gt-dict" onclick="gt('dict',this)">📖 方案說明</div>
+    <div class="gtab" id="gt-funnel" onclick="gt('funnel',this)">漏斗探索</div>
     <div class="gtab" id="gt-ff" onclick="gt('ff',this)">自由形式</div>
     <div class="gtab" id="gt-path" onclick="gt('path',this)">路徑探索</div>
     <div class="gtab" id="gt-dv" onclick="gt('dv',this)">📡 DebugView（事件 Log）</div>
-    <div class="gtab" id="gt-dict" onclick="gt('dict',this)">📖 方案說明</div>
-    <div class="ab-toggle" id="abToggle">
+    <div class="gtab" id="gt-tracking" onclick="gt('tracking',this)">📍 12bet 埋點規格</div>
+    <div class="ab-toggle" id="abToggle" style="display:none">
       <span style="font-size:14px;color:#5f6368">方案：</span>
       <button class="ab-btn sel-a" id="btnA" onclick="setAB('A')">❌ 方案 A</button>
       <button class="ab-btn" id="btnB" onclick="setAB('B')">✅ 方案 B</button>
@@ -313,7 +406,7 @@ body{display:flex;height:100vh;overflow:hidden;font-family:'Segoe UI',Arial,sans
   </div>
 
   <!-- ── Funnel + FreeForm: 3-col ── -->
-  <div class="ga4-body" id="body3col">
+  <div class="ga4-body" id="body3col" style="display:none">
 
     <!-- Variables -->
     <div class="gv">
@@ -354,6 +447,128 @@ body{display:flex;height:100vh;overflow:hidden;font-family:'Segoe UI',Arial,sans
             <div class="empty-dv">← 點擊左側站台的任意按鈕，此處即時顯示 A vs B 的事件差異</div>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ══ 12bet Tracking Spec Panel ══ -->
+  <div class="full-panel" id="panel-tracking">
+    <div class="tracking-wrap">
+
+      <!-- LEFT: Mockup -->
+      <div class="tracking-left">
+        <div class="tracking-mockup-title">12bet.com/en 首頁 — 點擊區塊查看埋點規格</div>
+        <div class="tracking-mockup">
+
+          <!-- A: Top Bar -->
+          <div class="tz tz-a" id="tz-a" onclick="showZone('a')">
+            <div class="tz-inner-topbar">
+              <div class="tz-logo"><span class="tz-logobx">12BET</span><span class="tz-rewards">12Rewards</span></div>
+              <div class="tz-topbar-r">
+                <span class="tz-lang">🌐 English ▾</span>
+                <span class="tz-sm-btn">DOWNLOAD</span>
+                <span class="tz-sm-btn">PROMOTION</span>
+                <span class="tz-sm-btn">24/7 LIVE CHAT</span>
+                <span class="tz-login">Login</span>
+                <span class="tz-reg">Register</span>
+              </div>
+            </div>
+            <div class="tz-badge" style="background:#4285f4">A 頂部工具列</div>
+          </div>
+
+          <!-- B: Nav -->
+          <div class="tz tz-b" id="tz-b" onclick="showZone('b')">
+            <div class="tz-nav">
+              <span class="tz-nav-item tz-nav-home">🏠</span>
+              <span class="tz-nav-item">⚽ WORLD CUP</span>
+              <span class="tz-nav-item">12VIP</span>
+              <span class="tz-nav-item">SPORTS <span class="tz-new">NEW</span></span>
+              <span class="tz-nav-item">E-SPORTS</span>
+              <span class="tz-nav-item">CASINO</span>
+              <span class="tz-nav-item">SLOTS <span class="tz-new">NEW</span></span>
+              <span class="tz-nav-item">GAMES</span>
+              <span class="tz-nav-item">FISHING</span>
+              <span class="tz-nav-item">LOTTERY</span>
+              <span class="tz-nav-item">KENO</span>
+              <span class="tz-nav-item">EVENTS <span class="tz-new">NEW</span></span>
+            </div>
+            <div class="tz-badge" style="background:#34a853">B 主選單</div>
+          </div>
+
+          <!-- C: Ticker -->
+          <div class="tz tz-c" id="tz-c" onclick="showZone('c')">
+            <div class="tz-ticker">
+              <span style="color:#777;font-size:11px">10:41 Jun 22 GMT+8 &nbsp;|&nbsp;</span>
+              <span>12BET DAILY CASH REBATE 0.3%-0.6% &nbsp;·&nbsp; BIRTHDAY TREAT BONUS UP TO 60,000,000 VND &nbsp;·&nbsp; MIX PARLAY REBATE &nbsp;·&nbsp; 3-IN-1 SUPER CHALLENGE</span>
+            </div>
+            <div class="tz-badge" style="background:#c8860a">C 跑馬燈</div>
+          </div>
+
+          <!-- D: Campaign -->
+          <div class="tz tz-d" id="tz-d" onclick="showZone('d')">
+            <div class="tz-campaign">
+              <span style="font-size:20px">🏆</span>
+              <span class="tz-camp-text">ROAD TO CHAMPION</span>
+              <div class="tz-timer">
+                <div class="tz-tbox"><div>27</div><div class="tz-tlbl">DAYS</div></div>
+                <div class="tz-tbox"><div>16</div><div class="tz-tlbl">HRS</div></div>
+                <div class="tz-tbox"><div>18</div><div class="tz-tlbl">MIN</div></div>
+                <div class="tz-tbox"><div>31</div><div class="tz-tlbl">SEC</div></div>
+              </div>
+            </div>
+            <div class="tz-badge" style="background:#ea4335">D 活動橫幅</div>
+          </div>
+
+          <!-- E: Hero + F: Side float -->
+          <div style="position:relative">
+            <div class="tz tz-e" id="tz-e" onclick="showZone('e')">
+              <div style="position:relative;padding:24px 18px 18px 44px;background:linear-gradient(120deg,#00b4cc,#0055aa);min-height:160px;overflow:hidden">
+                <div style="position:absolute;left:0;top:0;bottom:0;width:36px;display:flex;flex-direction:column;justify-content:center;gap:4px;padding:8px 0">
+                  <div class="tz-side-btn">存</div>
+                  <div class="tz-side-btn">聯</div>
+                  <div class="tz-side-btn">TG</div>
+                </div>
+                <div class="tz-hot">HOT!</div>
+                <div class="tz-hero-title">BLIND BOX MISSION</div>
+                <div class="tz-hero-sub">WIN PREMIUM PRIZES<br>FREE BETS, iPHONES, GADGETS &amp; MORE</div>
+                <div class="tz-hero-cta">MORE INFO!</div>
+                <div class="tz-dots">
+                  <span class="tz-dot active"></span><span class="tz-dot"></span><span class="tz-dot"></span><span class="tz-dot"></span><span class="tz-dot"></span>
+                </div>
+              </div>
+              <div class="tz-badge" style="background:#9c27b0;top:10px">E Hero 輪播</div>
+              <div class="tz-badge" style="background:#00bcd4;bottom:10px;top:auto">F 側邊快捷 (點 F 查看)</div>
+            </div>
+          </div>
+
+          <!-- F zone (separate clickable) -->
+          <div class="tz tz-f" id="tz-f" onclick="showZone('f')" style="cursor:pointer;background:#f0fdfe;border:2px dashed #00bcd4;border-radius:6px;padding:10px 14px;margin-top:4px;display:flex;align-items:center;gap:10px">
+            <div style="display:flex;gap:6px">
+              <div class="tz-side-btn-big">存款</div>
+              <div class="tz-side-btn-big">聯絡</div>
+              <div class="tz-side-btn-big">Telegram</div>
+            </div>
+            <div style="font-size:14px;color:#006064">← 左側懸浮快捷按鈕（全站可見）</div>
+            <div class="tz-badge" style="background:#00bcd4;position:static;margin-left:auto">F 側邊快捷</div>
+          </div>
+
+          <!-- Legend -->
+          <div class="tz-legend">
+            <div class="tz-leg-item" onclick="showZone('a')"><span class="tz-leg-dot" style="background:#4285f4"></span>A 頂部</div>
+            <div class="tz-leg-item" onclick="showZone('b')"><span class="tz-leg-dot" style="background:#34a853"></span>B 選單</div>
+            <div class="tz-leg-item" onclick="showZone('c')"><span class="tz-leg-dot" style="background:#c8860a"></span>C 跑馬燈</div>
+            <div class="tz-leg-item" onclick="showZone('d')"><span class="tz-leg-dot" style="background:#ea4335"></span>D 橫幅</div>
+            <div class="tz-leg-item" onclick="showZone('e')"><span class="tz-leg-dot" style="background:#9c27b0"></span>E Hero</div>
+            <div class="tz-leg-item" onclick="showZone('f')"><span class="tz-leg-dot" style="background:#00bcd4"></span>F 快捷</div>
+            <div class="tz-leg-item" onclick="showZone('dict')"><span class="tz-leg-dot" style="background:#ff6d00"></span>參數字典</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: Spec -->
+      <div class="tracking-right" id="tracking-spec">
+        <!-- content injected by showZone() -->
       </div>
     </div>
   </div>
@@ -655,7 +870,7 @@ body{display:flex;height:100vh;overflow:hidden;font-family:'Segoe UI',Arial,sans
 // ────────────────────────────────────────────────
 // STATE
 // ────────────────────────────────────────────────
-let loggedIn=false, method='A', curTab='funnel', activeBon=null, selBonus='NOVA_NEWMEMBER_100', evtN=0;
+let loggedIn=false, method='A', curTab='dict', activeBon=null, selBonus='NOVA_NEWMEMBER_100', evtN=0;
 
 const promos=[
   {code:'NOVA_NEWMEMBER_100',title:'新會員首存 100%',sub:'Nova88 · MYR · New Member',cat:'New Member',isBnr:true,hasJN:true,miType:'popup'},
@@ -1271,8 +1486,9 @@ function gt(name,el){
   curTab=name;
   const is3=(name==='funnel'||name==='ff'||name==='path');
   document.getElementById('body3col').style.display=is3?'flex':'none';
-    document.getElementById('panel-dv').classList.toggle('on',name==='dv');
+  document.getElementById('panel-dv').classList.toggle('on',name==='dv');
   document.getElementById('panel-dict').classList.toggle('on',name==='dict');
+  document.getElementById('panel-tracking').classList.toggle('on',name==='tracking');
   document.getElementById('abToggle').style.display=(name==='funnel'||name==='ff'||name==='path')?'flex':'none';
   if(is3){renderSettings();renderReport();}
 }
@@ -1300,9 +1516,192 @@ function cPop(e){if(e.target===document.getElementById('ovl'))cAll()}
 // ────────────────────────────────────────────────
 // INIT
 // ────────────────────────────────────────────────
-renderSite();renderVars();renderSettings();renderReport();
-document.getElementById('body3col').style.display='flex';
-document.getElementById('abToggle').style.display='flex';
+
+// ─── 12bet Tracking Spec ───
+var ZONE_DATA = {
+  a: {
+    label:'A 頂部工具列', color:'#4285f4',
+    events:[
+      {name:'login_click', desc:'點擊任何位置的 Login 按鈕', params:[
+        {n:'page_name', d:'事件發生頁面', v:'<span class="sv">"home"</span> <span class="spec-all-pages">全站共用</span>'},
+        {n:'location', d:'按鈕所在區塊', v:'<span class="sv">"top_bar"</span> <span class="sv">"hero_banner"</span> <span class="sv">"promo_popup"</span> <span class="sv">"promo_card"</span>'},
+        {n:'trigger_type', d:'元素呈現形式', v:'<span class="sv">"inline"</span> <span class="sv">"popup"</span>'},
+        {n:'destination_type', d:'點後導向行為', v:'<span class="sv">"modal_open"</span>'}
+      ]},
+      {name:'register_click', desc:'點擊 Register 按鈕', params:[
+        {n:'page_name', d:'事件發生頁面', v:'<span class="sv">"home"</span> <span class="spec-all-pages">全站共用</span>'},
+        {n:'location', d:'按鈕所在區塊', v:'<span class="sv">"top_bar"</span> <span class="sv">"hero_banner"</span> <span class="sv">"promo_popup"</span>'},
+        {n:'trigger_type', d:'元素呈現形式', v:'<span class="sv">"inline"</span> <span class="sv">"popup"</span>'},
+        {n:'destination_type', d:'點後導向行為', v:'<span class="sv">"same_page"</span> <span class="sv">"modal_open"</span>'}
+      ]},
+      {name:'language_change', desc:'切換語言（下拉選單）', params:[
+        {n:'page_name', d:'切換時所在頁面', v:'<span class="spec-all-pages">任意頁面</span>'},
+        {n:'from_lang', d:'原本語言 (ISO 639-1)', v:'<span class="sv">"en"</span> <span class="sv">"zh"</span> <span class="sv">"th"</span> <span class="sv">"vi"</span> <span class="sv">"id"</span> <span class="sv">"ko"</span>'},
+        {n:'to_lang', d:'切換後語言', v:'同上，值不可與 from_lang 相同'},
+        {n:'trigger_type', d:'元素呈現形式', v:'<span class="sv">"dropdown"</span>'}
+      ]},
+      {name:'download_click', desc:'點擊 Download App', params:[
+        {n:'page_name', d:'觸發頁面', v:'<span class="spec-all-pages">任意頁面</span>'},
+        {n:'location', d:'按鈕所在區塊', v:'<span class="sv">"top_bar"</span> <span class="sv">"side_float"</span>'},
+        {n:'trigger_type', d:'元素呈現形式', v:'<span class="sv">"inline"</span> <span class="sv">"sticky"</span>'},
+        {n:'destination_type', d:'點後行為', v:'<span class="sv">"download"</span> <span class="sv">"new_tab"</span>'}
+      ]},
+      {name:'live_chat_click', desc:'點擊 24/7 Live Chat', params:[
+        {n:'page_name', d:'觸發頁面', v:'<span class="spec-all-pages">任意頁面</span>'},
+        {n:'location', d:'按鈕所在區塊', v:'<span class="sv">"top_bar"</span> <span class="sv">"side_float"</span>'},
+        {n:'trigger_type', d:'元素呈現形式', v:'<span class="sv">"inline"</span> <span class="sv">"sticky"</span>'},
+        {n:'destination_type', d:'點後行為', v:'<span class="sv">"new_tab"</span> <span class="sv">"modal_open"</span>'}
+      ]}
+    ]
+  },
+  b: {
+    label:'B 主選單', color:'#34a853',
+    events:[
+      {name:'nav_click', desc:'點擊任一主選單項目（1 個事件涵蓋全部 14 項）', params:[
+        {n:'page_name', d:'點擊時所在頁面', v:'<span class="spec-all-pages">任意頁面</span>'},
+        {n:'section', d:'被點擊的選單項目', v:'<span class="sv">"home"</span> <span class="sv">"world_cup"</span> <span class="sv">"12vip"</span> <span class="sv">"sports"</span> <span class="sv">"esports"</span> <span class="sv">"casino"</span> <span class="sv">"slots"</span> <span class="sv">"games"</span> <span class="sv">"fishing"</span> <span class="sv">"lottery"</span> <span class="sv">"keno"</span> <span class="sv">"events"</span>'},
+        {n:'has_new_badge', d:'是否顯示 NEW 標籤', v:'<span class="sbv">true</span> <span class="sbv">false</span>'},
+        {n:'trigger_type', d:'元素呈現形式', v:'<span class="sv">"inline"</span>'},
+        {n:'destination_type', d:'點後行為', v:'<span class="sv">"same_page"</span> <span class="sv">"new_tab"</span>'}
+      ]}
+    ]
+  },
+  c: {
+    label:'C 跑馬燈', color:'#c8860a',
+    events:[
+      {name:'ticker_promo_click', desc:'點擊跑馬燈中的促銷文字', params:[
+        {n:'page_name', d:'觸發頁面', v:'<span class="sv">"home"</span>'},
+        {n:'promo_id', d:'促銷識別碼', v:'<span class="sv">"daily_cash_rebate"</span> <span class="sv">"birthday_bonus"</span> <span class="sv">"mix_parlay_rebate"</span> <span class="sv">"super_challenge"</span>'},
+        {n:'position', d:'第幾條訊息（從 1 起算）', v:'<span class="snv">1</span> <span class="snv">2</span> <span class="snv">3</span>'},
+        {n:'trigger_type', d:'元素呈現形式', v:'<span class="sv">"inline"</span>'},
+        {n:'destination_type', d:'點後行為', v:'<span class="sv">"same_page"</span>'}
+      ]}
+    ]
+  },
+  d: {
+    label:'D 活動橫幅', color:'#ea4335',
+    events:[
+      {name:'campaign_banner_view', desc:'橫幅進入視窗時觸發（Intersection Observer）', params:[
+        {n:'page_name', d:'觸發頁面', v:'<span class="sv">"home"</span>'},
+        {n:'campaign_id', d:'活動識別碼', v:'<span class="sv">"road_to_champion"</span> <span class="sv">"world_cup_2026"</span>'},
+        {n:'trigger_type', d:'元素呈現形式', v:'<span class="sv">"inline"</span>'}
+      ]},
+      {name:'campaign_banner_click', desc:'點擊活動橫幅', params:[
+        {n:'page_name', d:'觸發頁面', v:'<span class="sv">"home"</span>'},
+        {n:'campaign_id', d:'活動識別碼', v:'<span class="sv">"road_to_champion"</span>'},
+        {n:'trigger_type', d:'元素呈現形式', v:'<span class="sv">"inline"</span>'},
+        {n:'destination_type', d:'點後行為', v:'<span class="sv">"same_page"</span> <span class="sv">"new_tab"</span>'}
+      ]}
+    ]
+  },
+  e: {
+    label:'E Hero 輪播', color:'#9c27b0',
+    events:[
+      {name:'hero_banner_view', desc:'切換到該張 Banner 時觸發（含自動輪播）', params:[
+        {n:'page_name', d:'觸發頁面', v:'<span class="sv">"home"</span>'},
+        {n:'banner_id', d:'Banner 識別碼（slug 格式）', v:'<span class="sv">"blind_box_mission"</span> <span class="sv">"sports_welcome"</span> <span class="sv">"casino_bonus"</span>'},
+        {n:'banner_title', d:'Banner 標題文字（讀 DOM 原始值）', v:'<span class="sv">"BLIND BOX MISSION"</span> <span class="sv">"ROAD TO CHAMPION"</span>'},
+        {n:'position', d:'輪播第幾張（從 1 起算）', v:'<span class="snv">1</span> <span class="snv">2</span> <span class="snv">3</span> <span class="snv">4</span> <span class="snv">5</span>'},
+        {n:'section', d:'Banner 指向的遊戲分類', v:'<span class="sv">"promotion"</span> <span class="sv">"sports"</span> <span class="sv">"casino"</span> <span class="sv">"slots"</span>'},
+        {n:'trigger_type', d:'元素呈現形式', v:'<span class="sv">"inline"</span>'}
+      ]},
+      {name:'hero_banner_cta_click', desc:'點擊 Banner 上的 CTA 按鈕（如 MORE INFO!）', params:[
+        {n:'page_name', d:'觸發頁面', v:'<span class="sv">"home"</span>'},
+        {n:'banner_id', d:'所在 Banner 識別碼', v:'<span class="sv">"blind_box_mission"</span>'},
+        {n:'cta_text', d:'按鈕文字（讀 innerText，保留大小寫）', v:'<span class="sv">"MORE INFO!"</span> <span class="sv">"JOIN NOW"</span> <span class="sv">"CLAIM BONUS"</span>'},
+        {n:'position', d:'輪播第幾張', v:'<span class="snv">1</span> <span class="snv">2</span> <span class="snv">3</span>'},
+        {n:'trigger_type', d:'元素呈現形式', v:'<span class="sv">"inline"</span>'},
+        {n:'destination_type', d:'點後行為', v:'<span class="sv">"same_page"</span> <span class="sv">"new_tab"</span>'}
+      ]},
+      {name:'hero_banner_arrow_click', desc:'手動點前 / 後箭頭切換 Banner', params:[
+        {n:'page_name', d:'觸發頁面', v:'<span class="sv">"home"</span>'},
+        {n:'direction', d:'方向', v:'<span class="sv">"prev"</span> <span class="sv">"next"</span>'},
+        {n:'from_position', d:'點擊當下第幾張', v:'<span class="snv">1</span> <span class="snv">2</span> <span class="snv">3</span>'},
+        {n:'trigger_type', d:'元素呈現形式', v:'<span class="sv">"inline"</span>'}
+      ]},
+      {name:'hero_banner_dot_click', desc:'點底部圓點直接跳到某張', params:[
+        {n:'page_name', d:'觸發頁面', v:'<span class="sv">"home"</span>'},
+        {n:'to_position', d:'跳到第幾張', v:'<span class="snv">1</span> <span class="snv">2</span> <span class="snv">3</span> <span class="snv">4</span> <span class="snv">5</span>'},
+        {n:'trigger_type', d:'元素呈現形式', v:'<span class="sv">"inline"</span>'}
+      ]}
+    ]
+  },
+  f: {
+    label:'F 側邊快捷', color:'#00bcd4',
+    events:[
+      {name:'side_shortcut_click', desc:'點擊左側吸附的功能快捷按鈕', params:[
+        {n:'page_name', d:'觸發頁面', v:'<span class="spec-all-pages">任意頁面</span>'},
+        {n:'shortcut_type', d:'點的是哪個功能', v:'<span class="sv">"deposit"</span> <span class="sv">"contact"</span> <span class="sv">"telegram"</span> <span class="sv">"whatsapp"</span> <span class="sv">"live_chat"</span>'},
+        {n:'trigger_type', d:'元素呈現形式', v:'<span class="sv">"sticky"</span>'},
+        {n:'destination_type', d:'點後行為', v:'<span class="sv">"new_tab"</span> <span class="sv">"modal_open"</span> <span class="sv">"external"</span>'}
+      ]}
+    ]
+  }
+};
+
+var PARAMS_DICT = [
+  {name:'page_name', type:'string · Custom Dim', desc:'業務語意頁面名稱，所有事件都帶。GA4 已自動收集 page_path，此參數補充業務友善名稱。', vals:'<span class="sv">"home"</span> <span class="sv">"promotions"</span> <span class="sv">"sports_lobby"</span> <span class="sv">"casino_lobby"</span> <span class="sv">"slots_lobby"</span> <span class="sv">"promo_detail"</span> <span class="sv">"12vip"</span> <span class="sv">"login"</span> <span class="sv">"register"</span>'},
+  {name:'location', type:'string · Custom Dim', desc:'同一個按鈕可能出現在頁面多個位置，記錄從哪個區塊觸發，用來比對各位置的轉換率。', vals:'<span class="sv">"top_bar"</span> <span class="sv">"nav_menu"</span> <span class="sv">"hero_banner"</span> <span class="sv">"side_float"</span> <span class="sv">"promo_popup"</span> <span class="sv">"promo_card"</span> <span class="sv">"footer"</span>'},
+  {name:'trigger_type', type:'string · Custom Dim', desc:'元素以何種形式呈現給使用者。與 destination_type 互補：trigger_type 說「在哪出現」，destination_type 說「去哪裡」。', vals:'<span class="sv">"inline"</span> <span class="sv">"popup"</span> <span class="sv">"dropdown"</span> <span class="sv">"drawer"</span> <span class="sv">"sticky"</span> <span class="sv">"tooltip"</span>'},
+  {name:'destination_type', type:'string · Custom Dim', desc:'點擊後的導向行為。與 trigger_type 搭配分析使用者完整行為路徑。', vals:'<span class="sv">"same_page"</span> <span class="sv">"new_tab"</span> <span class="sv">"modal_open"</span> <span class="sv">"download"</span> <span class="sv">"anchor"</span> <span class="sv">"external"</span>'},
+  {name:'section', type:'string · Custom Dim', desc:'遊戲或內容的主要分類，對應主選單項目與 Banner 指向的分類。新增選單只加值，事件名稱不變。', vals:'<span class="sv">"sports"</span> <span class="sv">"casino"</span> <span class="sv">"slots"</span> <span class="sv">"esports"</span> <span class="sv">"world_cup"</span> <span class="sv">"12vip"</span> <span class="sv">"promotion"</span> <span class="sv">"fishing"</span> <span class="sv">"lottery"</span> <span class="sv">"keno"</span>'},
+  {name:'banner_id', type:'string · Custom Dim', desc:'唯一識別單張 Banner（slug 格式）。新上 Banner 只改此值，GA4 事件名稱不動。Banner 下線後舊資料仍可依 ID 查詢。', vals:'<span class="sv">"blind_box_mission"</span> <span class="sv">"road_to_champion"</span> <span class="sv">"sports_welcome_bonus"</span>'},
+  {name:'banner_title', type:'string · Custom Dim', desc:'Banner 標題文字，讀 DOM innerText。用於報表展示，不作為過濾條件（過濾用 banner_id）。', vals:'<span class="sv">"BLIND BOX MISSION"</span> <span class="sv">"ROAD TO CHAMPION"</span> ...'},
+  {name:'position', type:'integer · Custom Dim', desc:'元素在序列中的排列順序，從 1 起算。適用 Banner 輪播、跑馬燈、促銷卡片等有順序的元素。', vals:'<span class="snv">1</span> <span class="snv">2</span> <span class="snv">3</span> <span class="snv">4</span> <span class="snv">5</span> ...'},
+  {name:'cta_text', type:'string · Custom Dim', desc:'按鈕顯示文字，讀 DOM innerText 原始值（保留大小寫與標點）。用於 A/B 測試不同按鈕文案的點擊率差異。', vals:'<span class="sv">"MORE INFO!"</span> <span class="sv">"JOIN NOW"</span> <span class="sv">"CLAIM BONUS"</span> <span class="sv">"BET NOW"</span>'},
+  {name:'promo_id', type:'string · Custom Dim', desc:'單筆促銷活動識別碼，對齊後台 bonus_code，方便跨系統串接。一個 campaign 下可有多個 promo。', vals:'<span class="sv">"blind_box_2026"</span> <span class="sv">"birthday_bonus"</span> <span class="sv">"mix_parlay_rebate"</span>'},
+  {name:'campaign_id', type:'string · Custom Dim', desc:'大型活動主題識別碼，跨頁面、跨時段通用。promo 是單筆優惠，campaign 是橫跨多頁的活動主題。', vals:'<span class="sv">"road_to_champion"</span> <span class="sv">"world_cup_2026"</span> <span class="sv">"year_end_2026"</span>'},
+  {name:'has_new_badge', type:'boolean · Custom Dim', desc:'選單項目是否顯示 NEW 標籤。GTM 動態讀取 DOM class，不硬編碼。用於驗證 NEW 標籤是否提升點擊率。', vals:'<span class="sbv">true</span> <span class="sbv">false</span>'},
+  {name:'from_lang / to_lang', type:'string · Custom Dim', desc:'語言切換前後的代碼（ISO 639-1）。同時記錄「從哪語言」與「切到哪語言」，分析哪些組合最頻繁。', vals:'<span class="sv">"en"</span> <span class="sv">"zh"</span> <span class="sv">"th"</span> <span class="sv">"vi"</span> <span class="sv">"id"</span> <span class="sv">"ko"</span>'},
+  {name:'shortcut_type', type:'string · Custom Dim', desc:'左側懸浮快捷按鈕的功能類型。按鈕全站可見，用此參數區分哪個功能被點擊。', vals:'<span class="sv">"deposit"</span> <span class="sv">"contact"</span> <span class="sv">"telegram"</span> <span class="sv">"whatsapp"</span> <span class="sv">"live_chat"</span>'}
+];
+
+var activeZone = 'a';
+
+function showZone(z) {
+  activeZone = z;
+  document.querySelectorAll('.tz').forEach(function(el){el.classList.remove('active-zone');});
+  var tzEl = document.getElementById('tz-' + z);
+  if (tzEl) tzEl.classList.add('active-zone');
+  var spec = document.getElementById('tracking-spec');
+  if (!spec) return;
+
+  if (z === 'dict') {
+    var h = '<div class="spec-zone-title"><span class="spec-zone-badge" style="background:#ff6d00">全站</span>共用參數字典 <span style="font-size:14px;color:#9aa0a6;font-weight:400">— 14 個參數適用所有事件</span></div>';
+    h += '<div style="font-size:15px;color:#5f6368;margin-bottom:16px;line-height:1.7">以下參數由 GTM 統一定義，不同事件共用同一組定義。標示 <strong>Custom Dim</strong> 的參數需在 GA4 Admin → Custom Definitions 登記，才能在「探索」的 Breakdown 和篩選器中使用。</div>';
+    h += '<div class="dict-grid-spec">';
+    PARAMS_DICT.forEach(function(p){
+      h += '<div class="dict-card-spec"><div class="dict-card-name">' + p.name + '</div>';
+      h += '<div class="dict-card-type">' + p.type + '</div>';
+      h += '<div class="dict-card-desc">' + p.desc + '</div>';
+      h += '<div class="dict-card-vals">' + p.vals + '</div></div>';
+    });
+    h += '</div>';
+    spec.innerHTML = h;
+    return;
+  }
+
+  var zone = ZONE_DATA[z];
+  if (!zone) return;
+  var h = '<div class="spec-zone-title"><span class="spec-zone-badge" style="background:' + zone.color + '">' + zone.label + '</span></div>';
+  zone.events.forEach(function(ev){
+    h += '<div class="spec-evt-card"><div class="spec-evt-head"><span class="spec-evt-name">' + ev.name + '</span><span class="spec-evt-desc">&nbsp;— ' + ev.desc + '</span></div>';
+    h += '<table class="spec-ptable"><thead><tr><th style="width:175px">參數</th><th style="width:195px">說明</th><th>值</th></tr></thead><tbody>';
+    ev.params.forEach(function(p){
+      h += '<tr><td class="spec-pn">' + p.n + '</td><td class="spec-pdesc">' + p.d + '</td><td class="spec-pvals">' + p.v + '</td></tr>';
+    });
+    h += '</tbody></table></div>';
+  });
+  spec.innerHTML = h;
+}
+
+// ────────────────────────────────────────────────
+// INIT
+// ────────────────────────────────────────────────
+renderSite();renderVars();
+// Default tab = dict; 3-col layout hidden until user switches to funnel/ff/path
+document.getElementById('panel-dict').classList.add('on');
+showZone('a');
 </script>
 </body>
 </html>
